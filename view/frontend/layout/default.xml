@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block name="acid_gtm_head"
+                   ifconfig="google/google_tag_manager/active"
+                   template="AcidUnit_GoogleTagManager::gtm-head.phtml">
+                <arguments>
+                    <argument name="config_provider" xsi:type="object">AcidUnit\GoogleTagManager\ViewModel\ConfigProvider</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="after.body.start">
+            <block name="acid_gtm_body"
+                   before="-"
+                   ifconfig="google/google_tag_manager/active"
+                   template="AcidUnit_GoogleTagManager::gtm-body.phtml">
+                <arguments>
+                    <argument name="config_provider" xsi:type="object">AcidUnit\GoogleTagManager\ViewModel\ConfigProvider</argument>
+                </arguments>
+            </block>
+
+            <block name="acid_gtm_config"
+                   after="acid_gtm_body"
+                   ifconfig="google/google_tag_manager/active"
+                   template="AcidUnit_GoogleTagManager::gtm-config.phtml">
+                <arguments>
+                    <argument name="config_provider" xsi:type="object">AcidUnit\GoogleTagManager\ViewModel\ConfigProvider</argument>
+                </arguments>
+            </block>
+
+            <block class="AcidUnit\GoogleTagManager\Block\Base"
+                   name="acid_gtm_init"
+                   after="acid_gtm_config"
+                   ifconfig="google/google_tag_manager/active"
+                   template="AcidUnit_GoogleTagManager::gtm-init.phtml">
+                <arguments>
+                    <argument name="product_data_update_handler" xsi:type="object">AcidUnit\GoogleTagManager\Model\ProductDataUpdateHandler</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

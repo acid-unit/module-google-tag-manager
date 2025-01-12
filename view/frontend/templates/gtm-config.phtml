@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+
+/** @noinspection PhpUndefinedMethodInspection */
+
+use Magento\Framework\View\Element\Template;
+use AcidUnit\GoogleTagManager\ViewModel\ConfigProvider;
+
+/**
+ * @var Template $block
+ * @var ConfigProvider $configProvider
+ */
+
+$configProvider = $block->getConfigProvider(); // @phpstan-ignore-line
+?>
+
+<script>
+    window.acidGtmConfig = <?= /* @escapeNotVerified */ $configProvider->getSerializedCustomConfig() ?>;
+</script>

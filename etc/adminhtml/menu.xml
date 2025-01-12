@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="AcidUnit_GoogleTagManager::acid_menu_item"
+             title="Google Tag Manager"
+             module="AcidUnit_GoogleTagManager"
+             sortOrder="10"
+             parent="AcidUnit_Admin::acid_menu"
+             action="admin/system_config/edit/section/google"
+             resource="AcidUnit_GoogleTagManager::acid_menu_item"
+        />
+    </menu>
+</config>

@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+
+/** @noinspection PhpUndefinedMethodInspection */
+
+use AcidUnit\GoogleTagManager\ViewModel\ConfigProvider;
+use Magento\Framework\View\Element\Template;
+
+/**
+ * @var Template $block
+ * @var ConfigProvider $configProvider
+ */
+
+$configProvider = $block->getConfigProvider(); // @phpstan-ignore-line
+$containerId = $configProvider ? $configProvider->getContainerId() : ''; // @phpstan-ignore-line
+?>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=<?= /* @noEscape */ $containerId; ?>"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->

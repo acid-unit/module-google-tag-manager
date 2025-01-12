@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+
+/** @noinspection PhpUndefinedMethodInspection */
+
+use AcidUnit\GoogleTagManager\Block\Base;
+use Magento\Framework\Escaper;
+use AcidUnit\GoogleTagManager\Model\ProductDataUpdateHandler;
+
+/**
+ * @var Base $block
+ * @var Escaper $escaper
+ * @var ProductDataUpdateHandler $productDataUpdateHandler
+ */
+
+$productDataUpdateHandler = $block->getProductDataUpdateHandler(); // @phpstan-ignore-line
+?>
+
+<div class="acid-gtm"></div>
+
+<script>
+    window.acidProductData = <?= /* @escapeNotVerified */ $productDataUpdateHandler->getPlaceholder() ?>;
+</script>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "AcidUnit_GoogleTagManager/js/init": {
+            "pageHandle": "<?= /* @noEscape */ $escaper->escapeHtml($block->getPageHandle()) ?>",
+            "pageData": <?= /* @escapeNotVerified */ $block->getSerializedPageData() ?>
+        }
+    }
+}
+</script>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="AcidUnit\GoogleTagManager\ViewModel\ConfigProvider">
+        <arguments>
+            <!-- dependency on implementation -->
+            <argument name="configProvider" xsi:type="object">AcidUnit\GoogleTagManager\Model\GtmConfigProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\GtmConfigProvider">
+        <arguments>
+            <!-- dependency on implementation -->
+            <argument name="loginAsCustomerConfig" xsi:type="object">Magento\LoginAsCustomer\Model\Config</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="acid_gtm_abstract_product"
+                type="AcidUnit\GoogleTagManager\Plugin\Catalog\Block\Product\AbstractProduct"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="acid_gtm_product_view"
+                type="AcidUnit\GoogleTagManager\Plugin\Block\Product\View"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\ProductDataStorage">
+        <arguments>
+            <!-- dependency on implementation -->
+            <argument name="categoryRepository" xsi:type="object">Magento\Catalog\Model\CategoryRepository</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="acid_gtm_topmenu"
+                type="AcidUnit\GoogleTagManager\Plugin\Block\Html\Topmenu"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <!-- session object proxy class for customer login data model -->
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\LoginData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <!-- session object proxy class for customer registration data model -->
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\RegistrationData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <!-- session object proxy class for customer logout data model -->
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\LogoutData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+</config>

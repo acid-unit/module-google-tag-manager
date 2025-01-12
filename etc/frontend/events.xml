@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- customer log in observer -->
+    <event name="controller_action_postdispatch_customer_account_loginPost">
+        <observer name="acid_customer_account_login_post_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Account\LoginPostObserver"
+                  disabled="false"
+        />
+    </event>
+
+    <!-- customer ajax log in observer -->
+    <event name="controller_action_postdispatch_customer_ajax_login">
+        <observer name="acid_customer_ajax_login_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Account\LoginPostObserver"
+                  disabled="false"
+        />
+    </event>
+
+    <!-- customer log out observer -->
+    <event name="controller_action_postdispatch_customer_account_logoutSuccess">
+        <observer name="acid_customer_account_logout_success_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Account\LogoutSuccessObserver"
+                  disabled="false"
+        />
+    </event>
+
+    <!-- customer registration observer -->
+    <event name="controller_action_postdispatch_customer_account_createPost">
+        <observer name="acid_customer_account_create_post_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Account\CreatePostObserver"
+                  disabled="false"
+        />
+    </event>
+</config>
