@@ -93,7 +93,7 @@ class Base extends Template
     }
 
     /**
-     * Get serialized page data
+     * Get page data
      *
      * @return string
      */

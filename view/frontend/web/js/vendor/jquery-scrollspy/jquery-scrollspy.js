@@ -1,8 +1,3 @@
-/**
- * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
- * See LICENSE file for license details.
- */
-
 /*
  * jQuery ScrollSpy Plugin
  * Author: @sxalexander, softwarespot

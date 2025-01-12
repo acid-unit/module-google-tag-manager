@@ -28,7 +28,7 @@ class GtmConfigProvider implements ConfigProviderInterface
     }
 
     /**
-     * Get Config
+     * Get GTM config
      *
      * @return array<mixed>
      */

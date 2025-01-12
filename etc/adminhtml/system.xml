@@ -17,7 +17,7 @@
                    showInDefault="1"
                    showInWebsite="1"
                    showInStore="1">
-                <label><![CDATA[<span>Google Tag Manager</span><span>&nbsp;</span><span>(Acid Unit)</span><span>&nbsp;</span>]]></label>
+                <label><![CDATA[<span>Google Tag Manager</span><span>&nbsp;</span><span>[Acid Unit]</span><span>&nbsp;</span>]]></label>
 
                 <field id="active"
                        translate="label"

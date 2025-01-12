@@ -1,31 +1,36 @@
-The README.md file content is generated automatically, see [Magento module README.md](https://github.com/magento/devdocs/wiki/Magento-module-README.md) for more information.
+# About
 
-# AcidUnit_GoogleTagManager module
+Google Tag Manager extension for Adobe Commerce.
 
-Google Tag Manager
+Events for:
 
-## Installation details
+- Page Load
+- Click
+  - Product
+  - Menu Item
+  - Swatch
+- Checkout Flow (TODO)
+  - Product added to Cart
+  - Product removed from Cart
+  - Cart Page Loaded
+  - Checkout Steps Loaded
+  - Purchase Done
+- Customer Session
+  - Log In
+    - Failed Log In
+  - Log Out
+  - Registration
+    - Failed Registration
+- Exposure
+  - Product in List (on scroll)
+  - Top Menu Category (on hover)
+  - Any Custom Block by Selector (on scroll)
 
-For information about a module installation in Magento 2, see [Enable or disable modules](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-enable.html).
+# Installation
 
-## Extensibility
+`composer require acid-unit/module-google-tag-manager`
 
-Extension developers can interact with the AcidUnit_GoogleTagManager module. For more information about the Magento extension mechanism, see [Magento plug-ins](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html).
+# Requirements
 
-[The Magento dependency injection mechanism](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html) enables you to override the functionality of the AcidUnit_GoogleTagManager module.
-
-### Layouts
-
-The module introduces layout handles in the `view/adminhtml/layout` directory.
-
-For more information about a layout in Magento 2, see the [Layout documentation](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-overview.html).
-
-### UI components
-
-You can extend product and category updates using the UI components located in the `view/adminhtml/ui_component` directory.
-
-For information about a UI component in Magento 2, see [Overview of UI components](https://devdocs.magento.com/guides/v2.4/ui_comp_guide/bk-ui_comps.html).
-
-## Additional information
-
-For information about significant changes in patch releases, see [Release information](https://devdocs.magento.com/guides/v2.4/release-notes/bk-release-notes.html).
+- `Adobe Commerce 2.4.4` or newer
+- `PHP 8.1` or newer
