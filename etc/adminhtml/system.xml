@@ -248,7 +248,6 @@
                             </depends>
                         </field>
                     </group>
-
                 </group>
 
                 <group id="checkout_flow"
@@ -343,10 +342,50 @@
                         </field>
                     </group>
 
-                    <group id="cart_page_loaded"
+                    <group id="cart_item_qty_changed"
                            translate="label"
                            type="text"
                            sortOrder="30"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Cart Item Qty Changed</label>
+                        <depends>
+                            <field id="*/active">1</field>
+                        </depends>
+
+                        <field id="active"
+                               translate="label"
+                               type="select"
+                               sortOrder="10"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Enabled</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <depends>
+                                <field id="*/*/active">1</field>
+                            </depends>
+                        </field>
+
+                        <field id="event_name"
+                               translate="label"
+                               type="text"
+                               sortOrder="20"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Event Name</label>
+                            <depends>
+                                <field id="active">1</field>
+                            </depends>
+                        </field>
+                    </group>
+
+                    <group id="cart_page_loaded"
+                           translate="label"
+                           type="text"
+                           sortOrder="40"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1">
@@ -383,14 +422,14 @@
                         </field>
                     </group>
 
-                    <group id="checkout_steps_loaded"
+                    <group id="checkout_steps_reached"
                            translate="label"
                            type="text"
-                           sortOrder="40"
+                           sortOrder="50"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1">
-                        <label>Checkout Steps Loaded</label>
+                        <label>Checkout Steps Reached</label>
                         <depends>
                             <field id="*/active">1</field>
                         </depends>
@@ -426,7 +465,7 @@
                     <group id="purchase_done"
                            translate="label"
                            type="text"
-                           sortOrder="50"
+                           sortOrder="60"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1">

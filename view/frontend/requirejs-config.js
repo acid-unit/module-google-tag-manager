@@ -9,10 +9,16 @@ let config = {
     'config': {
         'mixins': {
             'mage/menu': {
-                'AcidUnit_GoogleTagManager/mage/menu-mixin': true
+                'AcidUnit_GoogleTagManager/js/mixin/menu': true
+            },
+            'Magento_Checkout/js/sidebar': {
+                'AcidUnit_GoogleTagManager/js/mixin/sidebar': true
             },
             'Magento_Swatches/js/swatch-renderer': {
-                'AcidUnit_GoogleTagManager/js/swatch-renderer-mixin': true
+                'AcidUnit_GoogleTagManager/js/mixin/swatch-renderer': true
+            },
+            'Magento_Checkout/js/action/update-shopping-cart': {
+                'AcidUnit_GoogleTagManager/js/mixin/update-shopping-cart': true
             }
         }
     }

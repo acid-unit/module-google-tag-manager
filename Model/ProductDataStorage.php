@@ -33,12 +33,12 @@ class ProductDataStorage
      */
     public function __construct(
         private readonly CategoryRepositoryInterface $categoryRepository,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface             $logger
     ) {
     }
 
     /**
-     * Add product to the product data storage
+     * Add product to product data storage
      *
      * @param Product $product
      */
@@ -50,7 +50,7 @@ class ProductDataStorage
             return;
         }
 
-        $this->productData[$productId] = $this->mapProductData($product);
+        $this->productData[$productId] = $this->getProductData($product);
     }
 
     /**
@@ -91,29 +91,28 @@ class ProductDataStorage
     }
 
     /**
-     * Map product data
-     *
-     * TODO: rename
+     * Get product data
      *
      * @param Product $product
      * @return array<mixed>
      */
-    public function mapProductData(Product $product): array
+    public function getProductData(Product $product): array
     {
         return [
-            'name' => $product->getName(),
-            'id' => $product->getSku(),
+            'name' => trim($product->getName()),
+            'sku' => $product->getSku(),
             'price' => $product->getFinalPrice(),
-            'category' => $this->getCategoryName($product)
+            'category' => $this->getCategoryName($product),
+            'type' => $product->getTypeId()
         ];
     }
 
     /**
-     * Get Product Data
+     * Get all Products Data
      *
-     * @return array
+     * @return array<mixed>
      */
-    public function getProductData(): array
+    public function getAllProductsData(): array
     {
         return $this->productData;
     }

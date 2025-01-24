@@ -9,7 +9,7 @@ Events for:
   - Product
   - Menu Item
   - Swatch
-- Checkout Flow (TODO)
+- Checkout Flow 
   - Product added to Cart
   - Product removed from Cart
   - Cart Page Loaded

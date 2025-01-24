@@ -8,13 +8,15 @@ define([
     './handler/page-events',
     './handler/page-load',
     './handler/click',
-    './handler/exposure'
+    './handler/exposure',
+    './handler/checkout-flow'
 ], function (
     pageData,
     pageEvents,
     pageLoad,
     click,
-    exposure
+    exposure,
+    checkoutFlow
 ) {
     'use strict';
 
@@ -27,5 +29,6 @@ define([
         pageLoad.init(config['pageHandle'] || '');
         click.init();
         exposure.init();
+        checkoutFlow.init();
     };
 });

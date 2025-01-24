@@ -56,6 +56,6 @@ class ProductDataUpdateHandler implements PageContentUpdateInterface, ArgumentIn
      */
     public function getContent(): string
     {
-        return (string)$this->serializer->serialize($this->productDataStorage->getProductData());
+        return (string)$this->serializer->serialize($this->productDataStorage->getAllProductsData());
     }
 }

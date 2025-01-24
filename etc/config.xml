@@ -11,9 +11,65 @@
     <default>
         <google>
             <google_tag_manager>
-                <!-- TODO -->
                 <active>0</active>
-                <add_to_cart>0</add_to_cart>
+                <container_id>0</container_id>
+                <debug_enabled>0</debug_enabled>
+                <page_load>
+                    <active>0</active>
+                    <handles_list_behavior>0</handles_list_behavior>
+                </page_load>
+                <click>
+                    <product>
+                        <active>0</active>
+                    </product>
+                    <menu_item>
+                        <active>0</active>
+                    </menu_item>
+                    <swatch>
+                        <active>0</active>
+                    </swatch>
+                </click>
+                <checkout_flow>
+                    <add_to_cart>
+                        <active>0</active>
+                    </add_to_cart>
+                    <remove_from_cart>
+                        <active>-</active>
+                    </remove_from_cart>
+                    <cart_item_qty_changed>
+                        <active>0</active>
+                    </cart_item_qty_changed>
+                    <cart_page_loaded>
+                        <active>0</active>
+                    </cart_page_loaded>
+                    <checkout_steps_reached>
+                        <active>0</active>
+                    </checkout_steps_reached>
+                    <purchase_done>
+                        <active>0</active>
+                    </purchase_done>
+                </checkout_flow>
+                <customer_session>
+                    <login>
+                        <active>0</active>
+                        <failed_active>0</failed_active>
+                    </login>
+                    <logout>
+                        <active>0</active>
+                    </logout>
+                    <register>
+                        <active>0</active>
+                        <failed_active>0</failed_active>
+                    </register>
+                </customer_session>
+                <exposure>
+                    <product>
+                        <active>0</active>
+                    </product>
+                    <menu_category>
+                        <active>0</active>
+                    </menu_category>
+                </exposure>
             </google_tag_manager>
         </google>
     </default>

@@ -58,11 +58,11 @@ define([
                 return;
             }
 
-            document.querySelectorAll(productsSelector).forEach(productElement =>
+            document.querySelectorAll(productsSelector).forEach(productElement => {
                 productElement.addEventListener('click', event => {
                     this.processProductClick(event);
-                })
-            );
+                });
+            });
         },
 
         /**
@@ -95,11 +95,11 @@ define([
                 return;
             }
 
-            document.querySelectorAll(menuItemsSelector).forEach(menuItemElement =>
+            document.querySelectorAll(menuItemsSelector).forEach(menuItemElement => {
                 menuItemElement.addEventListener('click', event => {
                     this.processMenuItemClick(event);
-                })
-            );
+                });
+            });
         },
 
         init: function () {

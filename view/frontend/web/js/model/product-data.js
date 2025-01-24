@@ -11,20 +11,28 @@ define([], function () {
         productIdSelector: '.acid-product-id',
 
         /**
+         * Get product data from 'window.acidProductData' object using product ID
+         *
          * @param {string} productId
-         * @return {object}
+         * @return {object|false}
          */
         getProductDataById: function (productId) {
             const id = parseInt(productId, 10);
 
             if (id && this.productData && this.productData[id]) {
-                return this.productData[id];
+                const productData = JSON.parse(JSON.stringify(this.productData[id]));
+
+                delete productData.type;
+                return productData;
             }
 
-            return {};
+            return false;
         },
 
         /**
+         * Get product ID from child '.acid-product-id' block
+         * and pass forward to this.getProductDataById() method
+         *
          * @param {HTMLElement} element
          * @returns {object}
          */
@@ -34,6 +42,27 @@ define([], function () {
             return productIdElement && productIdElement.dataset.id
                 ? this.getProductDataById(productIdElement.dataset.id)
                 : {};
+        },
+
+        /**
+         * Get product list value based on the parent wrapper block class list
+         *
+         * @param {HTMLElement} element
+         * @return {string}
+         */
+        getProductList: function (element) {
+            const productsWrapper = element.closest('.products.wrapper');
+            let list = '';
+
+            if (productsWrapper.classList.value.indexOf('related') >= 0) {
+                list = 'related';
+            } else if (productsWrapper.classList.value.indexOf('upsell') >= 0) {
+                list = 'upsell';
+            } else if (productsWrapper.classList.value.indexOf('crosssell') >= 0) {
+                list = 'crosssell';
+            }
+
+            return list;
         }
     };
 });

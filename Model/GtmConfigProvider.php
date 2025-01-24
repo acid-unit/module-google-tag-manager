@@ -57,6 +57,32 @@ class GtmConfigProvider implements ConfigProviderInterface
                     'event_name' => $this->config->getGtmClickSwatchEventName()
                 ]
             ],
+            'checkout_flow' => [
+                'product_added_to_cart' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowProductAddedToCartEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowProductAddedToCartEventName()
+                ],
+                'product_removed_from_cart' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowProductRemovedFromCartEventName()
+                ],
+                'cart_item_qty_changed' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowCartItemQtyChangedEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowCartItemQtyChangedEventName()
+                ],
+                'cart_page_loaded' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowCartPageLoadedEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowCartPageLoadedEventName()
+                ],
+                'checkout_steps_reached' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowCheckoutStepsReachedEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowCheckoutStepsReachedEventName()
+                ],
+                'purchase_done' => [
+                    'enabled' => $this->config->isGtmCheckoutFlowPurchaseDoneEnabled(),
+                    'event_name' => $this->config->getGtmCheckoutFlowPurchaseDoneEventName()
+                ]
+            ],
             'customer_session' => [
                 'login' => [
                     'enabled' => $this->config->isGtmCustomerSessionLoginEnabled(),

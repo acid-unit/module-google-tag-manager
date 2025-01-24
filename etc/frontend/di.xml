@@ -54,24 +54,31 @@
         />
     </type>
 
-    <!-- session object proxy class for customer login data model -->
     <type name="AcidUnit\GoogleTagManager\Model\Customer\LoginData">
         <arguments>
+            <!-- session object proxy class -->
             <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
     </type>
 
-    <!-- session object proxy class for customer registration data model -->
     <type name="AcidUnit\GoogleTagManager\Model\Customer\RegistrationData">
         <arguments>
+            <!-- session object proxy class -->
             <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
     </type>
 
-    <!-- session object proxy class for customer logout data model -->
     <type name="AcidUnit\GoogleTagManager\Model\Customer\LogoutData">
         <arguments>
+            <!-- session object proxy class -->
             <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
+        <plugin name="acid_gtm_configurable_product"
+                type="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable"
+                sortOrder="10"
+        />
     </type>
 </config>

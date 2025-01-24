@@ -5,8 +5,8 @@
 
 define([
     'jquery',
-    './../js/action/push',
-    './../js/model/menu-data',
+    './../action/push',
+    './../model/menu-data',
     'jquery-ui-modules/widget'
 ], function (
     $,
@@ -20,6 +20,8 @@ define([
             gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
 
             /**
+             * Mixin: everything after this._super();
+             *
              * @private
              */
             _toggleDesktopMode: function () {
@@ -31,6 +33,7 @@ define([
 
                 const eventName = this.gtmConfig['exposure']['menu_category']['event_name'];
 
+                // push GTM event on menu item hover
                 this._on({
                     'mouseenter .ui-menu-item': event => {
                         if (event.target.closest('.category-item').classList.contains('parent')) {

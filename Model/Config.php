@@ -49,6 +49,32 @@ class Config extends DataObject implements ArgumentInterface
     public const XML_PATH_GTM_CLICK_SWATCH_EVENT_NAME
         = 'google/google_tag_manager/click/swatch/event_name';
 
+    // Checkout Flow
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED
+        = 'google/google_tag_manager/checkout_flow/add_to_cart/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/add_to_cart/event_name';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED
+        = 'google/google_tag_manager/checkout_flow/remove_from_cart/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/remove_from_cart/event_name';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED
+        = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/event_name';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_ENABLED
+        = 'google/google_tag_manager/checkout_flow/cart_page_loaded/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/cart_page_loaded/event_name';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED
+        = 'google/google_tag_manager/checkout_flow/checkout_steps_reached/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/checkout_steps_reached/event_name';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED
+        = 'google/google_tag_manager/checkout_flow/purchase_done/active';
+    public const XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME
+        = 'google/google_tag_manager/checkout_flow/purchase_done/event_name';
+
     // Customer Session
     public const XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_ENABLED
         = 'google/google_tag_manager/customer_session/login/active';
@@ -300,6 +326,162 @@ class Config extends DataObject implements ArgumentInterface
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Purchase Done Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowPurchaseDoneEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Purchase Done Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowPurchaseDoneEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Checkout Step Reached Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowCheckoutStepsReachedEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Checkout Step Reached Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowCheckoutStepsReachedEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Cart Page Loaded Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowCartPageLoadedEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Cart Page Loaded Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowCartPageLoadedEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Cart Item Qty Changed Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowCartItemQtyChangedEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Cart Item Qty Changed Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowCartItemQtyChangedEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Product Removed from Cart Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowProductRemovedFromCartEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Product Removed from Cart Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowProductRemovedFromCartEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Checkout Flow Product Added to Cart Event Name
+     *
+     * @return string
+     */
+    public function getGtmCheckoutFlowProductAddedToCartEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Checkout Flow Product Added to Cart Enabled
+     *
+     * @return bool
+     */
+    public function isGtmCheckoutFlowProductAddedToCartEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }

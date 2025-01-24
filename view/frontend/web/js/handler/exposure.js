@@ -66,6 +66,11 @@ define([
                 if (productData) {
                     pushData = {...productData};
                     pushData['page'] = pageHandleModel.getCurrentPageName();
+                    pushData['list'] = productDataModel.getProductList(product);
+
+                    if (!pushData['list']) {
+                        delete pushData['list'];
+                    }
 
                     resultArray.push(pushData);
                 }
