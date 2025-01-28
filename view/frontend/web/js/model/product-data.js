@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -20,10 +22,7 @@ define([], function () {
             const id = parseInt(productId, 10);
 
             if (id && this.productData && this.productData[id]) {
-                const productData = structuredClone(this.productData[id]);
-
-                delete productData.type;
-                return productData;
+                return structuredClone(this.productData[id]);
             }
 
             return {};

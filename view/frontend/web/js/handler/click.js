@@ -16,6 +16,7 @@ define([
 ) {
     'use strict';
 
+    // noinspection JSUnresolvedReference
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
 
@@ -34,14 +35,13 @@ define([
          */
         processProductClick: function (event) {
             const product = event.target.closest(this.model.product.productItemSelector),
-                productData = productDataModel.getData(product),
-                eventName = this.gtmConfig['click']['product']['event_name'];
+                productData = productDataModel.getData(product);
 
             if (!Object.keys(productData).length) {
                 return;
             }
 
-            push(eventName, {
+            push(this.gtmConfig['click']['product']['event_name'], {
                 'ecommerce': {
                     'click': {
                         'actionField': {'list': handleModel.getCurrentPageName()},
@@ -71,14 +71,13 @@ define([
         processMenuItemClick: function (event) {
             const target = event.target,
                 menuItemHref = target.getAttribute('href'),
-                menuItemData = menuDataModel.getMenuItemData(menuItemHref),
-                eventName = this.gtmConfig['click']['menu_item']['event_name'];
+                menuItemData = menuDataModel.getMenuItemData(menuItemHref);
 
             if (!Object.values(menuItemData).length) {
                 return;
             }
 
-            push(eventName, {
+            push(this.gtmConfig['click']['menu_item']['event_name'], {
                 'ecommerce': {
                     'click': {
                         'menuItem': menuItemData['name'],

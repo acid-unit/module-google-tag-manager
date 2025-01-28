@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -63,27 +65,23 @@ define([
                         }
                     }
                 },
-                eventName = this.gtmConfig['checkout_flow']['checkout_steps_reached']['event_name'],
                 products = [];
 
             if (stepNumber === this.checkoutStepsModel.shipping.number) {
                 this.quoteItems.forEach(item => {
-                    const productId = item['product_id'],
-                        productData = productDataModel.getProductDataById(productId),
-                        pushData = {
-                            'id': item.item_id,
+                    const pushData = {
+                            'id': item.product_id,
+                            'sku': item.sku,
                             'name': item.name,
                             'price': parseFloat(item.price),
                             'qty': item.qty
-                        };
+                        },
+                        options = cartItemDataModel.getProductOptions(item.item_id);
 
-                    pushData.options = cartItemDataModel.getProductOptions(item.item_id);
-
-                    if (!Object.keys(pushData.options).length) {
-                        delete pushData['options'];
+                    if (Object.keys(options).length) {
+                        pushData['options'] = options;
                     }
 
-                    Object.assign(pushData, productData);
                     products.push(pushData);
                 });
 
@@ -94,7 +92,7 @@ define([
                 data.ecommerce['products'] = products;
             }
 
-            push(eventName, data);
+            push(this.gtmConfig['checkout_flow']['checkout_steps_reached']['event_name'], data);
         },
 
         /**
@@ -155,8 +153,7 @@ define([
                 }
             });
 
-            const productData = productDataModel.getProductDataById(productId),
-                eventName = this.gtmConfig['checkout_flow']['product_added_to_cart']['event_name'];
+            const productData = productDataModel.getProductDataById(productId);
 
             if (!productData || !data.form) {
                 return;
@@ -178,7 +175,7 @@ define([
                 }
             }
 
-            push(eventName, {
+            push(this.gtmConfig['checkout_flow']['product_added_to_cart']['event_name'], {
                 'ecommerce': {
                     'add': {
                         'products': [productData]
@@ -193,7 +190,6 @@ define([
          * @param {boolean} getDataFromCartModel
          */
         processRemoveFromCart: function (event, data, getDataFromCartModel = true) {
-            const eventName = this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'];
             let productData;
 
             if (getDataFromCartModel) {
@@ -205,7 +201,7 @@ define([
                 productData = data;
             }
 
-            push(eventName, {
+            push(this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'], {
                 'ecommerce': {
                     'remove': {
                         'products': [productData]
@@ -235,8 +231,7 @@ define([
          * @param {Object} data
          */
         processCartItemQtyChanged: function (event, data) {
-            const products = [],
-                eventName = this.gtmConfig['checkout_flow']['cart_item_qty_changed']['event_name'];
+            const products = [];
             let productData;
 
             if (data.productData) {
@@ -269,7 +264,7 @@ define([
                 });
             }
 
-            push(eventName, {
+            push(this.gtmConfig['checkout_flow']['cart_item_qty_changed']['event_name'], {
                 'ecommerce': {
                     'update': {
                         'products': products

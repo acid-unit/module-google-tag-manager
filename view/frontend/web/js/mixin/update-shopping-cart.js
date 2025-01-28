@@ -1,4 +1,4 @@
-// noinspection JSUnusedGlobalSymbols
+// noinspection JSUnusedGlobalSymbols,JSUnresolvedReference
 
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.

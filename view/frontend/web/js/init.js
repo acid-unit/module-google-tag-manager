@@ -8,7 +8,7 @@
 define([
     './model/page-data',
     './model/page-handle',
-    './handler/page-data-events',
+    './handler/page-data',
     './handler/page-load',
     './handler/click',
     './handler/exposure',
@@ -16,7 +16,7 @@ define([
 ], function (
     pageDataModel,
     handleModel,
-    pageDataEvents,
+    pageData,
     pageLoad,
     click,
     exposure,
@@ -26,7 +26,7 @@ define([
 
     return function (config) {
         pageDataModel.storePageData(config['pageData'] || {});
-        pageDataEvents.trigger();
+        pageData.triggerEvents();
         handleModel.setCurrentPageHandleCode(config['pageHandle'] || '');
 
         switch (handleModel.getCurrentPageHandleCode()) {

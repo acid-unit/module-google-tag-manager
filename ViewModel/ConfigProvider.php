@@ -4,11 +4,13 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
+
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\ViewModel;
 
-use AcidUnit\Admin\Model\ConfigProviderInterface;
+use AcidUnit\Core\Api\ConfigProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Config;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Block\ArgumentInterface;

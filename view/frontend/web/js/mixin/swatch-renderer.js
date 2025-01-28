@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -67,9 +69,7 @@ define([
                 const swatchCode = $this.closest('.swatch-attribute').data('attribute-code'),
                     optionId = $this.data('option-id'),
                     swatchItem = this.swatchData.filter(item => item['code'] === swatchCode)[0],
-                    optionItem = swatchItem['options'].filter(option => option['id'] === optionId.toString())[0],
-                    eventName = this.gtmConfig['click']['swatch']['event_name'];
-
+                    optionItem = swatchItem['options'].filter(option => option['id'] === optionId.toString())[0];
                 let productId,
                     productItem,
                     productData;
@@ -87,7 +87,7 @@ define([
                 }
 
                 // push GTM event on swatch click
-                push(eventName, {
+                push(this.gtmConfig['click']['swatch']['event_name'], {
                     'swatchLabel': swatchItem.label,
                     'optionLabel': optionItem.label,
                     'inProductList': $widget.inProductList,

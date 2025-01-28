@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model;
 
-use AcidUnit\PageContentUpdate\Api\PageContentUpdateInterface;
-use AcidUnit\PageContentUpdate\Model\PageContentUpdateProcessor;
+use AcidUnit\Core\Api\PageContentUpdateInterface;
+use AcidUnit\Core\Model\PageContentUpdateProcessor;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;
 use Magento\Framework\Serialize\Serializer\Json;

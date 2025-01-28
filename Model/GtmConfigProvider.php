@@ -6,13 +6,14 @@
 
 /** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 /** @noinspection PhpUnused */
+/** @noinspection PhpClassCanBeReadonlyInspection */
 // phpcs:disable Generic.Files.LineLength.TooLong
 
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model;
 
-use AcidUnit\Admin\Model\ConfigProviderInterface;
+use AcidUnit\Core\Api\ConfigProviderInterface;
 use Magento\LoginAsCustomerApi\Api\ConfigInterface as LoginAsCustomerConfig;
 
 class GtmConfigProvider implements ConfigProviderInterface
@@ -42,6 +43,7 @@ class GtmConfigProvider implements ConfigProviderInterface
                 'event_name' => $this->config->getGtmPageLoadEventName(),
                 'handles_list_inverted' => $this->config->isGtmPageLoadHandlesListInverted(),
                 'handles_list' => $this->config->getGtmPageLoadHandlesList(),
+                'user_type_enabled' => $this->config->isGtmPageLoadUserTypeEnabled(),
                 'pdp_load_event_name' => $this->config->getGtmPageLoadPdpEventName(),
                 'plp_load_event_name' => $this->config->getGtmPageLoadPlpEventName()
             ],
@@ -113,13 +115,25 @@ class GtmConfigProvider implements ConfigProviderInterface
                     'event_name' => $this->config->getGtmExposureBlockEventName()
                 ]
             ],
+            'wishlist' => [
+                'add' => [
+                    'enabled' => $this->config->isGtmWishlistAddEnabled(),
+                    'event_name' => $this->config->getGtmWishlistAddEventName()
+                ],
+                'remove' => [
+                    'enabled' => $this->config->isGtmWishlistRemoveEnabled(),
+                    'event_name' => $this->config->getGtmWishlistRemoveEventName()
+                ]
+            ],
             'page_load_events' => [
                 'login_success' => $this->config->isGtmCustomerSessionLoginEnabled() ? GtmEvents::LOGIN_SUCCESSFUL : '',
                 'login_fail' => $this->config->isGtmCustomerSessionLoginFailedEnabled() ? GtmEvents::LOGIN_FAILED : '',
                 'logout_success' => $this->config->isGtmCustomerSessionLogoutEnabled() ? GtmEvents::LOGOUT_SUCCESSFUL : '',
                 'registration_success' => $this->config->isGtmCustomerSessionRegisterEnabled() ? GtmEvents::REGISTRATION_SUCCESSFUL : '',
                 'registration_fail' => $this->config->isGtmCustomerSessionRegisterFailedEnabled() ? GtmEvents::REGISTRATION_FAILED : '',
-                'product_removed_from_cart' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_CART : ''
+                'product_removed_from_cart' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_CART : '',
+                'product_added_to_wishlist' => $this->config->isGtmWishlistAddEnabled() ? GtmEvents::PRODUCT_ADDED_TO_WISHLIST : '',
+                'product_removed_from_wishlist' => $this->config->isGtmWishlistRemoveEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_WISHLIST : ''
             ],
             'login_as_customer_enabled' => $this->loginAsCustomerConfig->isEnabled()
         ];

@@ -49,7 +49,7 @@ class Provider implements DataProviderInterface
      * @param Product $product
      * @return void
      */
-    public function setProduct(Product $product): void
+    protected function setProduct(Product $product): void
     {
         $this->product = $product;
     }

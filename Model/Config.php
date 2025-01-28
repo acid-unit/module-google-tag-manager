@@ -5,6 +5,7 @@
  */
 
 /** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
+/** @noinspection PhpMissingClassConstantTypeInspection */
 
 declare(strict_types=1);
 
@@ -38,6 +39,8 @@ class Config extends DataObject implements ArgumentInterface
         = 'google/google_tag_manager/page_load/pdp_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
         = 'google/google_tag_manager/page_load/plp_load_event_name';
+    public const XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED
+        = 'google/google_tag_manager/page_load/user_type_enabled';
 
     // Click
     public const XML_PATH_GTM_CLICK_PRODUCT_ENABLED
@@ -111,6 +114,16 @@ class Config extends DataObject implements ArgumentInterface
     public const XML_PATH_GTM_EXPOSURE_BLOCK_EVENT_NAME
         = 'google/google_tag_manager/exposure/block/event_name';
 
+    // Wishlist
+    public const XML_PATH_GTM_WISHLIST_ADD_ENABLED
+        = 'google/google_tag_manager/wishlist/add/active';
+    public const XML_PATH_GTM_WISHLIST_ADD_EVENT_NAME
+        = 'google/google_tag_manager/wishlist/add/event_name';
+    public const XML_PATH_GTM_WISHLIST_REMOVE_ENABLED
+        = 'google/google_tag_manager/wishlist/remove/active';
+    public const XML_PATH_GTM_WISHLIST_REMOVE_EVENT_NAME
+        = 'google/google_tag_manager/wishlist/remove/event_name';
+
     /**
      * @param ScopeConfigInterface $scopeConfig
      * @param array<mixed> $data
@@ -120,6 +133,58 @@ class Config extends DataObject implements ArgumentInterface
         array                                 $data = []
     ) {
         parent::__construct($data);
+    }
+
+    /**
+     * Get GTM Add to Wishlist Event Name
+     *
+     * @return string
+     */
+    public function getGtmWishlistRemoveEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_WISHLIST_REMOVE_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Add to Wishlist Add Enabled
+     *
+     * @return bool
+     */
+    public function isGtmWishlistRemoveEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_WISHLIST_REMOVE_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Add to Wishlist Event Name
+     *
+     * @return string
+     */
+    public function getGtmWishlistAddEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_WISHLIST_ADD_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Add to Wishlist Add Enabled
+     *
+     * @return bool
+     */
+    public function isGtmWishlistAddEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_WISHLIST_ADD_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**
@@ -534,6 +599,19 @@ class Config extends DataObject implements ArgumentInterface
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_GTM_CLICK_PRODUCT_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Page Load User Type Enabled
+     *
+     * @return bool
+     */
+    public function isGtmPageLoadUserTypeEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }

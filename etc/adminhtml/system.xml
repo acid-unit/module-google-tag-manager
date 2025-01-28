@@ -158,6 +158,44 @@
                             <field id="active">1</field>
                         </depends>
                     </field>
+
+                    <field id="user_type_enabled"
+                           translate="label comment"
+                           type="select"
+                           sortOrder="70"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable Pushing User Type with Page Load event</label>
+                        <comment>Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, Checkout, Success Order Pages</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
+                    <group id="custom"
+                           translate="label"
+                           type="text"
+                           sortOrder="80"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Custom Pages</label>
+
+                        <field id="custom"
+                               translate="label"
+                               sortOrder="10"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1"
+                               canRestore="1">
+                            <label>Custom Pages</label>
+                            <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\CustomPagesLoad</frontend_model>
+                            <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\CustomPagesLoad</backend_model>
+                        </field>
+                    </group>
                 </group>
 
                 <group id="click"
@@ -763,7 +801,7 @@
                                showInWebsite="1"
                                showInStore="1"
                                canRestore="1">
-                            <label>Block</label>
+                            <label>Blocks</label>
                             <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\ExposureBlocks</frontend_model>
                             <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\ExposureBlocks</backend_model>
                         </field>
@@ -777,6 +815,89 @@
                                showInStore="1">
                             <label>Event Name</label>
                             <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        </field>
+                    </group>
+                </group>
+
+                <group id="wishlist"
+                       translate="label"
+                       type="text"
+                       sortOrder="90"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Wishlist</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                    <group id="add"
+                           translate="label"
+                           type="text"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Add To Wishlist</label>
+
+                        <field id="active"
+                               translate="label"
+                               type="select"
+                               sortOrder="10"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Enable</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+
+                        <field id="event_name"
+                               translate="label"
+                               type="text"
+                               sortOrder="20"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Event Name</label>
+                            <comment>If set, the event name will be pushed as an 'event' property</comment>
+                            <depends>
+                                <field id="active">1</field>
+                            </depends>
+                        </field>
+                    </group>
+
+                    <group id="remove"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Remove From Wishlist</label>
+
+                        <field id="active"
+                               translate="label"
+                               type="select"
+                               sortOrder="10"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Enable</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+
+                        <field id="event_name"
+                               translate="label"
+                               type="text"
+                               sortOrder="20"
+                               showInDefault="1"
+                               showInWebsite="1"
+                               showInStore="1">
+                            <label>Event Name</label>
+                            <comment>If set, the event name will be pushed as an 'event' property</comment>
+                            <depends>
+                                <field id="active">1</field>
+                            </depends>
                         </field>
                     </group>
                 </group>

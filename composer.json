@@ -4,18 +4,24 @@
     "description": "Comprehensive and flexible Adobe Commerce Google Tag Manager extension",
     "type": "magento2-module",
     "require": {
-        "php": ">=8.1",
+        "acid-unit/module-admin": "^0.1",
+        "acid-unit/module-core": "*",
+        "acid-unit/module-page-content-update": "^0.1",
         "magento/framework": ">=103.0.4",
         "magento/module-catalog": "*",
+        "magento/module-checkout": "*",
         "magento/module-config": "*",
+        "magento/module-configurable-product": "*",
         "magento/module-customer": "*",
+        "magento/module-eav": "*",
         "magento/module-login-as-customer": "*",
         "magento/module-login-as-customer-api": "*",
+        "magento/module-quote": "*",
+        "magento/module-sales": "*",
         "magento/module-store": "*",
         "magento/module-theme": "*",
-        "magento/module-configurable-product": "*",
-        "acid-unit/module-admin": "^0.1",
-        "acid-unit/module-page-content-update": "^0.1"
+        "magento/module-wishlist": "*",
+        "php": ">=8.1"
     },
     "autoload": {
         "files": [

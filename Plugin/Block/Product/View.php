@@ -4,6 +4,8 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
+
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Product;
@@ -27,9 +29,12 @@ class View
      *
      * @param ViewTarget $subject
      * @param Product $result
+     *
      * @return Product
+     * @see \Magento\Catalog\Block\Product\View::getProduct
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @noinspection PhpUnusedParameterInspection
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function afterGetProduct(
         ViewTarget $subject,

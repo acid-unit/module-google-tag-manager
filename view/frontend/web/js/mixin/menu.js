@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -31,8 +33,6 @@ define([
                     return;
                 }
 
-                const eventName = this.gtmConfig['exposure']['menu_category']['event_name'];
-
                 // push GTM event on menu item hover
                 this._on({
                     'mouseenter .ui-menu-item': event => {
@@ -41,7 +41,7 @@ define([
                                 menuItemHref = target.getAttribute('href'),
                                 menuItemData = menuDataModel.getMenuItemData(menuItemHref);
 
-                            push(eventName, {
+                            push(this.gtmConfig['exposure']['menu_category']['event_name'], {
                                 'ecommerce': {
                                     'menuHover': menuItemData
                                 }

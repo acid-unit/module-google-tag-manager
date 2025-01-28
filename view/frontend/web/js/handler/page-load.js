@@ -1,4 +1,4 @@
-// noinspection RedundantIfStatementJS
+// noinspection RedundantIfStatementJS, JSUnresolvedReference
 
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
@@ -105,16 +105,23 @@ define([
                 eventName = this.gtmConfig['page_load']['event_name'];
 
             if (currentPageName) {
-                push(eventName, {
-                    'pageType': currentPageName
-                });
+                const pageData = pageDataModel.getPageData(),
+                    pushData = {
+                        'page_type': currentPageName
+                    };
+
+                if (this.gtmConfig['page_load']['user_type_enabled']) {
+                    pushData['user_type'] = pageData['user_type'];
+                }
+
+                push(eventName, pushData);
             } else if (document.querySelector('body').classList.value.split(' ').includes('account')) {
                 /**
                  * Customer account can have different page handles,
                  * the solution to check body classes is simpler to write and support in this case
                  */
                 push(eventName, {
-                    'pageType': handleModel.handles.customerAccountPage.name
+                    'page_type': handleModel.handles.customerAccountPage.name
                 });
             }
         }

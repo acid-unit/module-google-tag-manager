@@ -24,8 +24,11 @@ class Configurable extends ConfigurableTarget
      * @param ConfigurableTarget $subject
      * @param array<mixed> $result
      * @param Product $product
+     *
      * @return array<mixed>
+     * @see \Magento\ConfigurableProduct\Model\Product\Type\Configurable::getSelectedAttributesInfo
      * @noinspection PhpUnusedParameterInspection
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetSelectedAttributesInfo(

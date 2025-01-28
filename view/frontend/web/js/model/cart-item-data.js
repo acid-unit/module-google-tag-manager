@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.

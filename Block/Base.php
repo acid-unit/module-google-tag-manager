@@ -159,7 +159,7 @@ class Base extends Template
         $data = [];
         $customerSession = $this->sessionFactory->create();
         $userType = $customerSession->isLoggedIn() ? 'registered' : 'new';
-        $data['userType'] = $userType;
+        $data['user_type'] = $userType;
 
         return $data;
     }

@@ -10,7 +10,7 @@
 
 namespace AcidUnit\GoogleTagManager\Model\System\Config\Backend;
 
-use AcidUnit\GoogleTagManager\Helper\AdminExposureBlocks;
+use AcidUnit\GoogleTagManager\Helper\AdminCustomPagesLoad;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Value;
@@ -22,10 +22,10 @@ use Magento\Framework\Registry;
 /**
  * Backend for serialized array data
  */
-class ExposureBlocks extends Value
+class CustomPagesLoad extends Value
 {
     /**
-     * @param AdminExposureBlocks $exposureBlocks
+     * @param AdminCustomPagesLoad $customPagesLoad
      * @param Context $context
      * @param Registry $registry
      * @param ScopeConfigInterface $config
@@ -35,14 +35,14 @@ class ExposureBlocks extends Value
      * @param array<mixed> $data
      */
     public function __construct(
-        private readonly AdminExposureBlocks $exposureBlocks,
-        Context                              $context,
-        Registry                             $registry,
-        ScopeConfigInterface                 $config,
-        TypeListInterface                    $cacheTypeList,
-        AbstractResource                     $resource = null,
-        AbstractDb                           $resourceCollection = null,
-        array                                $data = []
+        private readonly AdminCustomPagesLoad $customPagesLoad,
+        Context                               $context,
+        Registry                              $registry,
+        ScopeConfigInterface                  $config,
+        TypeListInterface                     $cacheTypeList,
+        AbstractResource                      $resource = null,
+        AbstractDb                            $resourceCollection = null,
+        array                                 $data = []
     ) {
         parent::__construct(
             $context,
@@ -58,13 +58,13 @@ class ExposureBlocks extends Value
     /**
      * Processing after load data
      *
-     * @return ExposureBlocks|$this
+     * @return CustomPagesLoad|$this
      * @noinspection PhpParamsInspection
      */
-    protected function _afterLoad(): ExposureBlocks|static
+    protected function _afterLoad(): CustomPagesLoad|static
     {
         $value = $this->getValue();
-        $value = $this->exposureBlocks->makeArrayFieldValue($value);
+        $value = $this->customPagesLoad->makeArrayFieldValue($value);
         $this->setValue($value);
 
         return $this;
@@ -73,12 +73,12 @@ class ExposureBlocks extends Value
     /**
      * Prepare data before save
      *
-     * @return $this|ExposureBlocks
+     * @return $this|CustomPagesLoad
      */
-    public function beforeSave(): ExposureBlocks|static
+    public function beforeSave(): CustomPagesLoad|static
     {
         $value = $this->getValue();
-        $value = $this->exposureBlocks->makeStorableArrayFieldValue($value);
+        $value = $this->customPagesLoad->makeStorableArrayFieldValue($value);
         $this->setValue($value);
 
         return $this;

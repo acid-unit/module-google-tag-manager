@@ -17,6 +17,7 @@
                 <page_load>
                     <active>0</active>
                     <handles_list_behavior>0</handles_list_behavior>
+                    <user_type_enabled>0</user_type_enabled>
                 </page_load>
                 <click>
                     <product>
@@ -67,6 +68,14 @@
                         <active>0</active>
                     </menu_category>
                 </exposure>
+                <wishlist>
+                    <add>
+                        <active>0</active>
+                    </add>
+                    <remove>
+                        <active>0</active>
+                    </remove>
+                </wishlist>
             </google_tag_manager>
         </google>
     </default>

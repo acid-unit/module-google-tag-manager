@@ -10,7 +10,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <!-- customer log in event -->
     <event name="controller_action_postdispatch_customer_account_loginPost">
-        <observer name="acid_customer_account_login_post_observer"
+        <observer name="acid_gtm_customer_account_login_post_observer"
                   instance="AcidUnit\GoogleTagManager\Observer\Account\LoginPostObserver"
                   disabled="false"
         />
@@ -18,7 +18,7 @@
 
     <!-- customer ajax log in event -->
     <event name="controller_action_postdispatch_customer_ajax_login">
-        <observer name="acid_customer_ajax_login_observer"
+        <observer name="acid_gtm_customer_ajax_login_observer"
                   instance="AcidUnit\GoogleTagManager\Observer\Account\LoginPostObserver"
                   disabled="false"
         />
@@ -26,7 +26,7 @@
 
     <!-- customer log out event -->
     <event name="controller_action_postdispatch_customer_account_logoutSuccess">
-        <observer name="acid_customer_account_logout_success_observer"
+        <observer name="acid_gtm_customer_account_logout_success_observer"
                   instance="AcidUnit\GoogleTagManager\Observer\Account\LogoutSuccessObserver"
                   disabled="false"
         />
@@ -34,8 +34,25 @@
 
     <!-- customer registration event -->
     <event name="controller_action_postdispatch_customer_account_createPost">
-        <observer name="acid_customer_account_create_post_observer"
+        <observer name="acid_gtm_customer_account_create_post_observer"
                   instance="AcidUnit\GoogleTagManager\Observer\Account\CreatePostObserver"
+                  disabled="false"
+        />
+    </event>
+
+    <!-- product added to wishlist event -->
+    <event name="wishlist_add_product">
+        <observer name="acid_gtm_wishlist_add_product_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Wishlist\AddProductObserver"
+                  disabled="false"
+        />
+    </event>
+
+    <!-- product removed from wishlist event -->
+    <!-- (custom event dispatched in \AcidUnit\GoogleTagManager\Plugin\Wishlist\Remove plugin) -->
+    <event name="wishlist_remove_product">
+        <observer name="acid_gtm_wishlist_remove_product_observer"
+                  instance="AcidUnit\GoogleTagManager\Observer\Wishlist\RemoveProductObserver"
                   disabled="false"
         />
     </event>

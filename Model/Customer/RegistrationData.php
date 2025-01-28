@@ -4,6 +4,8 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
+
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model\Customer;
@@ -66,6 +68,7 @@ class RegistrationData
             $errorMessage = $message->getText();
 
             if (!$errorMessage && $message->getIdentifier() === 'customerAlreadyExistsErrorMessage') {
+                // same message as in vendor/magento/module-customer/view/frontend/templates/messages/customerAlreadyExistsErrorMessage.phtml
                 $errorMessage = __('There is already an account with this email address.');
             }
         }

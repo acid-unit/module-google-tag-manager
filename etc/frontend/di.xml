@@ -75,6 +75,20 @@
         </arguments>
     </type>
 
+    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\RemoveProductData">
+        <arguments>
+            <!-- session object proxy class -->
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\AddProductData">
+        <arguments>
+            <!-- session object proxy class -->
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
     <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
         <plugin name="acid_gtm_configurable_product"
                 type="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable"
@@ -113,5 +127,12 @@
             <!-- session object proxy class -->
             <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
         </arguments>
+    </type>
+
+    <type name="Magento\Wishlist\Controller\Index\Remove">
+        <plugin name="acid_gtm_remove_from_wishlist"
+                type="AcidUnit\GoogleTagManager\Plugin\Wishlist\Remove"
+                sortOrder="10"
+        />
     </type>
 </config>

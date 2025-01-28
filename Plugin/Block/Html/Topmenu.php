@@ -4,6 +4,8 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
+
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Html;
@@ -32,9 +34,12 @@ class Topmenu
      * @param string $outermostClass
      * @param string $childrenWrapClass
      * @param int $limit
+     *
      * @return string
+     * @see \Magento\Theme\Block\Html\Topmenu::getHtml
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @noinspection PhpUnusedParameterInspection
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function afterGetHtml(
         TopmenuTarget $subject,

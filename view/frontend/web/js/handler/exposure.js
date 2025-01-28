@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode,JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -69,10 +71,11 @@ define([
 
                 pushData = {...productData};
                 pushData['page'] = handleModel.getCurrentPageName();
-                pushData['list'] = productDataModel.getProductList(product);
 
-                if (!pushData['list']) {
-                    delete pushData['list'];
+                const productList = productDataModel.getProductList(product);
+
+                if (productList) {
+                    pushData['list'] = productList;
                 }
 
                 resultArray.push(pushData);
@@ -85,14 +88,13 @@ define([
          * @param {array} products
          */
         pushProductExposures: function (products) {
-            const productData = this.getProductsData(products),
-                eventName = this.gtmConfig['exposure']['product']['event_name'];
+            const productData = this.getProductsData(products);
 
             if (!productData.length) {
                 return;
             }
 
-            push(eventName, {
+            push(this.gtmConfig['exposure']['product']['event_name'], {
                 'ecommerce': {
                     'exposure': productData
                 }
@@ -160,14 +162,13 @@ define([
          * @param {array} blocks
          */
         pushBlockExposures: function (blocks) {
-            const blocksData = this.getBlocksData(blocks),
-                eventName = this.gtmConfig['exposure']['block']['event_name'];
+            const blocksData = this.getBlocksData(blocks);
 
             if (!blocksData.length) {
                 return;
             }
 
-            push(eventName, {
+            push(this.gtmConfig['exposure']['block']['event_name'], {
                 'ecommerce': {
                     'blockView': blocksData
                 }

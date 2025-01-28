@@ -16,7 +16,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;
 use Magento\Framework\Serialize\Serializer\Json;
 
-class AdminExposureBlocks extends AdminAbstractTable
+class AdminCustomPagesLoad extends AdminAbstractTable
 {
     /**
      * @param Random $mathRandom
@@ -48,8 +48,8 @@ class AdminExposureBlocks extends AdminAbstractTable
         foreach ($value as $row) {
             if (!is_array($row)
                 || !array_key_exists('enabled', $row)
-                || !array_key_exists('selector', $row)
-                || !array_key_exists('name', $row)
+                || !array_key_exists('url', $row)
+                || !array_key_exists('event', $row)
             ) {
                 return false;
             }
@@ -76,8 +76,8 @@ class AdminExposureBlocks extends AdminAbstractTable
 
             $result[$resultId] = [
                 'enabled' => $row['enabled'],
-                'selector' => $row['selector'],
-                'name' => $row['name']
+                'url' => $row['url'],
+                'event' => $row['event']
             ];
         }
 
@@ -99,16 +99,16 @@ class AdminExposureBlocks extends AdminAbstractTable
         foreach ($value as $key => $row) {
             if (!is_array($row)
                 || !array_key_exists('enabled', $row)
-                || !array_key_exists('selector', $row)
-                || !array_key_exists('name', $row)
+                || !array_key_exists('url', $row)
+                || !array_key_exists('event', $row)
             ) {
                 continue;
             }
 
             $result[$key] = [
                 'enabled' => $row['enabled'],
-                'selector' => $row['selector'],
-                'name' => $row['name']
+                'url' => $row['url'],
+                'event' => $row['event']
             ];
         }
 

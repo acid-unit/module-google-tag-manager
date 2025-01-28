@@ -40,7 +40,7 @@ class ProductDataProvider
      * @param Product $product
      * @return string|null
      */
-    public function getCategoryName(Product $product): ?string
+    private function getCategoryName(Product $product): ?string
     {
         $categoryName = $product->getCategory() ? $product->getCategory()->getName() : ''; // @phpstan-ignore-line
 
@@ -81,6 +81,7 @@ class ProductDataProvider
     public function getProductData(Product $product, array $removeKeysList = []): array
     {
         $result = [
+            'id' => $product->getId(),
             'name' => trim($product->getName()),
             'sku' => $product->getSku(),
             'price' => $product->getFinalPrice(),

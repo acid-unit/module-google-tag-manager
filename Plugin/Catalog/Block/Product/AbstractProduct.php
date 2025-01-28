@@ -4,6 +4,7 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
 /** @noinspection PhpDeprecationInspection */
 
 declare(strict_types=1);
@@ -33,9 +34,12 @@ class AbstractProduct
      * @param AbstractProductTarget $subject
      * @param string $result
      * @param Product $product
+     *
      * @return string
+     * @see \Magento\Catalog\Block\Product\AbstractProduct::getProductPrice
      * @noinspection UnusedFormalParameterInspection
      * @noinspection PhpUnusedParameterInspection
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function afterGetProductPrice(
         AbstractProductTarget $subject,

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols,JSUnresolvedReference
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -16,7 +18,6 @@ define([
 ) {
     'use strict';
 
-    // noinspection JSUnusedGlobalSymbols
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
 
@@ -53,16 +54,30 @@ define([
         },
 
         /**
-         * @param data
+         * @param {Object} data
          */
         productRemovedFromCart: function (data) {
             checkoutFlow.processRemoveFromCart({}, data, false);
         },
 
         /**
+         * @param {Object} data
+         */
+        productAddedToWishlist: function (data) {
+            push(this.gtmConfig['wishlist']['add']['event_name'], data);
+        },
+
+        /**
+         * @param {Object} data
+         */
+        productRemovedFromWishlist: function (data) {
+            push(this.gtmConfig['wishlist']['remove']['event_name'], data);
+        },
+
+        /**
          * Trigger disposable events if exist
          */
-        trigger: function () {
+        triggerEvents: function () {
             this.activePageLoadEvents = Object.values(this.gtmConfig['page_load_events']);
             this.pageData = pageDataModel.getPageData();
 

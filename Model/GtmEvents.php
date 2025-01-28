@@ -4,6 +4,8 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpMissingClassConstantTypeInspection */
+
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model;
@@ -19,4 +21,8 @@ class GtmEvents
 
     // Checkout Events
     public const PRODUCT_REMOVED_FROM_CART = 'productRemovedFromCart';
+
+    // Wishlist
+    public const PRODUCT_ADDED_TO_WISHLIST = 'productAddedToWishlist';
+    public const PRODUCT_REMOVED_FROM_WISHLIST = 'productRemovedFromWishlist';
 }

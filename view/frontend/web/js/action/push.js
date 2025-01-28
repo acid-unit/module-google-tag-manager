@@ -6,6 +6,7 @@
 define([], function () {
     'use strict';
 
+    // noinspection JSUnresolvedReference
     const gtmConfig = window.acidGtmConfig ? window.acidGtmConfig : {};
 
     function push(data, object) {

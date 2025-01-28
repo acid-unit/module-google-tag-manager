@@ -4,6 +4,7 @@
  * See LICENSE file for license details.
  */
 
+/** @noinspection PhpClassCanBeReadonlyInspection */
 /** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 
 declare(strict_types=1);
@@ -38,9 +39,12 @@ class Quote
      *
      * @param QuoteTarget $subject
      * @param int $itemId
+     *
      * @return array<mixed>
+     * @see \Magento\Quote\Model\Quote::removeItem
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      * @noinspection PhpUndefinedMethodInspection
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function beforeRemoveItem(QuoteTarget $subject, int $itemId): array
     {
