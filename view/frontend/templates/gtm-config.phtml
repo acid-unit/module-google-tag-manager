@@ -6,17 +6,19 @@
 
 /** @noinspection PhpUndefinedMethodInspection */
 
-use Magento\Framework\View\Element\Template;
 use AcidUnit\GoogleTagManager\ViewModel\ConfigProvider;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /**
- * @var Template $block
  * @var ConfigProvider $configProvider
+ * @var Template $block
+ * @var SecureHtmlRenderer $secureRenderer
  */
 
 $configProvider = $block->getConfigProvider(); // @phpstan-ignore-line
+$gtmConfig = $configProvider->getSerializedCustomConfig();
+$scriptString = "window.acidGtmConfig = $gtmConfig;";
 ?>
 
-<script>
-    window.acidGtmConfig = <?= /* @escapeNotVerified */ $configProvider->getSerializedCustomConfig() ?>;
-</script>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

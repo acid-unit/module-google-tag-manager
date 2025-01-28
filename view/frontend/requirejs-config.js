@@ -14,6 +14,9 @@ let config = {
             'Magento_Checkout/js/sidebar': {
                 'AcidUnit_GoogleTagManager/js/mixin/sidebar': true
             },
+            'Magento_Checkout/js/model/step-navigator': {
+                'AcidUnit_GoogleTagManager/js/mixin/step-navigator': true
+            },
             'Magento_Swatches/js/swatch-renderer': {
                 'AcidUnit_GoogleTagManager/js/mixin/swatch-renderer': true
             },

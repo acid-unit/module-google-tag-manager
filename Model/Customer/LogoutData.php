@@ -39,10 +39,8 @@ class LogoutData
             return;
         }
 
-        $this->session->setGtmData([ // @phpstan-ignore-line
-            'gtm_event' => [
-                'event' => GtmEvents::LOGOUT_SUCCESSFUL
-            ]
+        $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
+            'event' => GtmEvents::LOGOUT_SUCCESSFUL
         ]);
     }
 }

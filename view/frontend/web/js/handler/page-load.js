@@ -1,3 +1,5 @@
+// noinspection RedundantIfStatementJS
+
 /**
  * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
  * See LICENSE file for license details.
@@ -5,10 +7,12 @@
 
 define([
     './../action/push',
-    './../model/page-handle'
+    './../model/page-handle',
+    './../model/page-data'
 ], function (
     push,
-    handleModel
+    handleModel,
+    pageDataModel
 ) {
     'use strict';
 
@@ -16,30 +20,89 @@ define([
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
 
         /**
-         * @param {string} handle
+         * @return {boolean}
          */
-        init: function (handle) {
-            handleModel.setCurrentPageHandleCode(handle.toLowerCase() || '');
-
+        isActive: function () {
             if (!this.gtmConfig['page_load'] || !this.gtmConfig['page_load']['enabled']) {
+                return false;
+            }
+
+            const currentPageHandleCode = handleModel.getCurrentPageHandleCode(),
+                handlesListInvertedBehavior = this.gtmConfig['page_load']['handles_list_inverted'],
+                handlesListIncludesCurrentHandleCode =
+                    this.gtmConfig['page_load']['handles_list'].split('\r\n').includes(currentPageHandleCode);
+
+            // if current page handle is in the list with excluded option
+            if (!handlesListInvertedBehavior && handlesListIncludesCurrentHandleCode) {
+                return false;
+            }
+
+            // if current page handle is NOT in the list with included option
+            if (handlesListInvertedBehavior && !handlesListIncludesCurrentHandleCode) {
+                return false;
+            }
+
+            return true;
+        },
+
+        successOrder: function () {
+            if (!this.isActive()) {
+                return;
+            }
+
+            if (!this.gtmConfig['checkout_flow']['purchase_done']['enabled']) {
+                return;
+            }
+
+            const pageData = pageDataModel.getPageData();
+
+            push(this.gtmConfig['checkout_flow']['purchase_done']['event_name'], {
+                'ecommerce': {
+                    'purchase': {
+                        'actionField': pageData['provider']['order_data'],
+                        'products': pageData['provider']['products']
+                    }
+                }
+            });
+        },
+
+        pdp: function () {
+            if (!this.isActive()) {
+                return;
+            }
+
+            const pageData = pageDataModel.getPageData();
+
+            push(this.gtmConfig['page_load']['pdp_load_event_name'], {
+                'ecommerce': {
+                    'detail': {
+                        'products': [pageData['provider']]
+                    }
+                }
+            });
+        },
+
+        plp: function () {
+            if (!this.isActive()) {
+                return;
+            }
+
+            const pageData = pageDataModel.getPageData();
+
+            push(this.gtmConfig['page_load']['plp_load_event_name'], {
+                'ecommerce': {
+                    'impressions': pageData['provider']
+                }
+            });
+        },
+
+        default: function () {
+            if (!this.isActive()) {
                 return;
             }
 
             const currentPageName = handleModel.getCurrentPageName(),
-                currentPageHandleCode = handleModel.getCurrentPageHandleCode(),
                 eventName = this.gtmConfig['page_load']['event_name'];
-
-            // if current page handle is in the list with excluded option
-            if (!this.gtmConfig['page_load']['handles_list_inverted'] &&
-                this.gtmConfig['page_load']['handles_list'].split('\r\n').includes(currentPageHandleCode)) {
-                return;
-            }
-
-            // if current page handle is NOT in the list with included option
-            if (this.gtmConfig['page_load']['handles_list_inverted'] &&
-                !this.gtmConfig['page_load']['handles_list'].split('\r\n').includes(currentPageHandleCode)) {
-                return;
-            }
 
             if (currentPageName) {
                 push(eventName, {

@@ -79,6 +79,39 @@
         <plugin name="acid_gtm_configurable_product"
                 type="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable"
                 sortOrder="10"
+                disabled="false"
         />
+    </type>
+
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="acid_gtm_quote"
+                type="AcidUnit\GoogleTagManager\Plugin\Model\Quote"
+                sortOrder="10"
+                disabled="false"
+        />
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Quote">
+        <arguments>
+            <!-- session object proxy class -->
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Block\Base">
+        <arguments>
+            <argument name="dataProviders" xsi:type="array">
+                <item name="catalog_product_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\Provider\Proxy</item>
+                <item name="catalog_category_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
+                <item name="checkout_onepage_success" xsi:type="object">AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider">
+        <arguments>
+            <!-- session object proxy class -->
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
     </type>
 </config>

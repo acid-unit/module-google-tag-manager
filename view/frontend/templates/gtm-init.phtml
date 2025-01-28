@@ -7,23 +7,22 @@
 /** @noinspection PhpUndefinedMethodInspection */
 
 use AcidUnit\GoogleTagManager\Block\Base;
-use Magento\Framework\Escaper;
 use AcidUnit\GoogleTagManager\Model\ProductDataUpdateHandler;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /**
  * @var Base $block
- * @var Escaper $escaper
  * @var ProductDataUpdateHandler $productDataUpdateHandler
+ * @var Escaper $escaper
+ * @var SecureHtmlRenderer $secureRenderer
  */
 
 $productDataUpdateHandler = $block->getProductDataUpdateHandler(); // @phpstan-ignore-line
+$scriptString = "window.acidProductData = {$productDataUpdateHandler->getPlaceholder()};";
 ?>
 
-<div class="acid-gtm"></div>
-
-<script>
-    window.acidProductData = <?= /* @escapeNotVerified */ $productDataUpdateHandler->getPlaceholder() ?>;
-</script>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 
 <script type="text/x-magento-init">
 {

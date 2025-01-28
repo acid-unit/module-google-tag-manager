@@ -42,6 +42,8 @@ class GtmConfigProvider implements ConfigProviderInterface
                 'event_name' => $this->config->getGtmPageLoadEventName(),
                 'handles_list_inverted' => $this->config->isGtmPageLoadHandlesListInverted(),
                 'handles_list' => $this->config->getGtmPageLoadHandlesList(),
+                'pdp_load_event_name' => $this->config->getGtmPageLoadPdpEventName(),
+                'plp_load_event_name' => $this->config->getGtmPageLoadPlpEventName()
             ],
             'click' => [
                 'product' => [
@@ -69,10 +71,6 @@ class GtmConfigProvider implements ConfigProviderInterface
                 'cart_item_qty_changed' => [
                     'enabled' => $this->config->isGtmCheckoutFlowCartItemQtyChangedEnabled(),
                     'event_name' => $this->config->getGtmCheckoutFlowCartItemQtyChangedEventName()
-                ],
-                'cart_page_loaded' => [
-                    'enabled' => $this->config->isGtmCheckoutFlowCartPageLoadedEnabled(),
-                    'event_name' => $this->config->getGtmCheckoutFlowCartPageLoadedEventName()
                 ],
                 'checkout_steps_reached' => [
                     'enabled' => $this->config->isGtmCheckoutFlowCheckoutStepsReachedEnabled(),
@@ -115,12 +113,13 @@ class GtmConfigProvider implements ConfigProviderInterface
                     'event_name' => $this->config->getGtmExposureBlockEventName()
                 ]
             ],
-            'page_events' => [
+            'page_load_events' => [
                 'login_success' => $this->config->isGtmCustomerSessionLoginEnabled() ? GtmEvents::LOGIN_SUCCESSFUL : '',
                 'login_fail' => $this->config->isGtmCustomerSessionLoginFailedEnabled() ? GtmEvents::LOGIN_FAILED : '',
                 'logout_success' => $this->config->isGtmCustomerSessionLogoutEnabled() ? GtmEvents::LOGOUT_SUCCESSFUL : '',
                 'registration_success' => $this->config->isGtmCustomerSessionRegisterEnabled() ? GtmEvents::REGISTRATION_SUCCESSFUL : '',
-                'registration_fail' => $this->config->isGtmCustomerSessionRegisterFailedEnabled() ? GtmEvents::REGISTRATION_FAILED : ''
+                'registration_fail' => $this->config->isGtmCustomerSessionRegisterFailedEnabled() ? GtmEvents::REGISTRATION_FAILED : '',
+                'product_removed_from_cart' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_CART : ''
             ],
             'login_as_customer_enabled' => $this->loginAsCustomerConfig->isEnabled()
         ];

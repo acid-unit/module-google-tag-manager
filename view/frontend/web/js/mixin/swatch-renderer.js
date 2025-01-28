@@ -82,6 +82,10 @@ define([
                     productData = this.productData[productId];
                 }
 
+                if (!Object.keys(productData).length) {
+                    return;
+                }
+
                 // push GTM event on swatch click
                 push(eventName, {
                     'swatchLabel': swatchItem.label,

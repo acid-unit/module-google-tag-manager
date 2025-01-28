@@ -8,19 +8,18 @@
 
 use AcidUnit\GoogleTagManager\ViewModel\ConfigProvider;
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /**
- * @var Template $block
  * @var ConfigProvider $configProvider
+ * @var Template $block
+ * @var SecureHtmlRenderer $secureRenderer
  */
 
 $configProvider = $block->getConfigProvider(); // @phpstan-ignore-line
 $containerId = $configProvider ? $configProvider->getContainerId() : ''; // @phpstan-ignore-line
-?>
-
-<!-- Google Tag Manager -->
-<!--suppress EqualityComparisonWithCoercionJS, ES6ConvertVarToLetConst -->
-<script>(function (w, d, s, l, i) {
+$scriptString = <<<script
+(function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({
             'gtm.start':
@@ -32,5 +31,8 @@ $containerId = $configProvider ? $configProvider->getContainerId() : ''; // @php
         j.src =
             'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
         f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', '<?= /* @noEscape */ $containerId; ?>');</script>
-<!-- End Google Tag Manager -->
+    })(window, document, 'script', 'dataLayer', '$containerId');
+script;
+?>
+
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

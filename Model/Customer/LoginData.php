@@ -45,12 +45,10 @@ class LoginData
         $customerId = $this->session->getCustomerId();
 
         if ($customerId) {
-            $this->session->setGtmData([ // @phpstan-ignore-line
-                'gtm_event' => [
-                    'event' => GtmEvents::LOGIN_SUCCESSFUL,
-                    'data' => [
-                        'customerId' => $customerId
-                    ]
+            $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
+                'event' => GtmEvents::LOGIN_SUCCESSFUL,
+                'data' => [
+                    'customerId' => $customerId
                 ]
             ]);
 
@@ -63,12 +61,10 @@ class LoginData
 
         $message = $this->messageManager->getMessages()->getLastAddedMessage();
 
-        $this->session->setGtmData([ // @phpstan-ignore-line
-            'gtm_event' => [
-                'event' => GtmEvents::LOGIN_FAILED,
-                'data' => [
-                    'message' => $message ? $message->getText() : ''
-                ]
+        $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
+            'event' => GtmEvents::LOGIN_FAILED,
+            'data' => [
+                'message' => $message ? $message->getText() : ''
             ]
         ]);
     }

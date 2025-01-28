@@ -3,16 +3,20 @@
  * See LICENSE file for license details.
  */
 
+/* eslint-disable indent */
+
 define([
     './model/page-data',
-    './handler/page-events',
+    './model/page-handle',
+    './handler/page-data-events',
     './handler/page-load',
     './handler/click',
     './handler/exposure',
     './handler/checkout-flow'
 ], function (
-    pageData,
-    pageEvents,
+    pageDataModel,
+    handleModel,
+    pageDataEvents,
     pageLoad,
     click,
     exposure,
@@ -21,12 +25,27 @@ define([
     'use strict';
 
     return function (config) {
-        pageData.storePageData(config['pageData'] || {});
+        pageDataModel.storePageData(config['pageData'] || {});
+        pageDataEvents.trigger();
+        handleModel.setCurrentPageHandleCode(config['pageHandle'] || '');
 
-        pageEvents.registerEventListeners();
-        pageEvents.triggerPageDataEvents();
+        switch (handleModel.getCurrentPageHandleCode()) {
+            case handleModel.handles.productPage.code:
+                pageLoad.pdp();
+                break;
+            case handleModel.handles.categoryPage.code:
+                pageLoad.plp();
+                break;
+            case handleModel.handles.successOrderPage.code:
+                pageLoad.successOrder();
+                break;
+            case handleModel.handles.checkoutPage.code:
+                checkoutFlow.checkoutStepLoaded(1);
+                break;
+            default:
+                pageLoad.default();
+        }
 
-        pageLoad.init(config['pageHandle'] || '');
         click.init();
         exposure.init();
         checkoutFlow.init();

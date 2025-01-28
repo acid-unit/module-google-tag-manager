@@ -26,35 +26,55 @@ define([
         /**
          * Get product data from customer data 'cart' section
          *
-         * @param {string} productId
          * @param {string} itemId
-         * @return {object|false}
+         * @return {object}
          */
-        getProductData: function (productId, itemId) {
+        getProductData: function (itemId) {
             let result = {};
 
+            if (!this.cartCustomerData().items) {
+                return result;
+            }
+
             this.cartCustomerData().items.forEach(cartItem => {
-                if (cartItem.product_id === productId &&
-                    cartItem.item_id === itemId
-                ) {
+                if (cartItem.item_id === itemId) {
                     result.id = cartItem.product_id;
                     result.name = cartItem.product_name;
                     result.price = cartItem.product_price_value;
                     result.sku = cartItem.product_sku;
                     result.qty = cartItem.product_sku;
-                    result['options'] = {};
 
-                    cartItem.options.forEach(item => {
-                        result['options'][item['code']] = item['value'];
-                    });
+                    if (cartItem.options && cartItem.options.length) {
+                        result['options'] = {};
 
-                    if (!Object.keys(result['options']).length) {
-                        delete result['options'];
+                        cartItem.options.forEach(item => {
+                            result['options'][item['code']] = item['value'];
+                        });
                     }
                 }
             });
 
-            return JSON.parse(JSON.stringify(result));
+            return structuredClone(result);
+        },
+
+        /**
+         * Get product options from customer data 'cart' section
+         *
+         * @param {string} itemId
+         * @return {object}
+         */
+        getProductOptions: function (itemId) {
+            let result = {};
+
+            this.cartCustomerData().items.forEach(cartItem => {
+                if (cartItem.item_id === itemId && cartItem.options && cartItem.options.length) {
+                    cartItem.options.forEach(item => {
+                        result[item['code']] = item['value'];
+                    });
+                }
+            });
+
+            return structuredClone(result);
         },
 
         /**

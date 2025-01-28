@@ -10,9 +10,13 @@ namespace AcidUnit\GoogleTagManager\Model;
 
 class GtmEvents
 {
+    // Customer Events
     public const LOGIN_SUCCESSFUL = 'loginSuccessful';
     public const LOGIN_FAILED = 'loginFailed';
     public const LOGOUT_SUCCESSFUL = 'logoutSuccessful';
     public const REGISTRATION_SUCCESSFUL = 'registrationSuccessful';
     public const REGISTRATION_FAILED = 'registrationFailed';
+
+    // Checkout Events
+    public const PRODUCT_REMOVED_FROM_CART = 'productRemovedFromCart';
 }

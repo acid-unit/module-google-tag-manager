@@ -10,6 +10,7 @@
 
 namespace AcidUnit\GoogleTagManager\Model\System\Config\Backend;
 
+use AcidUnit\GoogleTagManager\Helper\AdminExposureBlocks;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Value;
@@ -18,7 +19,6 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
-use AcidUnit\GoogleTagManager\Helper\AdminExposureBlocks;
 
 /**
  * Backend for serialized array data

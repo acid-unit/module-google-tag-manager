@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Product;
 
 use AcidUnit\GoogleTagManager\Model\ProductDataStorage;
-use Magento\Catalog\Model\Product;
 use Magento\Catalog\Block\Product\View as ViewTarget;
+use Magento\Catalog\Model\Product;
 
 class View
 {

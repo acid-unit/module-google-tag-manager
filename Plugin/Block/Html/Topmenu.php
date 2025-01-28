@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Html;
 
 use AcidUnit\GoogleTagManager\Block\Base;
-use Magento\Theme\Block\Html\Topmenu as TopmenuTarget;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Theme\Block\Html\Topmenu as TopmenuTarget;
 
 class Topmenu
 {

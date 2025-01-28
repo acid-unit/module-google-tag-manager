@@ -31,6 +31,72 @@ define([
          */
         swatchData: [],
 
+        checkoutStepsModel: {
+            shipping: {
+                code: 'shipping',
+                number: 1
+            },
+            payment: {
+                code: 'payment',
+                number: 2
+            }
+        },
+
+        quoteItems: window.checkoutConfig && window.checkoutConfig.hasOwnProperty('quoteItemData')
+            ? window.checkoutConfig['quoteItemData']
+            : [],
+
+        /**
+         * @param {number} stepNumber
+         */
+        checkoutStepLoaded: function (stepNumber) {
+            if (!this.gtmConfig['checkout_flow']['checkout_steps_reached']['enabled']) {
+                return;
+            }
+
+            const data = {
+                    'ecommerce': {
+                        'checkout': {
+                            'actionField': {
+                                'step': stepNumber
+                            }
+                        }
+                    }
+                },
+                eventName = this.gtmConfig['checkout_flow']['checkout_steps_reached']['event_name'],
+                products = [];
+
+            if (stepNumber === this.checkoutStepsModel.shipping.number) {
+                this.quoteItems.forEach(item => {
+                    const productId = item['product_id'],
+                        productData = productDataModel.getProductDataById(productId),
+                        pushData = {
+                            'id': item.item_id,
+                            'name': item.name,
+                            'price': parseFloat(item.price),
+                            'qty': item.qty
+                        };
+
+                    pushData.options = cartItemDataModel.getProductOptions(item.item_id);
+
+                    if (!Object.keys(pushData.options).length) {
+                        delete pushData['options'];
+                    }
+
+                    Object.assign(pushData, productData);
+                    products.push(pushData);
+                });
+
+                if (!products.length) {
+                    return;
+                }
+
+                data.ecommerce['products'] = products;
+            }
+
+            push(eventName, data);
+        },
+
         /**
          * Get swatch data using the 'window.acidSwatchData' array
          *
@@ -124,18 +190,20 @@ define([
         /**
          * @param {Object} event
          * @param {Object} data
+         * @param {boolean} getDataFromCartModel
          */
-        processRemoveFromCart: function (event, data) {
-            const productId = data['productIds'][0],
-                itemId = data['productData']['item_id'],
-                productData = cartItemDataModel.getProductData(productId, itemId),
-                eventName = this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'];
+        processRemoveFromCart: function (event, data, getDataFromCartModel = true) {
+            const eventName = this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'];
+            let productData;
 
-            if (!productData) {
-                return;
+            if (getDataFromCartModel) {
+                const itemId = data['productData']['item_id'];
+
+                productData = cartItemDataModel.getProductData(itemId);
+                productData.qty = data.productData.qty.toString();
+            } else {
+                productData = data;
             }
-
-            productData.qty = data.productData.qty.toString();
 
             push(eventName, {
                 'ecommerce': {
@@ -173,11 +241,10 @@ define([
 
             if (data.productData) {
                 // updating qty from minicart
-                const productId = data.productData.product_id,
-                    itemId = data.productData.item_id,
+                const itemId = data.productData.item_id,
                     cartItem = cartItemDataModel.getOldQtyData().filter(item => item.item_id === itemId)[0];
 
-                productData = cartItemDataModel.getProductData(productId, itemId);
+                productData = cartItemDataModel.getProductData(itemId);
                 productData.qty = data.productData.qty.toString();
                 productData.old_qty = cartItem.qty.toString();
 
@@ -193,7 +260,7 @@ define([
                         newQty = unserialized[key];
 
                     if (oldQty !== newQty) {
-                        productData = cartItemDataModel.getProductData(cartItem.product_id, cartItem.item_id);
+                        productData = cartItemDataModel.getProductData(cartItem.item_id);
                         productData.qty = newQty;
                         productData.old_qty = oldQty;
 

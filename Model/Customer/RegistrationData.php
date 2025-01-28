@@ -45,12 +45,10 @@ class RegistrationData
         $customerId = $this->session->getCustomerId();
 
         if ($customerId) {
-            $this->session->setGtmData([ // @phpstan-ignore-line
-                'gtm_event' => [
-                    'event' => GtmEvents::REGISTRATION_SUCCESSFUL,
-                    'data' => [
-                        'customerId' => $customerId
-                    ]
+            $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
+                'event' => GtmEvents::REGISTRATION_SUCCESSFUL,
+                'data' => [
+                    'customerId' => $customerId
                 ]
             ]);
 
@@ -72,12 +70,10 @@ class RegistrationData
             }
         }
 
-        $this->session->setGtmData([ // @phpstan-ignore-line
-            'gtm_event' => [
-                'event' => GtmEvents::REGISTRATION_FAILED,
-                'data' => [
-                    'message' => $errorMessage
-                ]
+        $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
+            'event' => GtmEvents::REGISTRATION_FAILED,
+            'data' => [
+                'message' => $errorMessage
             ]
         ]);
     }

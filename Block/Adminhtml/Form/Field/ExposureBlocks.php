@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field;
 
+use AcidUnit\Admin\Block\Adminhtml\Form\Field\Yesno;
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
-use AcidUnit\Admin\Block\Adminhtml\Form\Field\Yesno;
 
 class ExposureBlocks extends AbstractFieldArray
 {

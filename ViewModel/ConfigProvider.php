@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\ViewModel;
 
-use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
 use AcidUnit\Admin\Model\ConfigProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Config;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 class ConfigProvider implements ArgumentInterface
 {

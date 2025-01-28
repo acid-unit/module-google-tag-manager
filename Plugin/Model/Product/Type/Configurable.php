@@ -22,7 +22,7 @@ class Configurable extends ConfigurableTarget
      * After Plugin to pass attribute code to product options
      *
      * @param ConfigurableTarget $subject
-     * @param array $result
+     * @param array<mixed> $result
      * @param Product $product
      * @return array<mixed>
      * @noinspection PhpUnusedParameterInspection

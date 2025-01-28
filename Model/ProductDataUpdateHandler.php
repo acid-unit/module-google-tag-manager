@@ -11,9 +11,9 @@ namespace AcidUnit\GoogleTagManager\Model;
 use AcidUnit\PageContentUpdate\Api\PageContentUpdateInterface;
 use AcidUnit\PageContentUpdate\Model\PageContentUpdateProcessor;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\Math\Random;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 class ProductDataUpdateHandler implements PageContentUpdateInterface, ArgumentInterface
 {

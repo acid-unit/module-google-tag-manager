@@ -39,9 +39,6 @@
                     <cart_item_qty_changed>
                         <active>0</active>
                     </cart_item_qty_changed>
-                    <cart_page_loaded>
-                        <active>0</active>
-                    </cart_page_loaded>
                     <checkout_steps_reached>
                         <active>0</active>
                     </checkout_steps_reached>

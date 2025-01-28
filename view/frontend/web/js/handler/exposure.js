@@ -13,7 +13,7 @@ define([
     $,
     push,
     productDataModel,
-    pageHandleModel
+    handleModel
 ) {
     'use strict';
 
@@ -38,7 +38,7 @@ define([
          * @param {HTMLElement} element
          * @returns {boolean}
          */
-        checkVisibility: function (element) {
+        isElementInViewport: function (element) {
             const rect = element.getBoundingClientRect(),
                 viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight),
                 viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
@@ -63,17 +63,19 @@ define([
             products.forEach(product => {
                 productData = productDataModel.getData(product);
 
-                if (productData) {
-                    pushData = {...productData};
-                    pushData['page'] = pageHandleModel.getCurrentPageName();
-                    pushData['list'] = productDataModel.getProductList(product);
-
-                    if (!pushData['list']) {
-                        delete pushData['list'];
-                    }
-
-                    resultArray.push(pushData);
+                if (!Object.keys(productData).length) {
+                    return;
                 }
+
+                pushData = {...productData};
+                pushData['page'] = handleModel.getCurrentPageName();
+                pushData['list'] = productDataModel.getProductList(product);
+
+                if (!pushData['list']) {
+                    delete pushData['list'];
+                }
+
+                resultArray.push(pushData);
             });
 
             return resultArray;
@@ -92,7 +94,7 @@ define([
 
             push(eventName, {
                 'ecommerce': {
-                    'impressions': productData
+                    'exposure': productData
                 }
             });
         },
@@ -102,7 +104,7 @@ define([
                 onView: element => {
                     clearTimeout(this.productCombineExposureTimeout);
 
-                    if (this.checkVisibility(element) && element.dataset.exposed !== '1') {
+                    if (this.isElementInViewport(element) && element.dataset.exposed !== '1') {
                         element.dataset.exposed = '1';
                         this.productExposures.push(element);
                     }
@@ -123,7 +125,7 @@ define([
                 const elements = document.querySelectorAll(item);
 
                 elements.forEach(element => {
-                    if (this.checkVisibility(element) && element.dataset.exposed !== '1') {
+                    if (this.isElementInViewport(element) && element.dataset.exposed !== '1') {
                         element.dataset.exposed = '1';
                         this.productExposures.push(element);
                     }
@@ -147,7 +149,7 @@ define([
             blocks.forEach(block => {
                 resultArray.push({
                     'name': block.dataset.name,
-                    'page': pageHandleModel.getCurrentPageName()
+                    'page': handleModel.getCurrentPageName()
                 });
             });
 
@@ -184,7 +186,7 @@ define([
                     onView: element => {
                         clearTimeout(this.blockCombineExposureTimeout);
 
-                        if (this.checkVisibility(element) && element.dataset.exposed !== '1') {
+                        if (this.isElementInViewport(element) && element.dataset.exposed !== '1') {
                             element.dataset.exposed = '1';
                             this.blockExposures.push(element);
                         }
@@ -214,7 +216,7 @@ define([
                 elements.forEach(element => {
                     element.dataset.name = blocksJson[key]['name'];
 
-                    if (this.checkVisibility(element) && element.dataset.exposed !== '1') {
+                    if (this.isElementInViewport(element) && element.dataset.exposed !== '1') {
                         element.dataset.exposed = '1';
                         this.blockExposures.push(element);
                     }

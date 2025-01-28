@@ -34,6 +34,10 @@ class Config extends DataObject implements ArgumentInterface
         = 'google/google_tag_manager/page_load/handles_list_behavior';
     public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST
         = 'google/google_tag_manager/page_load/handles_list';
+    public const XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME
+        = 'google/google_tag_manager/page_load/pdp_load_event_name';
+    public const XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
+        = 'google/google_tag_manager/page_load/plp_load_event_name';
 
     // Click
     public const XML_PATH_GTM_CLICK_PRODUCT_ENABLED
@@ -62,10 +66,6 @@ class Config extends DataObject implements ArgumentInterface
         = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/active';
     public const XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME
         = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/event_name';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_ENABLED
-        = 'google/google_tag_manager/checkout_flow/cart_page_loaded/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/cart_page_loaded/event_name';
     public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED
         = 'google/google_tag_manager/checkout_flow/checkout_steps_reached/active';
     public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME
@@ -383,32 +383,6 @@ class Config extends DataObject implements ArgumentInterface
     }
 
     /**
-     * Get GTM Checkout Flow Cart Page Loaded Event Name
-     *
-     * @return string
-     */
-    public function getGtmCheckoutFlowCartPageLoadedEventName(): string
-    {
-        return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_EVENT_NAME,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    /**
-     * Is GTM Checkout Flow Cart Page Loaded Enabled
-     *
-     * @return bool
-     */
-    public function isGtmCheckoutFlowCartPageLoadedEnabled(): bool
-    {
-        return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_PAGE_LOADED_ENABLED,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    /**
      * Get GTM Checkout Flow Cart Item Qty Changed Event Name
      *
      * @return string
@@ -560,6 +534,32 @@ class Config extends DataObject implements ArgumentInterface
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_GTM_CLICK_PRODUCT_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Product List Load Event Name
+     *
+     * @return string
+     */
+    public function getGtmPageLoadPlpEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Product Page Load Event Name
+     *
+     * @return string
+     */
+    public function getGtmPageLoadPdpEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }

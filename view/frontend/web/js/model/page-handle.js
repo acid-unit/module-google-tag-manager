@@ -43,6 +43,10 @@ define([], function () {
                 code: 'cms_page_view',
                 name: 'CMS Page'
             },
+            successOrderPage: {
+                code: 'checkout_onepage_success',
+                name: 'Success Order Page'
+            },
             contactPage: {
                 code: 'contact_index_index',
                 name: 'Contact Us Page'

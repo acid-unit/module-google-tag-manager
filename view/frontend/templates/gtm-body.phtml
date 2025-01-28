@@ -8,19 +8,20 @@
 
 use AcidUnit\GoogleTagManager\ViewModel\ConfigProvider;
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /**
- * @var Template $block
  * @var ConfigProvider $configProvider
+ * @var Template $block
+ * @var SecureHtmlRenderer $secureRenderer
  */
 
 $configProvider = $block->getConfigProvider(); // @phpstan-ignore-line
 $containerId = $configProvider ? $configProvider->getContainerId() : ''; // @phpstan-ignore-line
+$noscriptString = <<<noscript
+<iframe src="https://www.googletagmanager.com/ns.html?id=$containerId"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+noscript;
 ?>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=<?= /* @noEscape */ $containerId; ?>"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+<?= /* @noEscape */ $secureRenderer->renderTag('noscript', [], $noscriptString, false) ?>

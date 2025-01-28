@@ -9,15 +9,20 @@
 namespace AcidUnit\GoogleTagManager\Block;
 
 use Magento\Catalog\Model\Product;
+use Magento\Customer\Model\SessionFactory;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Data\Tree\Node;
-use Magento\Customer\Model\SessionFactory;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Magento\Framework\Serialize\Serializer\Json;
 
 class Base extends Template
 {
+    /**
+     * @var array<mixed>
+     */
+    private array $dataProviders;
+
     /**
      * @var string
      */
@@ -32,17 +37,20 @@ class Base extends Template
      * @param Context $context
      * @param Json $serializer
      * @param SessionFactory $sessionFactory
+     * @param array<mixed> $dataProviders
      * @param array<mixed> $data
      */
     public function __construct(
         Context                         $context,
         private readonly Json           $serializer,
         private readonly SessionFactory $sessionFactory,
+        array                           $dataProviders = [],
         array                           $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->request = $context->getRequest();
+        $this->dataProviders = $dataProviders;
     }
 
     /**
@@ -100,27 +108,59 @@ class Base extends Template
     public function getSerializedPageData(): string
     {
         $data = array_merge(
-            $this->getGtmData()
+            $this->getCustomerType(),
+            $this->getDisposableSessionData(),
+            $this->getDataProviderData(),
         );
 
         return $this->serializer->serialize($data);
     }
 
     /**
-     * Get GTM session data
+     * Get data from data provider set in di.xml
+     *
+     * @return array<mixed>
+     */
+    private function getDataProviderData(): array
+    {
+        $handle = $this->getPageHandle();
+        $dataProvider = $this->dataProviders[$handle] ?? null;
+
+        if (!$dataProvider) {
+            return [];
+        }
+
+        return ['provider' => $dataProvider->getData()];
+    }
+
+    /**
+     * Get disposable GTM event data from session
      *
      * @return array<mixed>
      * @noinspection PhpUndefinedMethodInspection
      */
-    private function getGtmData(): array
+    private function getDisposableSessionData(): array
     {
         $customerSession = $this->sessionFactory->create();
-        $gtmData = $customerSession->getGtmData() ?: []; // @phpstan-ignore-line
-        $customerSession->unsGtmData(); // @phpstan-ignore-line
 
+        $data = $customerSession->getDisposableGtmEventData() ?: []; // @phpstan-ignore-line
+        $customerSession->unsDisposableGtmEventData(); // @phpstan-ignore-line
+
+        return count($data) ? ['disposable' => $data] : [];
+    }
+
+    /**
+     * Get GTM customer type from session
+     *
+     * @return array<mixed>
+     */
+    private function getCustomerType(): array
+    {
+        $data = [];
+        $customerSession = $this->sessionFactory->create();
         $userType = $customerSession->isLoggedIn() ? 'registered' : 'new';
-        $gtmData['userType'] = $userType;
+        $data['userType'] = $userType;
 
-        return $gtmData;
+        return $data;
     }
 }
