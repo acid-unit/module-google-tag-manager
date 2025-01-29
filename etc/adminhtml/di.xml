@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Page Load / Custom Pages / Custom Pages Table -->
+    <!-- Backend Model Helper -->
+    <virtualType name="AcidUnit\GoogleTagManager\Helper\CustomPagesLoad"
+                 type="AcidUnit\Admin\Helper\AdminTableField">
+        <arguments>
+            <argument name="tableFields" xsi:type="array">
+                <item name="enabled" xsi:type="string">enabled</item>
+                <item name="url" xsi:type="string">url</item>
+                <item name="event" xsi:type="string">event</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Backend Model defined in system.xml -->
+    <virtualType name="AcidUnit\GoogleTagManager\Model\System\Config\Backend\CustomPagesLoad"
+                 type="AcidUnit\Admin\Model\System\Config\Backend\AdminTableField">
+        <arguments>
+            <argument name="helper" xsi:type="object">AcidUnit\GoogleTagManager\Helper\CustomPagesLoad</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Frontend Model defined in system.xml -->
+    <virtualType name="AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\CustomPagesLoad"
+                 type="AcidUnit\Admin\Block\Adminhtml\Form\Field\AdminTableField">
+        <arguments>
+            <argument name="tableFields" xsi:type="array">
+                <item name="enabled" xsi:type="array">
+                    <item name="label" xsi:type="string">Enabled</item>
+                    <item name="renderer" xsi:type="object">AcidUnit\Admin\Block\Adminhtml\Form\Field\Yesno</item>
+                </item>
+                <item name="url" xsi:type="array">
+                    <item name="label" xsi:type="string">Page URL</item>
+                    <item name="class" xsi:type="string">required-entry admin__control-text</item>
+                </item>
+                <item name="event" xsi:type="array">
+                    <item name="label" xsi:type="string">Event Name</item>
+                    <item name="class" xsi:type="string">required-entry admin__control-text</item>
+                </item>
+            </argument>
+            <argument name="buttonLabel" xsi:type="string">Add Custom Page</argument>
+        </arguments>
+    </virtualType>
+    <!-- End of Custom Pages Table -->
+
+    <!-- Exposure / Block / Blocks Table -->
+    <!-- Backend Model Helper -->
+    <virtualType name="AcidUnit\GoogleTagManager\Helper\ExposureBlocks"
+                 type="AcidUnit\Admin\Helper\AdminTableField">
+        <arguments>
+            <argument name="tableFields" xsi:type="array">
+                <item name="enabled" xsi:type="string">enabled</item>
+                <item name="url" xsi:type="string">selector</item>
+                <item name="event" xsi:type="string">name</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Backend Model defined in system.xml -->
+    <virtualType name="AcidUnit\GoogleTagManager\Model\System\Config\Backend\ExposureBlocks"
+                 type="AcidUnit\Admin\Model\System\Config\Backend\AdminTableField">
+        <arguments>
+            <argument name="helper" xsi:type="object">AcidUnit\GoogleTagManager\Helper\ExposureBlocks</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Frontend Model defined in system.xml -->
+    <virtualType name="AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\ExposureBlocks"
+                 type="AcidUnit\Admin\Block\Adminhtml\Form\Field\AdminTableField">
+        <arguments>
+            <argument name="tableFields" xsi:type="array">
+                <item name="enabled" xsi:type="array">
+                    <item name="label" xsi:type="string">Enabled</item>
+                    <item name="renderer" xsi:type="object">AcidUnit\Admin\Block\Adminhtml\Form\Field\Yesno</item>
+                </item>
+                <item name="selector" xsi:type="array">
+                    <item name="label" xsi:type="string">Block Selector</item>
+                    <item name="class" xsi:type="string">required-entry admin__control-text</item>
+                </item>
+                <item name="name" xsi:type="array">
+                    <item name="label" xsi:type="string">Block Name</item>
+                    <item name="class" xsi:type="string">required-entry admin__control-text</item>
+                </item>
+            </argument>
+            <argument name="buttonLabel" xsi:type="string">Add Block Exposure</argument>
+        </arguments>
+    </virtualType>
+    <!-- End of Blocks Table -->
+</config>
