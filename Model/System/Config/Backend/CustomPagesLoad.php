@@ -15,6 +15,7 @@ use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Config\Value;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
@@ -60,6 +61,7 @@ class CustomPagesLoad extends Value
      *
      * @return CustomPagesLoad|$this
      * @noinspection PhpParamsInspection
+     * @throws LocalizedException
      */
     protected function _afterLoad(): CustomPagesLoad|static
     {
