@@ -25,6 +25,7 @@ define([
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
         productData: window.acidProductData ? window.acidProductData : {},
+        generalConfig: window.acidGeneralConfig ? window.acidGeneralConfig : {},
         cartCustomerData: customerData.get('cart'),
 
         /**
@@ -132,12 +133,32 @@ define([
 
         /**
          * @param {Object} data
+         * @param {Boolean} isGrouped
+         * @param {string} groupProductId
          * @returns {string}
          */
-        getQtyFromDom: function (data) {
-            const qtyElement = data.form.find('#qty');
+        getQtyFromDom: function (data, isGrouped = false, groupProductId) {
+            let qtyElement;
+
+            if (isGrouped) {
+                qtyElement = data.form.find('input[name="super_group[' + groupProductId + ']"]');
+            } else {
+                qtyElement = data.form.find('#qty');
+            }
 
             return qtyElement.length ? qtyElement.val() : '1';
+        },
+
+        /**
+         * @param {Object} data
+         * @return {number}
+         */
+        getBundlePriceFromDom: function (data) {
+            const price = data.form.find('.bundle-info .price')[0].innerText.replace(
+                this.generalConfig['currency_symbol'], ''
+            );
+
+            return parseFloat(price);
         },
 
         /**
@@ -145,40 +166,69 @@ define([
          * @param {Object} data
          */
         processAddToCart: async function (event, data) {
-            let productId = '';
+            const productsPushData = [],
+                isGrouped = data['productIds'].length > 1;
+            let productId = '',
+                qty;
 
-            Object.entries(this.productData).forEach(product => {
-                if (product[1].sku === data.sku) {
-                    productId = product[0];
+            data['productIds'].forEach(id => {
+                Object.entries(this.productData).forEach(product => {
+                    if (product[1].id === id) {
+                        productId = product[0];
+                    }
+                });
+
+                const productData = productDataModel.getProductDataById(productId);
+
+                if (productData['min_price'] === 0) {
+                    delete productData['min_price'];
                 }
+
+                if (productData['max_price'] === 0) {
+                    delete productData['max_price'];
+                }
+
+                if (!productData || !data.form || productData['type'] === 'grouped') {
+                    return;
+                }
+
+                if (productData['type'] === 'bundle') {
+                    productData['price'] = this.getBundlePriceFromDom(data);
+                }
+
+                qty = this.getQtyFromDom(data, isGrouped, id);
+
+                if (!parseInt(qty, 10)) {
+                    return;
+                }
+
+                productData['qty'] = qty;
+
+                if (this.productData[productId].type === 'configurable') {
+                    if (!this.swatchData.length) {
+                        this.swatchData = window.acidSwatchData ? window.acidSwatchData : [];
+                    }
+
+                    if (this.swatchData.length) {
+                        productData['options'] = {};
+
+                        this.swatchData.forEach(item => {
+                            productData['options'][item['code']] = this.getSwatchData(data, item['code'], productId);
+                        });
+                    }
+                }
+
+                productsPushData.push(productData);
             });
 
-            const productData = productDataModel.getProductDataById(productId);
-
-            if (!productData || !data.form) {
+            if (!productsPushData.length) {
                 return;
-            }
-
-            productData['qty'] = this.getQtyFromDom(data);
-
-            if (this.productData[productId].type === 'configurable') {
-                if (!this.swatchData.length) {
-                    this.swatchData = window.acidSwatchData ? window.acidSwatchData : [];
-                }
-
-                if (this.swatchData.length) {
-                    productData['options'] = {};
-
-                    this.swatchData.forEach(item => {
-                        productData['options'][item['code']] = this.getSwatchData(data, item['code'], productId);
-                    });
-                }
             }
 
             push(this.gtmConfig['checkout_flow']['product_added_to_cart']['event_name'], {
                 'ecommerce': {
                     'add': {
-                        'products': [productData]
+                        'products': productsPushData
                     }
                 }
             });

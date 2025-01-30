@@ -18,13 +18,14 @@ use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Eav\Api\Data\AttributeOptionInterfaceFactory;
 use Magento\Eav\Model\Entity\Attribute\Option;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Sales\Model\Order as OrderModel;
 use Magento\Sales\Model\Order\Item as OrderItem;
 
 /**
  * @SuppressWarnings(PHPMD.CookieAndSessionMisuse)
  */
-class Provider implements DataProviderInterface
+class Provider implements DataProviderInterface, ArgumentInterface
 {
     /**
      * @var OrderModel|null
@@ -37,6 +38,7 @@ class Provider implements DataProviderInterface
      * @param AttributeOptionInterfaceFactory $optionFactory
      * @param EavModel $eavModel
      * @param Config $config
+     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly CheckoutSession                 $checkoutSession,

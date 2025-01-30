@@ -22,9 +22,10 @@ use Magento\Catalog\Model\Layer\Resolver as LayerResolver;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Registry;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Psr\Log\LoggerInterface;
 
-class Provider extends ProductProvider implements DataProviderInterface
+class Provider extends ProductProvider implements DataProviderInterface, ArgumentInterface
 {
     /**
      * @var Layer|null
@@ -44,6 +45,7 @@ class Provider extends ProductProvider implements DataProviderInterface
      * @param Configurable $configurableType
      * @param Registry $registry
      * @param LoggerInterface $logger
+     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly LayerResolver $layerResolver,

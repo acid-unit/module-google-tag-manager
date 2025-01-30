@@ -77,17 +77,27 @@ class ProductDataProvider
      * @param Product $product
      * @param array<mixed> $removeKeysList
      * @return array<mixed>
+     * @noinspection PhpUndefinedMethodInspection
+     * @noinspection PhpCastIsUnnecessaryInspection
      */
     public function getProductData(Product $product, array $removeKeysList = []): array
     {
-        $result = [
-            'id' => $product->getId(),
-            'name' => trim($product->getName()),
-            'sku' => $product->getSku(),
-            'price' => $product->getFinalPrice(),
-            'category' => $this->getCategoryName($product),
-            'type' => $product->getTypeId()
-        ];
+        $result = [];
+        $productType = $product->getTypeId();
+
+        $result['id'] = $product->getId();
+        $result['name'] = trim($product->getName());
+        $result['category'] = $this->getCategoryName($product);
+        $result['type'] = $productType;
+
+        if ($productType === 'grouped') {
+            $result['min_price'] = (float)$product->getMinimalPrice();
+        } elseif ($productType === 'bundle') {
+            $result['min_price'] = (float)$product->getMinimalPrice();
+            $result['max_price'] = (float)$product->getMaxPrice(); // @phpstan-ignore-line
+        } else {
+            $result['price'] = $product->getFinalPrice();
+        }
 
         foreach ($removeKeysList as $key) {
             if (array_key_exists($key, $result)) {

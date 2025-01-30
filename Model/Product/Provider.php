@@ -19,9 +19,10 @@ use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Psr\Log\LoggerInterface;
 
-class Provider implements DataProviderInterface
+class Provider implements DataProviderInterface, ArgumentInterface
 {
     /**
      * @var Product|null
@@ -35,6 +36,7 @@ class Provider implements DataProviderInterface
      * @param Configurable $configurableType
      * @param Registry $registry
      * @param LoggerInterface $logger
+     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly Config                     $config,

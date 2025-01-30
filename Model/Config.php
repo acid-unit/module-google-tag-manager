@@ -13,13 +13,12 @@ namespace AcidUnit\GoogleTagManager\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  */
-class Config extends DataObject implements ArgumentInterface
+class Config extends DataObject
 {
     // General
     public const XML_PATH_GTM_ENABLED
