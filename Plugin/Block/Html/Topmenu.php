@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Html;
 
 use AcidUnit\GoogleTagManager\Block\Base;
+use AcidUnit\GoogleTagManager\Model\Config;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Theme\Block\Html\Topmenu as TopmenuTarget;
 
@@ -19,10 +20,12 @@ class Topmenu
     /**
      * @param Base $base
      * @param Json $serializer
+     * @param Config $config
      */
     public function __construct(
-        private readonly Base $base,
-        private readonly Json $serializer
+        private readonly Base   $base,
+        private readonly Json   $serializer,
+        private readonly Config $config
     ) {
     }
 
@@ -43,11 +46,21 @@ class Topmenu
      */
     public function afterGetHtml(
         TopmenuTarget $subject,
-        string $result,
-        string $outermostClass = '',
-        string $childrenWrapClass = '',
-        int $limit = 0
+        string        $result,
+        string        $outermostClass = '',
+        string        $childrenWrapClass = '',
+        int           $limit = 0
     ): string {
+        if (!$this->config->isGtmClickMenuItemEnabled() &&
+            !$this->config->isGtmExposureMenuCategoryEnabled()
+        ) {
+            /**
+             * If click and hover menu item events are disabled,
+             * we don't need to render 'acidTopMenuData' property
+             */
+            return $result;
+        }
+
         $menu = $subject->getMenu();
         $menuData = $this->base->getTopMenuData($menu);
         $menuSerialized = (string)$this->serializer->serialize($menuData);

@@ -96,13 +96,42 @@ define([
             });
         },
 
+        /**
+         * @return {boolean}
+         */
+        customPage: function () {
+            const customPages = JSON.parse(this.gtmConfig['page_load']['custom_pages'] || 'null');
+            let isCustomPage = false;
+
+            Object.keys(customPages).forEach(key => {
+                if (customPages[key]['enabled'] !== '1') {
+                    return;
+                }
+
+                if (window.location.href.includes(customPages[key]['url'])) {
+                    isCustomPage = true;
+
+                    push(customPages[key]['event'], {
+                        'page_type': 'custom'
+                    });
+                }
+            });
+
+            return isCustomPage;
+        },
+
         default: function () {
             if (!this.isActive()) {
                 return;
             }
 
+            if (this.customPage()) {
+                return;
+            }
+
             const currentPageName = handleModel.getCurrentPageName(),
-                eventName = this.gtmConfig['page_load']['event_name'];
+                eventName = this.gtmConfig['page_load']['event_name'],
+                h1 = document.querySelector('h1');
 
             if (currentPageName) {
                 const pageData = pageDataModel.getPageData(),
@@ -122,6 +151,14 @@ define([
                  */
                 push(eventName, {
                     'page_type': handleModel.handles.customerAccountPage.name
+                });
+            } else if (h1) {
+                /**
+                 * If the page is not specified in handles list and is not customer account page,
+                 * we just push <h1> inner text as a page type
+                 */
+                push(eventName, {
+                    'page_type': h1.innerText
                 });
             }
         }

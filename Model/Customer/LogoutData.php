@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Customer;
 
 use AcidUnit\GoogleTagManager\Model\Config;
-use AcidUnit\GoogleTagManager\Model\GtmEvents;
+use AcidUnit\GoogleTagManager\Model\DisposableEvents;
 use Magento\Customer\Model\Session;
 
 /**
@@ -42,7 +42,7 @@ class LogoutData
         }
 
         $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-            'event' => GtmEvents::LOGOUT_SUCCESSFUL
+            'event' => DisposableEvents::LOGOUT_SUCCESSFUL
         ]);
     }
 }

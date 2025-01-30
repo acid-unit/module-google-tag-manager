@@ -78,7 +78,7 @@ define([
          * Trigger disposable events if exist
          */
         triggerEvents: function () {
-            this.activePageLoadEvents = Object.values(this.gtmConfig['page_load_events']);
+            this.disposableEvents = Object.values(this.gtmConfig['disposable']);
             this.pageData = pageDataModel.getPageData();
 
             if (this.pageData.hasOwnProperty('disposable')) {
@@ -87,7 +87,7 @@ define([
                         ? this.pageData['disposable']['data']
                         : {};
 
-                if (!this.activePageLoadEvents.length || !this.activePageLoadEvents.includes(eventName)) {
+                if (!this.disposableEvents.length || !this.disposableEvents.includes(eventName)) {
                     return;
                 }
 

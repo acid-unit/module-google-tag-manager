@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success;
 
 use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
+use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Catalog\Model\ResourceModel\Eav\Attribute as EavModel;
 use Magento\Checkout\Model\Session as CheckoutSession;
@@ -35,12 +36,14 @@ class Provider implements DataProviderInterface
      * @param ProductDataProvider $productDataProvider
      * @param AttributeOptionInterfaceFactory $optionFactory
      * @param EavModel $eavModel
+     * @param Config $config
      */
     public function __construct(
         private readonly CheckoutSession                 $checkoutSession,
         private readonly ProductDataProvider             $productDataProvider,
         private readonly AttributeOptionInterfaceFactory $optionFactory,
-        private readonly EavModel                        $eavModel
+        private readonly EavModel                        $eavModel,
+        private readonly Config                          $config
     ) {
     }
 
@@ -51,6 +54,10 @@ class Provider implements DataProviderInterface
      */
     public function getData(): array
     {
+        if (!$this->config->isGtmCheckoutFlowPurchaseDoneEnabled()) {
+            return [];
+        }
+
         $order = $this->getOrder();
 
         if (!$order->getId()) {

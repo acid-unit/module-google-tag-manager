@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Customer;
 
 use AcidUnit\GoogleTagManager\Model\Config;
-use AcidUnit\GoogleTagManager\Model\GtmEvents;
+use AcidUnit\GoogleTagManager\Model\DisposableEvents;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Message\ManagerInterface;
 
@@ -48,7 +48,7 @@ class RegistrationData
 
         if ($customerId) {
             $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-                'event' => GtmEvents::REGISTRATION_SUCCESSFUL,
+                'event' => DisposableEvents::REGISTRATION_SUCCESSFUL,
                 'data' => [
                     'customerId' => $customerId
                 ]
@@ -74,7 +74,7 @@ class RegistrationData
         }
 
         $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-            'event' => GtmEvents::REGISTRATION_FAILED,
+            'event' => DisposableEvents::REGISTRATION_FAILED,
             'data' => [
                 'message' => $errorMessage
             ]

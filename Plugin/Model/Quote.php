@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Plugin\Model;
 
 use AcidUnit\GoogleTagManager\Model\Config;
-use AcidUnit\GoogleTagManager\Model\GtmEvents;
+use AcidUnit\GoogleTagManager\Model\DisposableEvents;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\RequestInterface;
 use Magento\Quote\Model\Quote as QuoteTarget;
@@ -84,7 +84,7 @@ class Quote
                 }
 
                 $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-                    'event' => GtmEvents::PRODUCT_REMOVED_FROM_CART,
+                    'event' => DisposableEvents::PRODUCT_REMOVED_FROM_CART,
                     'data' => $data
                 ]);
             }

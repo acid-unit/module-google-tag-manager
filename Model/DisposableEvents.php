@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model;
 
-class GtmEvents
+class DisposableEvents
 {
     // Customer Events
     public const LOGIN_SUCCESSFUL = 'loginSuccessful';

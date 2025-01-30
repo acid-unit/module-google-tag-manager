@@ -61,6 +61,21 @@
                     </depends>
                 </field>
 
+                <field id="prevent_push_when_logged_as_customer_enabled"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="40"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Prevent pushing events when 'Logged as a Customer' session</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
                 <group id="page_load"
                        translate="label"
                        type="text"
@@ -184,7 +199,7 @@
                            showInStore="1">
                         <label>Custom Pages</label>
 
-                        <field id="custom"
+                        <field id="custom_pages"
                                translate="label"
                                sortOrder="10"
                                showInDefault="1"

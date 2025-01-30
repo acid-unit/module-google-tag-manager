@@ -16,6 +16,9 @@ use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+ */
 class Config extends DataObject implements ArgumentInterface
 {
     // General
@@ -25,6 +28,8 @@ class Config extends DataObject implements ArgumentInterface
         = 'google/google_tag_manager/container_id';
     public const XML_PATH_GTM_DEBUG_ENABLED
         = 'google/google_tag_manager/debug_enabled';
+    public const XML_PATH_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED
+        = 'google/google_tag_manager/prevent_push_when_logged_as_customer_enabled';
 
     // Page Load
     public const XML_PATH_GTM_PAGE_LOAD_ENABLED
@@ -41,6 +46,8 @@ class Config extends DataObject implements ArgumentInterface
         = 'google/google_tag_manager/page_load/plp_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED
         = 'google/google_tag_manager/page_load/user_type_enabled';
+    public const XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES
+        = 'google/google_tag_manager/page_load/custom/custom_pages';
 
     // Click
     public const XML_PATH_GTM_CLICK_PRODUCT_ENABLED
@@ -604,6 +611,19 @@ class Config extends DataObject implements ArgumentInterface
     }
 
     /**
+     * Get GTM Page Load Custom Pages JSON config
+     *
+     * @return string
+     */
+    public function getGtmPageLoadCustomPagesConfigJson(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * Is GTM Page Load User Type Enabled
      *
      * @return bool
@@ -690,6 +710,19 @@ class Config extends DataObject implements ArgumentInterface
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_GTM_PAGE_LOAD_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is prevent pushing GTN events when 'Logged as a Customer' session enabled
+     *
+     * @return bool
+     */
+    public function isPreventPushWhenLoggedAsCustomerEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }

@@ -4,14 +4,14 @@
  * See LICENSE file for license details.
  */
 
-/** @noinspection PhpClassCanBeReadonlyInspection */
-
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Plugin\Wishlist;
 
+use AcidUnit\GoogleTagManager\Model\Config;
 use Exception;
 use Magento\Framework\App\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
@@ -24,6 +24,9 @@ use Magento\Wishlist\Helper\Data;
 use Magento\Wishlist\Model\Item;
 use Magento\Wishlist\Model\Product\AttributeValueProvider;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class Remove extends RemoveTarget
 {
     /**
@@ -32,13 +35,15 @@ class Remove extends RemoveTarget
     private ?AttributeValueProvider $attributeValueProvider;
 
     /**
-     * @param Action\Context $context
+     * @param Config $config
+     * @param Context $context
      * @param WishlistProviderInterface $wishlistProvider
      * @param Validator $formKeyValidator
      * @param AttributeValueProvider|null $attributeValueProvider
      * @noinspection ObjectManagerInspection
      */
     public function __construct(
+        private readonly Config   $config,
         Action\Context            $context,
         WishlistProviderInterface $wishlistProvider,
         Validator                 $formKeyValidator,
@@ -74,6 +79,10 @@ class Remove extends RemoveTarget
      */
     public function aroundExecute(RemoveTarget $subject, callable $proceed): Redirect
     {
+        if (!$this->config->isGtmWishlistRemoveEnabled()) {
+            return $proceed();
+        }
+
         /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         if (!$this->formKeyValidator->validate($this->getRequest())) {

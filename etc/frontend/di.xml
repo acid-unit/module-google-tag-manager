@@ -16,13 +16,6 @@
         </arguments>
     </type>
 
-    <type name="AcidUnit\GoogleTagManager\Model\GtmConfigProvider">
-        <arguments>
-            <!-- dependency on implementation -->
-            <argument name="loginAsCustomerConfig" xsi:type="object">Magento\LoginAsCustomer\Model\Config</argument>
-        </arguments>
-    </type>
-
     <type name="Magento\Catalog\Block\Product\AbstractProduct">
         <plugin name="acid_gtm_abstract_product"
                 type="AcidUnit\GoogleTagManager\Plugin\Catalog\Block\Product\AbstractProduct"
@@ -95,6 +88,13 @@
                 sortOrder="10"
                 disabled="false"
         />
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable">
+        <arguments>
+            <!-- session object proxy class -->
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
     </type>
 
     <type name="Magento\Quote\Model\Quote">

@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Wishlist;
 
 use AcidUnit\GoogleTagManager\Model\Config;
-use AcidUnit\GoogleTagManager\Model\GtmEvents;
+use AcidUnit\GoogleTagManager\Model\DisposableEvents;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Exception\LocalizedException;
@@ -54,7 +54,7 @@ class RemoveProductData
             $product = $this->productDataProvider->getProductData($item->getProduct());
 
             $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-                'event' => GtmEvents::PRODUCT_REMOVED_FROM_WISHLIST,
+                'event' => DisposableEvents::PRODUCT_REMOVED_FROM_WISHLIST,
                 'data' => [
                     'products' => [$product]
                 ]

@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Customer;
 
 use AcidUnit\GoogleTagManager\Model\Config;
-use AcidUnit\GoogleTagManager\Model\GtmEvents;
+use AcidUnit\GoogleTagManager\Model\DisposableEvents;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Message\ManagerInterface;
 
@@ -48,7 +48,7 @@ class LoginData
 
         if ($customerId) {
             $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-                'event' => GtmEvents::LOGIN_SUCCESSFUL,
+                'event' => DisposableEvents::LOGIN_SUCCESSFUL,
                 'data' => [
                     'customerId' => $customerId
                 ]
@@ -64,7 +64,7 @@ class LoginData
         $message = $this->messageManager->getMessages()->getLastAddedMessage();
 
         $this->session->setDisposableGtmEventData([ // @phpstan-ignore-line
-            'event' => GtmEvents::LOGIN_FAILED,
+            'event' => DisposableEvents::LOGIN_FAILED,
             'data' => [
                 'message' => $message ? $message->getText() : ''
             ]

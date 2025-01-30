@@ -14,17 +14,14 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model;
 
 use AcidUnit\Core\Api\ConfigProviderInterface;
-use Magento\LoginAsCustomerApi\Api\ConfigInterface as LoginAsCustomerConfig;
 
 class GtmConfigProvider implements ConfigProviderInterface
 {
     /**
      * @param Config $config
-     * @param LoginAsCustomerConfig $loginAsCustomerConfig
      */
     public function __construct(
-        private readonly Config                $config,
-        private readonly LoginAsCustomerConfig $loginAsCustomerConfig
+        private readonly Config $config
     ) {
     }
 
@@ -32,12 +29,14 @@ class GtmConfigProvider implements ConfigProviderInterface
      * Get GTM config
      *
      * @return array<mixed>
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function getConfig(): array
     {
         return [
             'enabled' => $this->config->isGtmEnabled(),
             'debug_enabled' => $this->config->isGtmDebugEnabled(),
+            'prevent_push_when_logged_as_customer_enabled' => $this->config->isPreventPushWhenLoggedAsCustomerEnabled(),
             'page_load' => [
                 'enabled' => $this->config->isGtmPageLoadEnabled(),
                 'event_name' => $this->config->getGtmPageLoadEventName(),
@@ -45,7 +44,8 @@ class GtmConfigProvider implements ConfigProviderInterface
                 'handles_list' => $this->config->getGtmPageLoadHandlesList(),
                 'user_type_enabled' => $this->config->isGtmPageLoadUserTypeEnabled(),
                 'pdp_load_event_name' => $this->config->getGtmPageLoadPdpEventName(),
-                'plp_load_event_name' => $this->config->getGtmPageLoadPlpEventName()
+                'plp_load_event_name' => $this->config->getGtmPageLoadPlpEventName(),
+                'custom_pages' => $this->config->getGtmPageLoadCustomPagesConfigJson()
             ],
             'click' => [
                 'product' => [
@@ -125,17 +125,16 @@ class GtmConfigProvider implements ConfigProviderInterface
                     'event_name' => $this->config->getGtmWishlistRemoveEventName()
                 ]
             ],
-            'page_load_events' => [
-                'login_success' => $this->config->isGtmCustomerSessionLoginEnabled() ? GtmEvents::LOGIN_SUCCESSFUL : '',
-                'login_fail' => $this->config->isGtmCustomerSessionLoginFailedEnabled() ? GtmEvents::LOGIN_FAILED : '',
-                'logout_success' => $this->config->isGtmCustomerSessionLogoutEnabled() ? GtmEvents::LOGOUT_SUCCESSFUL : '',
-                'registration_success' => $this->config->isGtmCustomerSessionRegisterEnabled() ? GtmEvents::REGISTRATION_SUCCESSFUL : '',
-                'registration_fail' => $this->config->isGtmCustomerSessionRegisterFailedEnabled() ? GtmEvents::REGISTRATION_FAILED : '',
-                'product_removed_from_cart' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_CART : '',
-                'product_added_to_wishlist' => $this->config->isGtmWishlistAddEnabled() ? GtmEvents::PRODUCT_ADDED_TO_WISHLIST : '',
-                'product_removed_from_wishlist' => $this->config->isGtmWishlistRemoveEnabled() ? GtmEvents::PRODUCT_REMOVED_FROM_WISHLIST : ''
-            ],
-            'login_as_customer_enabled' => $this->loginAsCustomerConfig->isEnabled()
+            'disposable_events' => [
+                'login_success' => $this->config->isGtmCustomerSessionLoginEnabled() ? DisposableEvents::LOGIN_SUCCESSFUL : '',
+                'login_fail' => $this->config->isGtmCustomerSessionLoginFailedEnabled() ? DisposableEvents::LOGIN_FAILED : '',
+                'logout_success' => $this->config->isGtmCustomerSessionLogoutEnabled() ? DisposableEvents::LOGOUT_SUCCESSFUL : '',
+                'registration_success' => $this->config->isGtmCustomerSessionRegisterEnabled() ? DisposableEvents::REGISTRATION_SUCCESSFUL : '',
+                'registration_fail' => $this->config->isGtmCustomerSessionRegisterFailedEnabled() ? DisposableEvents::REGISTRATION_FAILED : '',
+                'product_removed_from_cart' => $this->config->isGtmCheckoutFlowProductRemovedFromCartEnabled() ? DisposableEvents::PRODUCT_REMOVED_FROM_CART : '',
+                'product_added_to_wishlist' => $this->config->isGtmWishlistAddEnabled() ? DisposableEvents::PRODUCT_ADDED_TO_WISHLIST : '',
+                'product_removed_from_wishlist' => $this->config->isGtmWishlistRemoveEnabled() ? DisposableEvents::PRODUCT_REMOVED_FROM_WISHLIST : ''
+            ]
         ];
     }
 }
