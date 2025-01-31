@@ -52,7 +52,7 @@ define([
 
                             push(this.gtmConfig['exposure']['menu_category']['event_name'], {
                                 'ecommerce': {
-                                    'menuHover': menuItemData
+                                    'menu_hover': menuItemData
                                 }
                             });
                         }

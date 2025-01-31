@@ -146,42 +146,30 @@ define([
 
             const currentPageName = handleModel.getCurrentPageName(),
                 eventName = this.gtmConfig['page_load']['event_name'],
-                h1 = document.querySelector('h1');
+                h1 = document.querySelector('h1'),
+                pageData = pageDataModel.getPageData(),
+                pushData = {};
+
+            if (this.gtmConfig['page_load']['user_type_enabled']) {
+                pushData['user_type'] = pageData['user_type'];
+            }
+
+            if (h1.innerText) {
+                pushData['title'] = h1.innerText;
+            }
 
             if (currentPageName) {
-                const pageData = pageDataModel.getPageData(),
-                    pushData = {
-                        'page_type': currentPageName
-                    };
-
-                if (this.gtmConfig['page_load']['user_type_enabled']) {
-                    pushData['user_type'] = pageData['user_type'];
-                }
-
-                push(eventName, pushData);
+                pushData['page_type'] = currentPageName;
             } else if (document.querySelector('body').classList.value.split(' ').includes('account')) {
                 /**
                  * Customer account can have different page handles,
                  * the solution to check body classes is simpler to write and support in this case
                  */
-                const pushData = {
-                    'page_type': handleModel.handles.customerAccountPage.name
-                };
-
-                if (h1 && h1.innerText) {
-                    pushData.title = h1.innerText;
-                }
-
-                push(eventName, pushData);
-            } else if (h1 && h1.innerText) {
-                /**
-                 * If the page is not specified in handles list and is not customer account page,
-                 * we just push <h1> inner text as a page type
-                 */
-                push(eventName, {
-                    'page_type': h1.innerText
-                });
+                delete pushData['user_type'];
+                pushData['page_type'] = handleModel.handles.customerAccountPage.name;
             }
+
+            push(eventName, pushData);
         }
     };
 });

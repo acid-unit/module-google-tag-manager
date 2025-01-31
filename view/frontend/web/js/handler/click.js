@@ -69,8 +69,17 @@ define([
          * @param {object} event
          */
         processMenuItemClick: function (event) {
-            const target = event.target,
-                menuItemHref = target.getAttribute('href'),
+            let target = event.target;
+
+            if (target.tagName !== 'a') {
+                target = target.closest('a');
+            }
+
+            if (!target.classList.value.includes('ui-menu-item-wrapper')) {
+                return;
+            }
+
+            const menuItemHref = target.getAttribute('href'),
                 menuItemData = menuDataModel.getMenuItemData(menuItemHref);
 
             if (!Object.values(menuItemData).length) {
