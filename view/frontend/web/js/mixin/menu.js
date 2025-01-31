@@ -37,8 +37,17 @@ define([
                 this._on({
                     'mouseenter .ui-menu-item': event => {
                         if (event.target.closest('.category-item').classList.contains('parent')) {
-                            const target = event.target,
-                                menuItemHref = target.getAttribute('href'),
+                            let target = event.target;
+
+                            if (target.tagName !== 'a') {
+                                target = target.closest('a');
+                            }
+
+                            if (!target.classList.value.includes('ui-menu-item-wrapper')) {
+                                return;
+                            }
+
+                            const menuItemHref = target.getAttribute('href'),
                                 menuItemData = menuDataModel.getMenuItemData(menuItemHref);
 
                             push(this.gtmConfig['exposure']['menu_category']['event_name'], {
