@@ -14,13 +14,10 @@ namespace AcidUnit\GoogleTagManager\Model\Product;
 use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Psr\Log\LoggerInterface;
 
 class Provider implements DataProviderInterface, ArgumentInterface
 {
@@ -32,19 +29,13 @@ class Provider implements DataProviderInterface, ArgumentInterface
     /**
      * @param Config $config
      * @param ProductDataProvider $productDataProvider
-     * @param ProductRepositoryInterface $productRepository
-     * @param Configurable $configurableType
      * @param Registry $registry
-     * @param LoggerInterface $logger
      * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
-        private readonly Config                     $config,
-        private readonly ProductDataProvider        $productDataProvider,
-        private readonly ProductRepositoryInterface $productRepository,
-        private readonly Configurable               $configurableType,
-        private readonly Registry                   $registry,
-        private readonly LoggerInterface            $logger
+        private readonly Config              $config,
+        private readonly ProductDataProvider $productDataProvider,
+        private readonly Registry            $registry,
     ) {
     }
 
@@ -89,18 +80,6 @@ class Provider implements DataProviderInterface, ArgumentInterface
 
         if (!$product) {
             return [];
-        }
-
-        $parentIds = $this->configurableType->getParentIdsByChild($product->getId());
-
-        if (count($parentIds)) {
-            $parentId = reset($parentIds);
-
-            try {
-                $product = $this->productRepository->getById($parentId);
-            } catch (NoSuchEntityException $e) {
-                $this->logger->critical($e->getMessage());
-            }
         }
 
         if ($product->getTypeId() == Configurable::TYPE_CODE) {

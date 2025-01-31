@@ -16,14 +16,11 @@ use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use AcidUnit\GoogleTagManager\Model\Product\Provider as ProductProvider;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\Resolver as LayerResolver;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Psr\Log\LoggerInterface;
 
 class Provider extends ProductProvider implements DataProviderInterface, ArgumentInterface
 {
@@ -41,28 +38,19 @@ class Provider extends ProductProvider implements DataProviderInterface, Argumen
      * @param LayerResolver $layerResolver
      * @param Config $config
      * @param ProductDataProvider $productDataProvider
-     * @param ProductRepositoryInterface $productRepository
-     * @param Configurable $configurableType
      * @param Registry $registry
-     * @param LoggerInterface $logger
      * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly LayerResolver $layerResolver,
         private readonly Config        $config,
         ProductDataProvider            $productDataProvider,
-        ProductRepositoryInterface     $productRepository,
-        Configurable                   $configurableType,
-        Registry                       $registry,
-        LoggerInterface                $logger
+        Registry                       $registry
     ) {
         parent::__construct(
             $config,
             $productDataProvider,
-            $productRepository,
-            $configurableType,
-            $registry,
-            $logger
+            $registry
         );
     }
 

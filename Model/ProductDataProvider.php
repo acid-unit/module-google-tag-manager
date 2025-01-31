@@ -90,13 +90,20 @@ class ProductDataProvider
         $result['category'] = $this->getCategoryName($product);
         $result['type'] = $productType;
 
-        if ($productType === 'grouped') {
-            $result['min_price'] = (float)$product->getMinimalPrice();
-        } elseif ($productType === 'bundle') {
-            $result['min_price'] = (float)$product->getMinimalPrice();
-            $result['max_price'] = (float)$product->getMaxPrice(); // @phpstan-ignore-line
-        } else {
-            $result['price'] = $product->getFinalPrice();
+        $price = $product->getFinalPrice();
+        $minPrice = (float)$product->getMinimalPrice();
+        $maxPrice = (float)$product->getMaxPrice(); // @phpstan-ignore-line
+
+        if ($price) {
+            $result['price'] = $price;
+        }
+
+        if ($minPrice && $minPrice !== $price) {
+            $result['min_price'] = $minPrice;
+        }
+
+        if ($maxPrice && $maxPrice !== $price) {
+            $result['max_price'] = $maxPrice;
         }
 
         foreach ($removeKeysList as $key) {
