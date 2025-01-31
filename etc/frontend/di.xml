@@ -117,6 +117,7 @@
             <argument name="dataProviders" xsi:type="array">
                 <item name="catalog_product_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\Provider\Proxy</item>
                 <item name="catalog_category_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
+                <item name="catalogsearch_result_index" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
                 <item name="checkout_onepage_success" xsi:type="object">AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider\Proxy</item>
             </argument>
         </arguments>

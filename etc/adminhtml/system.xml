@@ -79,7 +79,7 @@
                 <group id="page_load"
                        translate="label"
                        type="text"
-                       sortOrder="40"
+                       sortOrder="50"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -174,10 +174,24 @@
                         </depends>
                     </field>
 
+                    <field id="search_results_page_load_event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="70"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Search Result Page Loaded Event Name</label>
+                        <comment>When Search Result Page is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
                     <field id="user_type_enabled"
                            translate="label comment"
                            type="select"
-                           sortOrder="70"
+                           sortOrder="80"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1"
@@ -193,7 +207,7 @@
                     <group id="custom"
                            translate="label"
                            type="text"
-                           sortOrder="80"
+                           sortOrder="90"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1">
@@ -216,7 +230,7 @@
                 <group id="click"
                        translate="label"
                        type="text"
-                       sortOrder="50"
+                       sortOrder="60"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -334,7 +348,7 @@
                 <group id="checkout_flow"
                        translate="label"
                        type="text"
-                       sortOrder="60"
+                       sortOrder="70"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -547,7 +561,7 @@
                 <group id="customer_session"
                        translate="label"
                        type="text"
-                       sortOrder="70"
+                       sortOrder="80"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -721,7 +735,7 @@
                 <group id="exposure"
                        translate="label"
                        type="text"
-                       sortOrder="80"
+                       sortOrder="90"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -837,7 +851,7 @@
                 <group id="wishlist"
                        translate="label"
                        type="text"
-                       sortOrder="90"
+                       sortOrder="100"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">

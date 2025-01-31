@@ -96,6 +96,21 @@ define([
             });
         },
 
+        searchResultsPage: function () {
+            if (!this.isActive()) {
+                return;
+            }
+
+            const pageData = pageDataModel.getPageData();
+
+            push(this.gtmConfig['page_load']['search_results_page_load_event_name'], {
+                'ecommerce': {
+                    'search_result': pageData['provider']
+                },
+                'search_query': new URLSearchParams(document.location.search).get('q')
+            });
+        },
+
         /**
          * @return {boolean}
          */

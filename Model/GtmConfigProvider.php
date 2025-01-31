@@ -45,6 +45,7 @@ class GtmConfigProvider implements ConfigProviderInterface
                 'user_type_enabled' => $this->config->isGtmPageLoadUserTypeEnabled(),
                 'pdp_load_event_name' => $this->config->getGtmPageLoadPdpEventName(),
                 'plp_load_event_name' => $this->config->getGtmPageLoadPlpEventName(),
+                'search_results_page_load_event_name' => $this->config->getGtmPageLoadSearchResultsPageEventName(),
                 'custom_pages' => $this->config->getGtmPageLoadCustomPagesConfigJson()
             ],
             'click' => [

@@ -104,9 +104,9 @@ class Provider implements DataProviderInterface, ArgumentInterface
         }
 
         if ($product->getTypeId() == Configurable::TYPE_CODE) {
-            return $this->productDataProvider->getConfigurableProductData($product);
+            return [$this->productDataProvider->getConfigurableProductData($product)];
         }
 
-        return $this->productDataProvider->getProductData($product);
+        return [$this->productDataProvider->getProductData($product)];
     }
 }

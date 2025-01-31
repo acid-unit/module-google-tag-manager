@@ -43,6 +43,8 @@ class Config extends DataObject
         = 'google/google_tag_manager/page_load/pdp_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
         = 'google/google_tag_manager/page_load/plp_load_event_name';
+    public const XML_PATH_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME
+        = 'google/google_tag_manager/page_load/search_results_page_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED
         = 'google/google_tag_manager/page_load/user_type_enabled';
     public const XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES
@@ -636,7 +638,20 @@ class Config extends DataObject
     }
 
     /**
-     * Get GTM Product List Load Event Name
+     * Get GTM Search Result Page Load Event Name
+     *
+     * @return string
+     */
+    public function getGtmPageLoadSearchResultsPageEventName(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get GTM Product List Page Load Event Name
      *
      * @return string
      */

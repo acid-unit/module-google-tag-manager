@@ -116,8 +116,7 @@ class ProductDataProvider
      */
     public function getConfigurableProductData(?Product $product): array
     {
-        $result = [];
-        $productData = $this->getProductData($product);
+        $result = $this->getProductData($product);
 
         /** @var Configurable $productType */
         $productType = $product->getTypeInstance();
@@ -125,10 +124,8 @@ class ProductDataProvider
 
         foreach ($childProducts as $child) {
             /** @var Product|ProductInterface $child */
-            $productData['options'][] = $this->getProductData($child, ['category', 'type']);
+            $result['options'][] = $this->getProductData($child, ['category', 'type']);
         }
-
-        $result[] = $productData;
 
         return $result;
     }

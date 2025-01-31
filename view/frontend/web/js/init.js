@@ -36,6 +36,9 @@ define([
             case handleModel.handles.categoryPage.code:
                 pageLoad.plp();
                 break;
+            case handleModel.handles.searchResultsPage.code:
+                pageLoad.searchResultsPage();
+                break;
             case handleModel.handles.successOrderPage.code:
                 pageLoad.successOrder();
                 break;
