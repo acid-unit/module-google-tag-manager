@@ -75,7 +75,7 @@ define([
                             'sku': item.sku,
                             'name': item.name,
                             'price': parseFloat(item.price),
-                            'qty': item.qty
+                            'qty': item.qty.toString()
                         },
                         options = cartItemDataModel.getProductOptions(item.item_id);
 
@@ -113,8 +113,11 @@ define([
                 optionItem;
 
             if (!swatchElement) {
-                // if PLP
-                data.productInfo.filter(product => product.id === productId)[0].optionValues.forEach(optionValue => {
+                // if listing page
+                const filtered = data.productInfo.filter(product => product.id === productId);
+
+                // grab the last added element from 'data.productInfo' array
+                filtered[filtered.length - 1].optionValues.forEach(optionValue => {
                     swatchItem['options'].forEach(swatchOption => {
                         if (optionValue === swatchOption['id']) {
                             optionId = optionValue;
@@ -154,9 +157,12 @@ define([
          * @return {number}
          */
         getBundlePriceFromDom: function (data) {
-            const price = data.form.find('.bundle-info .price')[0].innerText.replace(
-                this.generalConfig['currency_symbol'], ''
-            );
+            const priceElement = data.form.find('.bundle-info .price');
+            let price = '0';
+
+            if (priceElement.length) {
+                price = priceElement[0].innerText.replace(this.generalConfig['currency_symbol'], '');
+            }
 
             return parseFloat(price);
         },
@@ -167,11 +173,23 @@ define([
          */
         processAddToCart: async function (event, data) {
             const productsPushData = [],
-                isGrouped = data['productIds'].length > 1;
+                isGrouped = !!data.form[0].querySelector('#super-product-table');
             let productId = '',
-                qty;
+                qty,
+                targetIdsArray;
 
-            data['productIds'].forEach(id => {
+            if (isGrouped) {
+                /**
+                 * grouped product can be added to the cart only from PDP,
+                 * it's safe to grab 'productIds' property here, it won't contain previous added ids
+                 */
+                targetIdsArray = data['productIds'];
+            } else {
+                // simple or configurable product
+                targetIdsArray = [data['productIds'][data['productIds'].length - 1]];
+            }
+
+            targetIdsArray.forEach(id => {
                 Object.entries(this.productData).forEach(product => {
                     if (product[1].id === id) {
                         productId = product[0];
@@ -194,6 +212,11 @@ define([
 
                 if (productData['type'] === 'bundle') {
                     productData['price'] = this.getBundlePriceFromDom(data);
+
+                    // if bundled product is added from a listing page, price will be 0, we do not push the event
+                    if (!productData['price']) {
+                        return;
+                    }
                 }
 
                 qty = this.getQtyFromDom(data, isGrouped, id);
@@ -249,6 +272,7 @@ define([
                 productData.qty = data.productData.qty.toString();
             } else {
                 productData = data;
+                productData.qty = productData.qty.toString();
             }
 
             push(this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'], {
