@@ -12,10 +12,8 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Product;
 
 use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
-use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Catalog\Model\Product;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
@@ -27,13 +25,10 @@ class Provider implements DataProviderInterface, ArgumentInterface
     protected ?Product $product = null;
 
     /**
-     * @param Config $config
      * @param ProductDataProvider $productDataProvider
      * @param Registry $registry
-     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
-        private readonly Config              $config,
         private readonly ProductDataProvider $productDataProvider,
         private readonly Registry            $registry,
     ) {
@@ -72,18 +67,10 @@ class Provider implements DataProviderInterface, ArgumentInterface
      */
     public function getData(): array
     {
-        if (!$this->config->isGtmPageLoadEnabled()) {
-            return [];
-        }
-
         $product = $this->getProduct();
 
         if (!$product) {
             return [];
-        }
-
-        if ($product->getTypeId() == Configurable::TYPE_CODE) {
-            return [$this->productDataProvider->getConfigurableProductData($product)];
         }
 
         return [$this->productDataProvider->getProductData($product)];

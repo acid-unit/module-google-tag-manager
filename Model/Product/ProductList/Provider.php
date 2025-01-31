@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model\Product\ProductList;
 
 use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
-use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use AcidUnit\GoogleTagManager\Model\Product\Provider as ProductProvider;
 use Magento\Catalog\Model\Layer;
@@ -36,19 +35,15 @@ class Provider extends ProductProvider implements DataProviderInterface, Argumen
 
     /**
      * @param LayerResolver $layerResolver
-     * @param Config $config
      * @param ProductDataProvider $productDataProvider
      * @param Registry $registry
-     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly LayerResolver $layerResolver,
-        private readonly Config        $config,
         ProductDataProvider            $productDataProvider,
         Registry                       $registry
     ) {
         parent::__construct(
-            $config,
             $productDataProvider,
             $registry
         );
@@ -90,10 +85,6 @@ class Provider extends ProductProvider implements DataProviderInterface, Argumen
     public function getData(): array
     {
         $data = [];
-
-        if (!$this->config->isGtmPageLoadEnabled()) {
-            return $data;
-        }
 
         foreach ($this->getProductCollection() as $product) {
             $this->setProduct($product);

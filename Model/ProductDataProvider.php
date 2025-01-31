@@ -79,6 +79,7 @@ class ProductDataProvider
      * @return array<mixed>
      * @noinspection PhpUndefinedMethodInspection
      * @noinspection PhpCastIsUnnecessaryInspection
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function getProductData(Product $product, array $removeKeysList = []): array
     {
@@ -106,32 +107,21 @@ class ProductDataProvider
             $result['max_price'] = $maxPrice;
         }
 
+        if ($product->getTypeId() == Configurable::TYPE_CODE) {
+            /** @var Configurable $productType */
+            $productType = $product->getTypeInstance();
+            $childProducts = $productType->getUsedProducts($product);
+
+            foreach ($childProducts as $child) {
+                /** @var Product|ProductInterface $child */
+                $result['options'][] = $this->getProductData($child, ['category', 'type']);
+            }
+        }
+
         foreach ($removeKeysList as $key) {
             if (array_key_exists($key, $result)) {
                 unset($result[$key]);
             }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get configurable product data
-     *
-     * @param Product|null $product
-     * @return array<mixed>
-     */
-    public function getConfigurableProductData(?Product $product): array
-    {
-        $result = $this->getProductData($product);
-
-        /** @var Configurable $productType */
-        $productType = $product->getTypeInstance();
-        $childProducts = $productType->getUsedProducts($product);
-
-        foreach ($childProducts as $child) {
-            /** @var Product|ProductInterface $child */
-            $result['options'][] = $this->getProductData($child, ['category', 'type']);
         }
 
         return $result;
