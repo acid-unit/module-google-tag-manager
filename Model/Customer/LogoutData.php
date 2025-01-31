@@ -22,6 +22,7 @@ class LogoutData
     /**
      * @param Session $session
      * @param Config $config
+     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly Session $session,
