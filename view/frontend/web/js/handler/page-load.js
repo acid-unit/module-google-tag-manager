@@ -164,10 +164,16 @@ define([
                  * Customer account can have different page handles,
                  * the solution to check body classes is simpler to write and support in this case
                  */
-                push(eventName, {
+                const pushData = {
                     'page_type': handleModel.handles.customerAccountPage.name
-                });
-            } else if (h1) {
+                };
+
+                if (h1 && h1.innerText) {
+                    pushData.title = h1.innerText;
+                }
+
+                push(eventName, pushData);
+            } else if (h1 && h1.innerText) {
                 /**
                  * If the page is not specified in handles list and is not customer account page,
                  * we just push <h1> inner text as a page type
