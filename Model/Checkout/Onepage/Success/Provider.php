@@ -69,8 +69,9 @@ class Provider implements DataProviderInterface, ArgumentInterface
         $orderData = [
             'order_data' => [
                 'id' => (string)$order->getIncrementId(),
-                'grand_total' => (string)$order->getGrandTotal(),
-                'shipping_amount' => (string)$order->getShippingAmount()
+                'grand_total' => (float)$order->getGrandTotal(),
+                'shipping_amount' => (float)$order->getShippingAmount(),
+                'discount' => (float)$order->getDiscountAmount()
             ],
             'products' => $this->getProductsData()
         ];
@@ -97,6 +98,7 @@ class Provider implements DataProviderInterface, ArgumentInterface
             $product = $item->getProduct();
 
             $productInfo = $this->productDataProvider->getProductData($product);
+            $productInfo['qty'] = (string)(int)$item->getQtyOrdered();
 
             if ($product->getTypeId() == Configurable::TYPE_CODE) {
                 $options = [];
