@@ -68,7 +68,7 @@ class Remove extends RemoveTarget
      *
      * @return Redirect
      * @throws NotFoundException
-     * @see \Magento\Wishlist\Controller\Index\Remove::execute
+     * @see          \Magento\Wishlist\Controller\Index\Remove::execute
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      * @noinspection PhpUnusedParameterInspection

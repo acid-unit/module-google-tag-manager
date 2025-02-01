@@ -24,7 +24,6 @@ class RegistrationData
      * @param Session $session
      * @param ManagerInterface $messageManager
      * @param Config $config
-     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly Session          $session,

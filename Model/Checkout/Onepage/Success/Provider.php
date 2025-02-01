@@ -38,7 +38,6 @@ class Provider implements DataProviderInterface, ArgumentInterface
      * @param AttributeOptionInterfaceFactory $optionFactory
      * @param EavModel $eavModel
      * @param Config $config
-     * @noinspection DependencyOnImplementationInspection
      */
     public function __construct(
         private readonly CheckoutSession                 $checkoutSession,

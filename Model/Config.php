@@ -4,7 +4,6 @@
  * See LICENSE file for license details.
  */
 
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 /** @noinspection PhpMissingClassConstantTypeInspection */
 
 declare(strict_types=1);
@@ -12,13 +11,12 @@ declare(strict_types=1);
 namespace AcidUnit\GoogleTagManager\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\DataObject;
 use Magento\Store\Model\ScopeInterface;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
  */
-class Config extends DataObject
+class Config
 {
     // General
     public const XML_PATH_GTM_ENABLED
@@ -134,13 +132,10 @@ class Config extends DataObject
 
     /**
      * @param ScopeConfigInterface $scopeConfig
-     * @param array<mixed> $data
      */
     public function __construct(
-        private readonly ScopeConfigInterface $scopeConfig,
-        array                                 $data = []
+        private readonly ScopeConfigInterface $scopeConfig
     ) {
-        parent::__construct($data);
     }
 
     /**
