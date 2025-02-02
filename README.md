@@ -1,6 +1,6 @@
 # About
 
-Google Tag Manager extension for Adobe Commerce.
+A powerful yet flexible, simple and user-friendly Google Tag Manager extension for Adobe Commerce.
 
 Events summary table:
 
@@ -40,31 +40,29 @@ Events summary table:
 
 Module configuration is done under the 
 `Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
-section. All sections, fields and options are plain and self-described.
+section. All sections, fields, and options are clearly labeled and self-explanatory.
 
 ![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
 
-If you need to modify event structure or data that is pushed to data layer,
-this should be done via the code. Admin configuration provides toggling events, setting event names
-and conditions for separate events. 
+To modify event structure or the data pushed to the data layer, code-level changes are required. 
+Admin configuration provides toggling events, setting event names and conditions for separate events. 
 
 If the event name is set, it will be pushed as `event` property like on the screenshot below.
 
 ## Debugging
 
-When debug option is enabled, every time the object is pushed to data layer, it will be
-displayed to the console as well:
+When debugging is enabled, every time an object is pushed to the data layer, it will also be logged in the console:
 
 ![Debugging GTM Events](https://github.com/acid-unit/docs/blob/main/google-tag-manager/debug-console.png?raw=true)
 
 # GTM Events
 
-Below, event data structure examples will be shows as they are pushed to the data layer.
+Below, event data structure examples will be shown as they are pushed to the data layer.
 
 ## Page Load
 
-Page load events can be triggered for any kind of page. Based on the page type,
-different set of data will be pushed to data layer.
+Page Load events can be triggered for any kind of page. Based on the page type,
+different set of data will be pushed to the data layer.
 
 Event structure and data can be modified in `js/model/page-load.js` file
 
@@ -72,7 +70,7 @@ Event structure and data can be modified in `js/model/page-load.js` file
 
 ```jsonc
 {
-    "event": "pdp_load", // as defined in config
+    "event": "pdp_load",
     "ecommerce": {
         "detail": {
             "products": [
@@ -115,7 +113,7 @@ Example of event data structure that is pushed when PLP is loaded:
 
 ```jsonc
 {
-    "event": "plp_load", // as defined in config
+    "event": "plp_load",
     "ecommerce": {
         
         // array with products that are rendered on current page
@@ -177,7 +175,7 @@ Search Results Page has similar event data structure to PLP:
 
 ```jsonc
 {
-    "event": "srp_load", // as defined in config
+    "event": "srp_load",
     "ecommerce": {
         "search_query": "jacket",
         
@@ -191,33 +189,41 @@ Search Results Page has similar event data structure to PLP:
 
 ### CMS Page
 
-Event data structure example that is pushed to data layer when CMS Page is loaded:
+Event data structure example that is pushed to the data layer when CMS Page is loaded:
 
 ```jsonc
 {
-    "event": "page_load", // as defined in config
-    "user_type": "new", // user type can be 'new' or 'registerd'. Will be added to the object if admin config value is enabled
-    "title": "Home Page", // inner text of page <h1> tag
-    "page_type": "Home Page" // will be added to the object if page handle matches one of the predefined. List of predefined handles is set in 'js/model/page-handle.js' file
+    "event": "page_load",
+    
+    // user type can be 'new' or 'registered' and will be added to the event data if config is enabled
+    "user_type": "new",
+    
+    // inner text of current page <h1> tag
+    "title": "Home Page",    
+    "page": "Home Page"
 }
 ```
 
 ### Include / Exclude Pages
 
-You can exclude pages from trigger GTM events on load. Add one of the page handles
-to the `Page Layout Handles List` textarea, and make sure `List Behavior` is set to `Exclude`:
+Using Magento layout handles you can exclude specific pages from trigger GTM events on load. 
+Add one of the page handles to the `Page Layout Handles List` textarea, 
+and make sure `List Behavior` is set to `Exclude`:
 
 ![Page Handles List Behavior](https://github.com/acid-unit/docs/blob/main/google-tag-manager/page-handles-list-behavior.png?raw=true)
 
 In this case, home page and product category with id `12` won't trigger event on load.
 
-If you change `List Behavior` to `Include`, the list behavior will be reversed. 
-Only home page and category with id `12` will trigger page load events.
+Switching `List Behavior` to `Include` reverses the logic, 
+meaning only the listed pages will trigger page load events.
+Only home page and category with id `12` will trigger Page Load events.
+
+More info regarding layout handles you can find on a corresponding <a href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/#layout-handles" target="_blank">Adobe Developer Portal Page</a>
 
 ### Custom URLs
 
-Events can be pushed to the data layer when custom pages are loaded. Custom pages are those, 
-that do not fall under either of the previous categories. For example, `/contact` page:
+Events can be pushed to the data layer for custom pages—those that do not fit 
+into predefined categories like PDP, PLP, or CMS pages. For example, `/contact` page:
 
 ![Custom Pages Load](https://github.com/acid-unit/docs/blob/main/google-tag-manager/custom-pages-load.png?raw=true)
 
@@ -227,7 +233,10 @@ Also, there is a specific limitation - if you have, for instance, two pages with
 - `/contact`
 - `/contact-us`
 
-The event will be triggered on both of them, because both of URLs contain `/contact` substring. 
+The event will be triggered on both of them, because both of URLs contain `/contact` substring.
+
+For this case if you need to track both of the pages, consider changing URLs so one
+of them won't include another.
 
 ## Click
 
@@ -245,11 +254,12 @@ Event data and structure:
 
 ```jsonc
 {
-    "event": "product_clicked", // as defined in config
+    "event": "product_clicked",
     "ecommerce": {
         "click": {
             "actionField": {
-                "list": "Category Page" // current product list. eg 'upsell', 'related', 'Search Results' etc
+                // current product list. eg 'upsell', 'related', 'Search Results' etc
+                "list": "Category Page"
             },
             "products": [
                 {
@@ -287,11 +297,14 @@ Event data and structure:
 
 ```jsonc
 {
-    "event": "menu_item_clicked", // as defined in config
+    "event": "menu_item_clicked",
     "ecommerce": {
         "click": {
-            "menuItem": "Jackets", // menu item title
-            "path": "Women > Tops > Jackets" // breadcrumbs path to the clicked menu item
+            // menu item title
+            "menuItem": "Jackets",
+            
+            // breadcrumbs path to the clicked menu item
+            "path": "Women > Tops > Jackets"
         }
     }
 }
@@ -301,10 +314,12 @@ Event data and structure:
 
 ```jsonc
 {
-    "event": "swatch_clicked", // as defined in config
+    "event": "swatch_clicked",
     "swatchLabel": "Color",
     "optionLabel": "Orange",
-    "inProductList": true, // 'true for listing page, false for PDP
+    
+    // true for listing page, false for PDP
+    "inProductList": true,
     "product": {
         "id": "1268",
         "sku": "WJ04",
@@ -339,7 +354,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ```jsonc
 {
-    "event": "product_added_to_cart", // as defined in config
+    "event": "product_added_to_cart",
     "ecommerce": {
         "add": {
             "products": [
@@ -368,7 +383,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ```jsonc
 {
-    "event": "product_removed_from_cart", // as defined in config
+    "event": "product_removed_from_cart",
     "ecommerce": {
         "remove": {
             "products": [
@@ -393,9 +408,13 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Cart item Qty Changed
 
+Event is triggered both when qty is changed in minicart and on cart page.
+If qty is changed for multiple products at once on cart page, they all will appear in
+'products' array
+
 ```jsonc
 {
-    "event": "cart_item_qty_changed", // as defined in config
+    "event": "cart_item_qty_changed",
     "ecommerce": {
         "update": {
             "products": [
@@ -425,7 +444,7 @@ Shipping step:
 
 ```jsonc
 {
-    "event": "checkout_step", // as defined in config
+    "event": "checkout_step",
     "ecommerce": {
         "checkout": {
             "actionField": {
@@ -460,7 +479,7 @@ Billing step:
 
 ```jsonc
 {
-    "event": "checkout_step", // as defined in config
+    "event": "checkout_step",
     "ecommerce": {
         "checkout": {
             "actionField": {
@@ -477,7 +496,7 @@ Billing step:
 
 ```jsonc
 {
-    "event": "purchase_done", // as defined in config
+    "event": "purchase_done",
     "ecommerce": {
         "purchase": {
             "actionField": {
@@ -517,7 +536,7 @@ Billing step:
 
 ## Customer Session
 
-For customer session events, event name and Customer ID or Error Message is sent to data layer.
+For customer session events, event name and Customer ID or Error Message is sent to the data layer.
 
 Event structure and data can be modified in `js/handler/page-data.js` file
 
@@ -525,7 +544,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ```jsonc
 {
-    "event": "login", // as defined in config
+    "event": "login",
     "customerId": "2"
 }
 ```
@@ -534,7 +553,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ```jsonc
 {
-    "event": "failed_login", // as defined in config
+    "event": "failed_login",
     "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later."
 }
 ```
@@ -543,7 +562,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ```jsonc
 {
-    "event": "logout" // as defined in config
+    "event": "logout"
 }
 ```
 
@@ -551,7 +570,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ```jsonc
 {
-    "event": "registration", // as defined in config
+    "event": "registration",
     "customerId": "4"
 }
 ```
@@ -560,14 +579,14 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ```jsonc
 {
-    "event": "failed_registration", // as defined in config
+    "event": "failed_registration",
     "message": "There is already an account with this email address."
 }
 ```
 
 ## Exposure
 
-Exposure events are pushed to data layer when the blocks get visible on the screen.
+Exposure events are pushed to the data layer when the blocks get visible on the screen.
 When there are multiple blocks of the same type, they are pushed as elements of array.
 
 When the block reveals on the screen, a timeout (default is 100ms) is triggered, 
@@ -580,7 +599,7 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ```jsonc
 {
-    "event": "product_exposure", // as defined in config
+    "event": "product_exposure",
     "page": "Category Page",
     "ecommerce": {
         "exposure": [
@@ -614,7 +633,9 @@ Event structure and data can be modified in `js/handler/exposure.js` file
                         "price": 77
                     }
                 ],
-                "list": "Category Page" // current product list. eg 'upsell', 'related', 'Search Results' etc
+                
+                // current product list. eg 'upsell', 'related', 'Search Results' etc
+                "list": "Category Page"
             }
         ]
     }
@@ -625,10 +646,13 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ```jsonc
 {
-    "event": "menu_category_exposure", // as defined in config
+    "event": "menu_category_exposure",
     "ecommerce": {
         "menu_hover": {
+            // menu item title
             "name": "Tops",
+            
+            // breadcrumbs path to the hovered item
             "path": "Women > Tops"
         }
     }
@@ -643,12 +667,13 @@ Here you can set any block to trigger exposure event by using a HTML selector
 
 ```jsonc
 {
-    "event": "block_exposure", // as defined in config
+    "event": "block_exposure",
     "ecommerce": {
         "blockView": [
             {
-                "name": "ECO", // block name as defined in the config
-                "page": "Home Page" // current page
+                // block name as defined in the config
+                "name": "ECO",
+                "page": "Home Page"
             }
         ]
     }
@@ -665,7 +690,7 @@ Event data and structure:
 
 ```jsonc
 {
-    "event": "added_to_wishlist", // as defined in config
+    "event": "added_to_wishlist",
     "products": [
         {
             "id": "1396",
@@ -703,7 +728,7 @@ event name:
 
 ```jsonc
 {
-    "event": "removed_from_wishlist", // as defined in config
+    "event": "removed_from_wishlist",
 
     // the same as for adding product to wishlist
     "products": [
