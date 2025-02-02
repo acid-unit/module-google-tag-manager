@@ -132,7 +132,7 @@ define([
                     isCustomPage = true;
 
                     push(customPages[key]['event'], {
-                        'page_type': 'custom'
+                        'page': 'custom'
                     });
                 }
             });
@@ -164,14 +164,16 @@ define([
             }
 
             if (currentPageName) {
-                pushData['page_type'] = currentPageName;
+                pushData['page'] = currentPageName;
             } else if (document.querySelector('body').classList.value.split(' ').includes('account')) {
                 /**
                  * Customer account can have different page handles,
                  * the solution to check body classes is simpler to write and support in this case
                  */
                 delete pushData['user_type'];
-                pushData['page_type'] = handleModel.handles.customerAccountPage.name;
+                pushData['page'] = handleModel.handles.customerAccountPage.name;
+            } else {
+                pushData['page'] = 'other';
             }
 
             push(eventName, pushData);
