@@ -5,12 +5,10 @@
 
 define([
     './../action/push',
-    './../model/page-handle',
     './../model/product-data',
     './../model/menu-data'
 ], function (
     push,
-    handleModel,
     productDataModel,
     menuDataModel
 ) {
@@ -44,7 +42,7 @@ define([
             push(this.gtmConfig['click']['product']['event_name'], {
                 'ecommerce': {
                     'click': {
-                        'actionField': {'list': handleModel.getCurrentPageName()},
+                        'actionField': {'list': productDataModel.getProductList(product)},
                         'products': [productData]
                     }
                 }

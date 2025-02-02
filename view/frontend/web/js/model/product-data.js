@@ -5,7 +5,11 @@
  * See LICENSE file for license details.
  */
 
-define([], function () {
+define([
+    './page-handle'
+], function (
+    handleModel
+) {
     'use strict';
 
     return {
@@ -59,6 +63,8 @@ define([], function () {
                 list = 'upsell';
             } else if (productsWrapper.classList.value.indexOf('crosssell') >= 0) {
                 list = 'crosssell';
+            } else {
+                list = handleModel.getCurrentPageName();
             }
 
             return list;
