@@ -70,7 +70,7 @@ Event structure and data can be modified in `js/model/page-load.js` file
 
 ### PDP
 
-```json
+```jsonc
 {
     "event": "pdp_load", // as defined in config
     "ecommerce": {
@@ -113,7 +113,7 @@ Event structure and data can be modified in `js/model/page-load.js` file
 
 Example of event data structure that is pushed when PLP is loaded:
 
-```json
+```jsonc
 {
     "event": "plp_load", // as defined in config
     "ecommerce": {
@@ -175,7 +175,7 @@ Example of event data structure that is pushed when PLP is loaded:
 
 Search Results Page has similar event data structure to PLP:
 
-```json
+```jsonc
 {
     "event": "srp_load", // as defined in config
     "ecommerce": {
@@ -193,7 +193,7 @@ Search Results Page has similar event data structure to PLP:
 
 Event data structure example that is pushed to data layer when CMS Page is loaded:
 
-```json
+```jsonc
 {
     "event": "page_load", // as defined in config
     "user_type": "new", // user type can be 'new' or 'registerd'. Will be added to the object if admin config value is enabled
@@ -243,7 +243,7 @@ Under the hood, click event listener is attached to the following selectors:
 
 Event data and structure:
 
-```json
+```jsonc
 {
     "event": "product_clicked", // as defined in config
     "ecommerce": {
@@ -285,7 +285,7 @@ Event data and structure:
 
 ### Menu Item
 
-```json
+```jsonc
 {
     "event": "menu_item_clicked", // as defined in config
     "ecommerce": {
@@ -299,7 +299,7 @@ Event data and structure:
 
 ### Swatch
 
-```json
+```jsonc
 {
     "event": "swatch_clicked", // as defined in config
     "swatchLabel": "Color",
@@ -337,7 +337,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Added to Cart
 
-```json
+```jsonc
 {
     "event": "product_added_to_cart", // as defined in config
     "ecommerce": {
@@ -366,7 +366,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Removed from Cart
 
-```json
+```jsonc
 {
     "event": "product_removed_from_cart", // as defined in config
     "ecommerce": {
@@ -393,7 +393,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Cart item Qty Changed
 
-```json
+```jsonc
 {
     "event": "cart_item_qty_changed", // as defined in config
     "ecommerce": {
@@ -423,7 +423,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 Shipping step:
 
-```json
+```jsonc
 {
     "event": "checkout_step", // as defined in config
     "ecommerce": {
@@ -458,7 +458,7 @@ Shipping step:
 
 Billing step:
 
-```json
+```jsonc
 {
     "event": "checkout_step", // as defined in config
     "ecommerce": {
@@ -475,7 +475,7 @@ Billing step:
 
 ### Purchase Done
 
-```json
+```jsonc
 {
     "event": "purchase_done", // as defined in config
     "ecommerce": {
@@ -523,7 +523,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Logged In
 
-```json
+```jsonc
 {
     "event": "login", // as defined in config
     "customerId": "2"
@@ -532,7 +532,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 #### Failed
 
-```json
+```jsonc
 {
     "event": "failed_login", // as defined in config
     "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later."
@@ -541,7 +541,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Logged Out
 
-```json
+```jsonc
 {
     "event": "logout" // as defined in config
 }
@@ -549,7 +549,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Registration
 
-```json
+```jsonc
 {
     "event": "registration", // as defined in config
     "customerId": "4"
@@ -558,7 +558,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 #### Failed
 
-```json
+```jsonc
 {
     "event": "failed_registration", // as defined in config
     "message": "There is already an account with this email address."
@@ -578,7 +578,7 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ### Products in List
 
-```json
+```jsonc
 {
     "event": "product_exposure", // as defined in config
     "page": "Category Page",
@@ -623,7 +623,7 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ### Top Menu Category
 
-```json
+```jsonc
 {
     "event": "menu_category_exposure", // as defined in config
     "ecommerce": {
@@ -641,7 +641,7 @@ Here you can set any block to trigger exposure event by using a HTML selector
 
 ![Exposure Custom Blocks](https://github.com/acid-unit/docs/blob/main/google-tag-manager/exposure-custom-blocks.png?raw=true)
 
-```json
+```jsonc
 {
     "event": "block_exposure", // as defined in config
     "ecommerce": {
@@ -663,7 +663,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 Event data and structure:
 
-```json
+```jsonc
 {
     "event": "added_to_wishlist", // as defined in config
     "products": [
@@ -701,7 +701,7 @@ Event data and structure:
 Event structure is the same as for adding product to wishlist, but with the different
 event name:
 
-```json
+```jsonc
 {
     "event": "removed_from_wishlist", // as defined in config
 
