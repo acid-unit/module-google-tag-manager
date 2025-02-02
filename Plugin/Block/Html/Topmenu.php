@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Plugin\Block\Html;
 
-use AcidUnit\GoogleTagManager\Block\Base;
+use AcidUnit\GoogleTagManager\Block\GoogleTagManager;
 use AcidUnit\GoogleTagManager\Model\Config;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Theme\Block\Html\Topmenu as TopmenuTarget;
@@ -18,14 +18,14 @@ use Magento\Theme\Block\Html\Topmenu as TopmenuTarget;
 class Topmenu
 {
     /**
-     * @param Base $base
+     * @param GoogleTagManager $gtm
      * @param Json $serializer
      * @param Config $config
      */
     public function __construct(
-        private readonly Base   $base,
-        private readonly Json   $serializer,
-        private readonly Config $config
+        private readonly GoogleTagManager $gtm,
+        private readonly Json             $serializer,
+        private readonly Config           $config
     ) {
     }
 
@@ -62,7 +62,7 @@ class Topmenu
         }
 
         $menu = $subject->getMenu();
-        $menuData = $this->base->getTopMenuData($menu);
+        $menuData = $this->gtm->getTopMenuData($menu);
         $menuSerialized = (string)$this->serializer->serialize($menuData);
 
         $script = "<script>window.acidTopMenuData=$menuSerialized;</script>";

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Plugin\Catalog\Block\Product;
 
-use AcidUnit\GoogleTagManager\Block\Base;
+use AcidUnit\GoogleTagManager\Block\GoogleTagManager;
 use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataStorage;
 use Magento\Catalog\Block\Product\AbstractProduct as AbstractProductTarget;
@@ -20,12 +20,12 @@ use Magento\Catalog\Model\Product;
 class AbstractProduct
 {
     /**
-     * @param Base $base
+     * @param GoogleTagManager $gtm
      * @param ProductDataStorage $productDataStorage
      * @param Config $config
      */
     public function __construct(
-        private readonly Base               $base,
+        private readonly GoogleTagManager   $gtm,
         private readonly ProductDataStorage $productDataStorage,
         private readonly Config             $config,
     ) {
@@ -55,6 +55,6 @@ class AbstractProduct
 
         $this->productDataStorage->addProductToStorage($product);
 
-        return $result . $this->base->getProductIdHtml($product);
+        return $result . $this->gtm->getProductIdHtml($product);
     }
 }

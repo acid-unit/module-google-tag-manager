@@ -275,6 +275,8 @@ define([
                 productData.qty = productData.qty.toString();
             }
 
+            productData.price = parseFloat(productData.price.toString());
+
             push(this.gtmConfig['checkout_flow']['product_removed_from_cart']['event_name'], {
                 'ecommerce': {
                     'remove': {

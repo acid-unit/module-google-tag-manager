@@ -27,18 +27,23 @@ define([
                 return false;
             }
 
-            const currentPageHandleCode = handleModel.getCurrentPageHandleCode(),
-                handlesListInvertedBehavior = this.gtmConfig['page_load']['handles_list_inverted'],
-                handlesListIncludesCurrentHandleCode =
-                    this.gtmConfig['page_load']['handles_list'].split('\r\n').includes(currentPageHandleCode);
+            const allPageHandlesArray = handleModel.getAllPageHandles(),
+                handlesListInvertedBehavior = this.gtmConfig['page_load']['handles_list_inverted'];
+            let handlesListHasCurrentHandleCode = false;
+
+            this.gtmConfig['page_load']['handles_list'].split('\r\n').forEach(handle => {
+                if (allPageHandlesArray.includes(handle)) {
+                    handlesListHasCurrentHandleCode = true;
+                }
+            });
 
             // if current page handle is in the list with excluded option
-            if (!handlesListInvertedBehavior && handlesListIncludesCurrentHandleCode) {
+            if (!handlesListInvertedBehavior && handlesListHasCurrentHandleCode) {
                 return false;
             }
 
             // if current page handle is NOT in the list with included option
-            if (handlesListInvertedBehavior && !handlesListIncludesCurrentHandleCode) {
+            if (handlesListInvertedBehavior && !handlesListHasCurrentHandleCode) {
                 return false;
             }
 
@@ -76,7 +81,7 @@ define([
             push(this.gtmConfig['page_load']['pdp_load_event_name'], {
                 'ecommerce': {
                     'detail': {
-                        'products': [pageData['provider']]
+                        'products': pageData['provider']
                     }
                 }
             });

@@ -70,7 +70,6 @@ define([
                 }
 
                 pushData = {...productData};
-                pushData['page'] = handleModel.getCurrentPageName();
 
                 const productList = productDataModel.getProductList(product);
 
@@ -95,6 +94,7 @@ define([
             }
 
             push(this.gtmConfig['exposure']['product']['event_name'], {
+                'page': handleModel.getCurrentPageName(),
                 'ecommerce': {
                     'exposure': productData
                 }

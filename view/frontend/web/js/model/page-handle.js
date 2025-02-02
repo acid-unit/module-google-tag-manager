@@ -61,24 +61,43 @@ define([], function () {
             }
         },
 
-        currentPageHandleCode: '',
+        pageMainHandle: '',
+        allPageHandles: [],
+
+        /**
+         * @param {string} handlesArray
+         */
+        setAllPageHandles: function (handlesArray) {
+            if (!handlesArray) {
+                return;
+            }
+
+            this.allPageHandles = handlesArray;
+        },
+
+        /**
+         * @returns {array}
+         */
+        getAllPageHandles: function () {
+            return this.allPageHandles;
+        },
 
         /**
          * @param {string} code
          */
-        setCurrentPageHandleCode: function (code) {
+        setPageMainHandle: function (code) {
             if (!code) {
                 return;
             }
 
-            this.currentPageHandleCode = code;
+            this.pageMainHandle = code;
         },
 
         /**
          * @returns {string}
          */
-        getCurrentPageHandleCode: function () {
-            return this.currentPageHandleCode;
+        getPageMainHandle: function () {
+            return this.pageMainHandle;
         },
 
         /**
@@ -90,7 +109,7 @@ define([], function () {
             Object.keys(this.handles).forEach(key => {
                 if (this.handles[key].hasOwnProperty('code') &&
                     this.handles[key].hasOwnProperty('name') &&
-                    this.handles[key]['code'] === this.getCurrentPageHandleCode()
+                    this.handles[key]['code'] === this.getPageMainHandle()
                 ) {
                     result = this.handles[key]['name'];
                 }

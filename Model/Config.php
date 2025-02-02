@@ -33,10 +33,6 @@ class Config
         = 'google/google_tag_manager/page_load/active';
     public const XML_PATH_GTM_PAGE_LOAD_EVENT_NAME
         = 'google/google_tag_manager/page_load/event_name';
-    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR
-        = 'google/google_tag_manager/page_load/handles_list_behavior';
-    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST
-        = 'google/google_tag_manager/page_load/handles_list';
     public const XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME
         = 'google/google_tag_manager/page_load/pdp_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
@@ -45,6 +41,10 @@ class Config
         = 'google/google_tag_manager/page_load/search_results_page_load_event_name';
     public const XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED
         = 'google/google_tag_manager/page_load/user_type_enabled';
+    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR
+        = 'google/google_tag_manager/page_load/handles_list_behavior';
+    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST
+        = 'google/google_tag_manager/page_load/handles_list';
     public const XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES
         = 'google/google_tag_manager/page_load/custom/custom_pages';
 
@@ -620,6 +620,32 @@ class Config
     }
 
     /**
+     * Get GTM Page Load Handles List
+     *
+     * @return string
+     */
+    public function getGtmPageLoadHandlesList(): string
+    {
+        return (string)$this->scopeConfig->getValue(
+            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Is GTM Page Load handles list used as the included pages, not excluded
+     *
+     * @return bool
+     */
+    public function isGtmPageLoadHandlesListInverted(): bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * Is GTM Page Load User Type Enabled
      *
      * @return bool
@@ -667,32 +693,6 @@ class Config
     {
         return (string)$this->scopeConfig->getValue(
             self::XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    /**
-     * Get GTM Page Load Handles List
-     *
-     * @return string
-     */
-    public function getGtmPageLoadHandlesList(): string
-    {
-        return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST,
-            ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    /**
-     * Is GTM Page Load handles list used as the included pages, not excluded
-     *
-     * @return bool
-     */
-    public function isGtmPageLoadHandlesListInverted(): bool
-    {
-        return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR,
             ScopeInterface::SCOPE_STORE
         );
     }

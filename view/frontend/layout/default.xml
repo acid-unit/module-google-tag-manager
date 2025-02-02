@@ -38,7 +38,7 @@
                 </arguments>
             </block>
 
-            <block class="AcidUnit\GoogleTagManager\Block\Base"
+            <block class="AcidUnit\GoogleTagManager\Block\GoogleTagManager"
                    name="acid_gtm_init"
                    after="acid_gtm_config"
                    ifconfig="google/google_tag_manager/active"

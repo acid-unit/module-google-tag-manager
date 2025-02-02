@@ -87,6 +87,7 @@ class ProductDataProvider
         $productType = $product->getTypeId();
 
         $result['id'] = $product->getId();
+        $result['sku'] = $product->getSku();
         $result['name'] = trim($product->getName());
         $result['category'] = $this->getCategoryName($product);
         $result['type'] = $productType;

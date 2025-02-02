@@ -17,8 +17,8 @@
                 <prevent_push_when_logged_as_customer_enabled>1</prevent_push_when_logged_as_customer_enabled>
                 <page_load>
                     <active>0</active>
-                    <handles_list_behavior>0</handles_list_behavior>
                     <user_type_enabled>0</user_type_enabled>
+                    <handles_list_behavior>0</handles_list_behavior>
                 </page_load>
                 <click>
                     <product>

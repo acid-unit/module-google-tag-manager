@@ -117,10 +117,68 @@
                         </depends>
                     </field>
 
+                    <field id="pdp_load_event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="30"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>PDP Loaded Event Name</label>
+                        <comment>When PDP is loaded, a different GTM Event with product details is pushed to the data layer</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="plp_load_event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="40"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>PLP Loaded Event Name</label>
+                        <comment>When PLP is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="search_results_page_load_event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="50"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1">
+                        <label>Search Result Page Loaded Event Name</label>
+                        <comment>When Search Result Page is loaded, a different GTM Event with search results is pushed to the data layer</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="user_type_enabled"
+                           translate="label comment"
+                           type="select"
+                           sortOrder="60"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable Pushing User Type with Page Load event</label>
+                        <comment>Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, SRP, Checkout, Success Order Pages</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+
                     <field id="handles_list_behavior"
                            translate="label"
                            type="select"
-                           sortOrder="30"
+                           sortOrder="70"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1"
@@ -135,70 +193,12 @@
                     <field id="handles_list"
                            translate="label comment"
                            type="textarea"
-                           sortOrder="40"
+                           sortOrder="80"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1">
                         <label>Page Layout Handles List</label>
                         <comment><![CDATA[One layout handle per line. More info about layout handles you can find on <a target="_blank" href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/">Adobe Commerce Developer Documentation page</a>]]></comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="pdp_load_event_name"
-                           translate="label"
-                           type="text"
-                           sortOrder="50"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>PDP Loaded Event Name</label>
-                        <comment>When PDP is loaded, a different GTM Event with product details is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="plp_load_event_name"
-                           translate="label"
-                           type="text"
-                           sortOrder="60"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>PLP Loaded Event Name</label>
-                        <comment>When PLP is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="search_results_page_load_event_name"
-                           translate="label"
-                           type="text"
-                           sortOrder="70"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Search Result Page Loaded Event Name</label>
-                        <comment>When Search Result Page is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="user_type_enabled"
-                           translate="label comment"
-                           type="select"
-                           sortOrder="80"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1"
-                           canRestore="1">
-                        <label>Enable Pushing User Type with Page Load event</label>
-                        <comment>Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, Checkout, Success Order Pages</comment>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         <depends>
                             <field id="active">1</field>
                         </depends>

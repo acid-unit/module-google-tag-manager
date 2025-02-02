@@ -9,13 +9,34 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <type name="AcidUnit\GoogleTagManager\Block\GoogleTagManager">
+        <arguments>
+            <argument name="dataProviders" xsi:type="array">
+                <!-- data providers for different page handles -->
+                <item name="catalog_product_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\Provider\Proxy</item>
+                <item name="catalog_category_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
+                <item name="catalogsearch_result_index" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
+                <item name="checkout_onepage_success" xsi:type="object">AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Interface overriding 👇 -->
     <type name="AcidUnit\GoogleTagManager\ViewModel\ConfigProvider">
         <arguments>
-            <!-- dependency on implementation -->
             <argument name="configProvider" xsi:type="object">AcidUnit\GoogleTagManager\Model\GtmConfigProvider</argument>
         </arguments>
     </type>
 
+    <type name="AcidUnit\GoogleTagManager\Model\ProductDataProvider">
+        <arguments>
+            <argument name="categoryRepository" xsi:type="object">Magento\Catalog\Model\CategoryRepository</argument>
+        </arguments>
+    </type>
+    <!-- Interface overriding 👆 -->
+
+    <!-- Plugins 👇 -->
+    <!-- https://developer.adobe.com/commerce/php/development/components/plugins/ -->
     <type name="Magento\Catalog\Block\Product\AbstractProduct">
         <plugin name="acid_gtm_abstract_product"
                 type="AcidUnit\GoogleTagManager\Plugin\Catalog\Block\Product\AbstractProduct"
@@ -32,54 +53,12 @@
         />
     </type>
 
-    <type name="AcidUnit\GoogleTagManager\Model\ProductDataStorage">
-        <arguments>
-            <!-- dependency on implementation -->
-            <argument name="categoryRepository" xsi:type="object">Magento\Catalog\Model\CategoryRepository</argument>
-        </arguments>
-    </type>
-
     <type name="Magento\Theme\Block\Html\Topmenu">
         <plugin name="acid_gtm_topmenu"
                 type="AcidUnit\GoogleTagManager\Plugin\Block\Html\Topmenu"
                 sortOrder="10"
                 disabled="false"
         />
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Customer\LoginData">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Customer\RegistrationData">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Customer\LogoutData">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\RemoveProductData">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\AddProductData">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
     </type>
 
     <type name="Magento\ConfigurableProduct\Model\Product\Type\Configurable">
@@ -90,13 +69,6 @@
         />
     </type>
 
-    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
     <type name="Magento\Quote\Model\Quote">
         <plugin name="acid_gtm_quote"
                 type="AcidUnit\GoogleTagManager\Plugin\Model\Quote"
@@ -105,35 +77,62 @@
         />
     </type>
 
-    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Quote">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Block\Base">
-        <arguments>
-            <argument name="dataProviders" xsi:type="array">
-                <item name="catalog_product_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\Provider\Proxy</item>
-                <item name="catalog_category_view" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
-                <item name="catalogsearch_result_index" xsi:type="object">AcidUnit\GoogleTagManager\Model\Product\ProductList\Provider\Proxy</item>
-                <item name="checkout_onepage_success" xsi:type="object">AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider\Proxy</item>
-            </argument>
-        </arguments>
-    </type>
-
-    <type name="AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider">
-        <arguments>
-            <!-- session object proxy class -->
-            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
-        </arguments>
-    </type>
-
     <type name="Magento\Wishlist\Controller\Index\Remove">
         <plugin name="acid_gtm_remove_from_wishlist"
                 type="AcidUnit\GoogleTagManager\Plugin\Wishlist\Remove"
                 sortOrder="10"
         />
     </type>
+    <!-- Plugins 👆 -->
+
+    <!-- Proxies 👇 -->
+    <!-- https://developer.adobe.com/commerce/php/development/components/proxies/ -->
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\LoginData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\RegistrationData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Customer\LogoutData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\RemoveProductData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Wishlist\AddProductData">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Product\Type\Configurable">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Plugin\Model\Quote">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success\Provider">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <!-- Proxies 👆 -->
 </config>

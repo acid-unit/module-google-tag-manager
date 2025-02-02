@@ -1,30 +1,34 @@
-Enabled,Enabled
-"Block Selector","Block Selector"
-"Block Name","Block Name"
-"Add Block Exposure","Add Block Exposure"
 Exclude,Exclude
 Include,Include
 "There is already an account with this email address.","There is already an account with this email address."
+"Page not found.","Page not found."
+"We can't delete the item from Wish List right now because of an error: %1.","We can't delete the item from Wish List right now because of an error: %1."
+"We can't delete the item from the Wish List right now.","We can't delete the item from the Wish List right now."
+"Google Tag Manager","Google Tag Manager"
 "<span>Google Tag Manager</span><span>&nbsp;</span><span>[Acid Unit]</span><span>&nbsp;</span>","<span>Google Tag Manager</span><span>&nbsp;</span><span>[Acid Unit]</span><span>&nbsp;</span>"
 Enable,Enable
 "Container ID","Container ID"
 "Enable Debug","Enable Debug"
 "All events that are pushed to the data layer will be also logged to the developer console","All events that are pushed to the data layer will be also logged to the developer console"
+"Prevent pushing events when 'Logged as a Customer' session","Prevent pushing events when 'Logged as a Customer' session"
 "Page Load","Page Load"
 "Event Name","Event Name"
+"PDP Loaded Event Name","PDP Loaded Event Name"
+"PLP Loaded Event Name","PLP Loaded Event Name"
+"Search Result Page Loaded Event Name","Search Result Page Loaded Event Name"
+"Enable Pushing User Type with Page Load event","Enable Pushing User Type with Page Load event"
+"Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, SRP, Checkout, Success Order Pages","Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, SRP, Checkout, Success Order Pages"
 "Page Layout Handles List Behavior","Page Layout Handles List Behavior"
 "Page Layout Handles List","Page Layout Handles List"
 "One layout handle per line. More info about layout handles you can find on <a target=""_blank"" href=""https://developer.adobe.com/commerce/frontend-core/guide/layouts/"">Adobe Commerce Developer Documentation page</a>","One layout handle per line. More info about layout handles you can find on <a target=""_blank"" href=""https://developer.adobe.com/commerce/frontend-core/guide/layouts/"">Adobe Commerce Developer Documentation page</a>"
-"PDP Loaded Event Name","PDP Loaded Event Name"
-"PLP Loaded Event Name","PLP Loaded Event Name"
-"Enable Pushing User Type with Page Load event","Enable Pushing User Type with Page Load event"
-"Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, Checkout, Success Order Pages","Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, Checkout, Success Order Pages"
+"Custom Pages","Custom Pages"
 Click,Click
 "Product Clicked","Product Clicked"
 "Menu Item Clicked","Menu Item Clicked"
 "Swatch Clicked","Swatch Clicked"
 "Checkout Flow","Checkout Flow"
 "Product Added to Cart","Product Added to Cart"
+Enabled,Enabled
 "Product Removed from Cart","Product Removed from Cart"
 "Cart Item Qty Changed","Cart Item Qty Changed"
 "Checkout Steps Reached","Checkout Steps Reached"
@@ -41,3 +45,7 @@ Exposure,Exposure
 Product,Product
 "Menu Category","Menu Category"
 Block,Block
+Blocks,Blocks
+Wishlist,Wishlist
+"Add To Wishlist","Add To Wishlist"
+"Remove From Wishlist","Remove From Wishlist"

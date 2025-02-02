@@ -15,8 +15,9 @@ use Magento\Framework\Data\Tree\Node;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
+use Magento\Framework\View\Layout;
 
-class Base extends Template
+class GoogleTagManager extends Template
 {
     /**
      * @var array<mixed>
@@ -26,7 +27,12 @@ class Base extends Template
     /**
      * @var string
      */
-    private string $pageHandle = '';
+    private string $pageMainHandle = '';
+
+    /**
+     * @var array<string>
+     */
+    private array $allPageHandles = [];
 
     /**
      * @var RequestInterface
@@ -37,6 +43,7 @@ class Base extends Template
      * @param Context $context
      * @param Json $serializer
      * @param SessionFactory $sessionFactory
+     * @param Layout $layout
      * @param array<mixed> $dataProviders
      * @param array<mixed> $data
      */
@@ -44,6 +51,7 @@ class Base extends Template
         Context                         $context,
         private readonly Json           $serializer,
         private readonly SessionFactory $sessionFactory,
+        private readonly Layout         $layout,
         array                           $dataProviders = [],
         array                           $data = []
     ) {
@@ -91,13 +99,27 @@ class Base extends Template
      * @return string
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
-    public function getPageHandle(): string
+    public function getPageMainHandle(): string
     {
-        if (!$this->pageHandle) {
-            $this->pageHandle = $this->request->getFullActionName(); // @phpstan-ignore-line
+        if (!$this->pageMainHandle) {
+            $this->pageMainHandle = $this->request->getFullActionName(); // @phpstan-ignore-line
         }
 
-        return $this->pageHandle;
+        return $this->pageMainHandle;
+    }
+
+    /**
+     * Get all page handles
+     *
+     * @return string
+     */
+    public function getAllPageHandles(): string
+    {
+        if (!$this->allPageHandles) {
+            $this->allPageHandles = $this->layout->getUpdate()->getHandles();
+        }
+
+        return $this->serializer->serialize($this->allPageHandles);
     }
 
     /**
@@ -123,7 +145,7 @@ class Base extends Template
      */
     private function getDataProviderData(): array
     {
-        $handle = $this->getPageHandle();
+        $handle = $this->getPageMainHandle();
         $dataProvider = $this->dataProviders[$handle] ?? null;
 
         if (!$dataProvider) {

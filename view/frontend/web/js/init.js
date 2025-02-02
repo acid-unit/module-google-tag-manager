@@ -27,9 +27,10 @@ define([
     return function (config) {
         pageDataModel.storePageData(config['pageData'] || {});
         pageData.triggerEvents();
-        handleModel.setCurrentPageHandleCode(config['pageHandle'] || '');
+        handleModel.setPageMainHandle(config['pageMainHandle'] || '');
+        handleModel.setAllPageHandles(config['allPageHandles'] || '');
 
-        switch (handleModel.getCurrentPageHandleCode()) {
+        switch (handleModel.getPageMainHandle()) {
             case handleModel.handles.productPage.code:
                 pageLoad.pdp();
                 break;

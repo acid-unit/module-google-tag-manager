@@ -6,13 +6,13 @@
 
 /** @noinspection PhpUndefinedMethodInspection */
 
-use AcidUnit\GoogleTagManager\Block\Base;
+use AcidUnit\GoogleTagManager\Block\GoogleTagManager;
 use AcidUnit\GoogleTagManager\Model\ProductDataUpdateHandler;
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /**
- * @var Base $block
+ * @var GoogleTagManager $block
  * @var ProductDataUpdateHandler $productDataUpdateHandler
  * @var Escaper $escaper
  * @var SecureHtmlRenderer $secureRenderer
@@ -28,7 +28,8 @@ $scriptString = "window.acidProductData = {$productDataUpdateHandler->getPlaceho
 {
     "*": {
         "AcidUnit_GoogleTagManager/js/init": {
-            "pageHandle": "<?= /* @noEscape */ $escaper->escapeHtml($block->getPageHandle()) ?>",
+            "pageMainHandle": "<?= /* @noEscape */ $escaper->escapeHtml($block->getPageMainHandle()) ?>",
+            "allPageHandles": <?= /* @escapeNotVerified */ $block->getAllPageHandles() ?>,
             "pageData": <?= /* @escapeNotVerified */ $block->getSerializedPageData() ?>
         }
     }

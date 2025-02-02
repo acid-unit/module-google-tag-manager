@@ -10,7 +10,6 @@ namespace AcidUnit\GoogleTagManager\Plugin\Wishlist;
 
 use AcidUnit\GoogleTagManager\Model\Config;
 use Exception;
-use Magento\Framework\App\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Controller\Result\Redirect;
@@ -44,7 +43,7 @@ class Remove extends RemoveTarget
      */
     public function __construct(
         private readonly Config   $config,
-        Action\Context            $context,
+        Context                   $context,
         WishlistProviderInterface $wishlistProvider,
         Validator                 $formKeyValidator,
         AttributeValueProvider    $attributeValueProvider = null
@@ -61,14 +60,14 @@ class Remove extends RemoveTarget
     }
 
     /**
-     * Around Plugin which dispatches 'wishlist_remove_product' event when product is removed from wishlist
+     * Around Plugin to dispatch 'wishlist_remove_product' event when product is removed from wishlist
      *
      * @param RemoveTarget $subject
      * @param callable $proceed
      *
      * @return Redirect
      * @throws NotFoundException
-     * @see          \Magento\Wishlist\Controller\Index\Remove::execute
+     * @see \Magento\Wishlist\Controller\Index\Remove::execute
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      * @noinspection PhpUnusedParameterInspection
@@ -92,15 +91,18 @@ class Remove extends RemoveTarget
         $id = (int)$this->getRequest()->getParam('item');
         /** @var Item $item */
         $item = $this->_objectManager->create(Item::class)->load($id);
+
         if (!$item->getId()) {
             throw new NotFoundException(__('Page not found.'));
         }
+
         $wishlist = $this->wishlistProvider->getWishlist($item->getWishlistId());
 
         /** @phpstan-ignore-next-line */
         if (!$wishlist) {
             throw new NotFoundException(__('Page not found.'));
         }
+
         try {
             $item->delete();
             $wishlist->save();
