@@ -1,6 +1,6 @@
 # About
 
-A powerful yet flexible, simple and user-friendly Google Tag Manager extension for Adobe Commerce.
+A powerful yet flexible, simple and user-friendly Google Tag Manager extension for Magento Open Source and Adobe Commerce.
 
 Events summary table:
 
@@ -19,7 +19,7 @@ Events summary table:
 * [Checkout Flow](#checkout-flow)
     + [Added to Cart](#added-to-cart)
     + [Removed from Cart](#removed-from-cart)
-    + [Cart item Qty Changed](#cart-item-qty-changed)
+    + [Cart Item Qty Changed](#cart-item-qty-changed)
     + [Checkout Steps Reached](#checkout-steps-reached)
     + [Purchase Done](#purchase-done)
 * [Customer Session](#customer-session)
@@ -51,7 +51,7 @@ If the event name is set, it will be pushed as `event` property like on the scre
 
 ## Debugging
 
-When debugging is enabled, every time an object is pushed to the data layer, it will also be logged in the console:
+With debugging enabled, each object pushed to the data layer is also logged in the console:
 
 ![Debugging GTM Events](https://github.com/acid-unit/docs/blob/main/google-tag-manager/debug-console.png?raw=true)
 
@@ -223,20 +223,21 @@ More info regarding layout handles you can find on a corresponding <a href="http
 ### Custom URLs
 
 Events can be pushed to the data layer for custom pages—those that do not fit 
-into predefined categories like PDP, PLP, or CMS pages. For example, `/contact` page:
+into predefined categories like PDP, PLP, or CMS pages. For example, the `/contact` page:
 
 ![Custom Pages Load](https://github.com/acid-unit/docs/blob/main/google-tag-manager/custom-pages-load.png?raw=true)
 
-**Note**: Page URL here can be set as a part of URL, it is not mandatory to set entire URL.
-Also, there is a specific limitation - if you have, for instance, two pages with the following URLs:
- 
+**Note**: The page URL can be set as part of the URL; it is not mandatory to define the entire URL.
+
+Be aware that the URL matching logic works on a substring basis. 
+This means that if you define a rule for `/contact`, 
+it will also match URLs that contain `/contact` within them, such as:
+
 - `/contact`
 - `/contact-us`
 
-The event will be triggered on both of them, because both of URLs contain `/contact` substring.
-
-For this case if you need to track both of the pages, consider changing URLs so one
-of them won't include another.
+If you need to track these pages separately, 
+consider change page URLs to avoid unintentional overlap.
 
 ## Click
 
@@ -315,11 +316,11 @@ Event data and structure:
 ```jsonc
 {
     "event": "swatch_clicked",
-    "swatchLabel": "Color",
-    "optionLabel": "Orange",
+    "swatch_label": "Color",
+    "option_label": "Orange",
     
     // true for listing page, false for PDP
-    "inProductList": true,
+    "in_product_list": true,
     "product": {
         "id": "1268",
         "sku": "WJ04",
@@ -371,7 +372,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
                         "size": "XS",
                         "color": "Black"
                     },
-                    "qty": "1"
+                    "qty": 1
                 }
             ]
         }
@@ -392,7 +393,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
                     "name": "Beaumont Summit Kit",
                     "price": 42,
                     "sku": "MJ01-M-Red",
-                    "qty": "6",
+                    "qty": 6,
 
                     // options array will be pushed only for configurable products
                     "options": {
@@ -406,11 +407,11 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 }
 ```
 
-### Cart item Qty Changed
+### Cart Item Qty Changed
 
 Event is triggered both when qty is changed in minicart and on cart page.
-If qty is changed for multiple products at once on cart page, they all will appear in
-'products' array
+If the quantity of multiple products is changed at once on the cart page, 
+all affected products will appear in the 'products' array.
 
 ```jsonc
 {
@@ -423,14 +424,14 @@ If qty is changed for multiple products at once on cart page, they all will appe
                     "name": "Josie Yoga Jacket",
                     "price": 56.25,
                     "sku": "WJ02-XS-Black",
-                    "qty": "4",
+                    "qty": 4,
 
                     // options array will be pushed only for configurable products
                     "options": {
                         "size": "XS",
                         "color": "Black"
                     },
-                    "old_qty": "2"
+                    "old_qty": 2
                 }
             ]
         }
@@ -440,7 +441,7 @@ If qty is changed for multiple products at once on cart page, they all will appe
 
 ### Checkout Steps Reached
 
-Shipping step:
+When shipping step is loaded:
 
 ```jsonc
 {
@@ -457,14 +458,14 @@ Shipping step:
                 "sku": "WJ12-XS-Blue",
                 "name": "Olivia 1/4 Zip Light Jacket-XS-Blue",
                 "price": 77,
-                "qty": "1"
+                "qty": 1
             },
             {
                 "id": "1236",
                 "sku": "WJ02-XS-Black",
                 "name": "Josie Yoga Jacket",
                 "price": 56.25,
-                "qty": "4",
+                "qty": 4,
                 "options": {
                     "size": "XS",
                     "color": "Black"
@@ -475,7 +476,7 @@ Shipping step:
 }
 ```
 
-Billing step:
+When billing step is loaded:
 
 ```jsonc
 {
@@ -513,7 +514,7 @@ Billing step:
                     "category": "Jackets",
                     "type": "simple",
                     "price": 77,
-                    "qty": "1"
+                    "qty": 1
                 },
                 {
                     "id": "1236",
@@ -526,7 +527,7 @@ Billing step:
                         "size": "XS",
                         "color": "Black"
                     },
-                    "qty": "4"
+                    "qty": 4
                 }
             ]
         }
@@ -554,6 +555,8 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 ```jsonc
 {
     "event": "failed_login",
+    
+    // error message displayed to the customer
     "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later."
 }
 ```
@@ -580,6 +583,8 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 ```jsonc
 {
     "event": "failed_registration",
+    
+    // error message displayed to the customer
     "message": "There is already an account with this email address."
 }
 ```
@@ -739,11 +744,19 @@ event name:
 
 # Installation
 
-`composer require acid-unit/module-google-tag-manager`
+```shell
+composer require acid-unit/module-google-tag-manager
+```
+
+After that make sure your module is registered:
+
+```shell
+bin/magento module:enable AcidUnit_GoogleTagManager
+```
 
 # Requirements
 
-- `Adobe Commerce 2.4.4` or newer
-- `PHP 8.1` or newer
+This module is compatible with Magento Open Source and Adobe Commerce versions >=`2.4.4`
+and requires `PHP 8.1` or later.
 
-<small>Tested on Adobe Commerce 2.4.7-p3 with PHP 8.3</small>
+<small>✅ Verified on Adobe Commerce 2.4.7-p3 with PHP 8.3</small>
