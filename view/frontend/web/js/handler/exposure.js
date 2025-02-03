@@ -21,6 +21,7 @@ define([
 
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
+        generalConfig: window.acidGeneralConfig ? window.acidGeneralConfig : {},
 
         productExposures: [],
         blockExposures: [],
@@ -96,7 +97,8 @@ define([
             push(this.gtmConfig['exposure']['product']['event_name'], {
                 'page': handleModel.getCurrentPageName(),
                 'ecommerce': {
-                    'exposure': productData
+                    'exposure': productData,
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -170,7 +172,8 @@ define([
 
             push(this.gtmConfig['exposure']['block']['event_name'], {
                 'ecommerce': {
-                    'blockView': blocksData
+                    'blockView': blocksData,
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },

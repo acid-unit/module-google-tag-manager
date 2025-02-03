@@ -63,7 +63,8 @@ define([
                             'actionField': {
                                 'step': stepNumber
                             }
-                        }
+                        },
+                        'currencyCode': this.generalConfig['currency']['code']
                     }
                 },
                 products = [];
@@ -161,7 +162,7 @@ define([
             let price = '0';
 
             if (priceElement.length) {
-                price = priceElement[0].innerText.replace(this.generalConfig['currency_symbol'], '');
+                price = priceElement[0].innerText.replace(this.generalConfig['currency']['symbol'], '');
             }
 
             return parseFloat(price);
@@ -252,7 +253,8 @@ define([
                 'ecommerce': {
                     'add': {
                         'products': productsPushData
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -280,7 +282,8 @@ define([
                 'ecommerce': {
                     'remove': {
                         'products': [productData]
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -343,7 +346,8 @@ define([
                 'ecommerce': {
                     'update': {
                         'products': products
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },

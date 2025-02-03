@@ -17,6 +17,7 @@ define([
     // noinspection JSUnresolvedReference
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
+        generalConfig: window.acidGeneralConfig ? window.acidGeneralConfig : {},
 
         model: {
             product: {
@@ -44,7 +45,8 @@ define([
                     'click': {
                         'actionField': {'list': productDataModel.getProductList(product)},
                         'products': [productData]
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -86,8 +88,8 @@ define([
 
             push(this.gtmConfig['click']['menu_item']['event_name'], {
                 'ecommerce': {
-                    'click': {
-                        'menuItem': menuItemData['name'],
+                    'menu_item_click': {
+                        'menu_item': menuItemData['name'],
                         'path': menuItemData['path']
                     }
                 }

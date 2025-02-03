@@ -18,6 +18,7 @@ define([
 
     return {
         gtmConfig: window.acidGtmConfig ? window.acidGtmConfig : {},
+        generalConfig: window.acidGeneralConfig ? window.acidGeneralConfig : {},
 
         /**
          * @return {boolean}
@@ -66,7 +67,8 @@ define([
                     'purchase': {
                         'actionField': pageData['provider']['order_data'],
                         'products': pageData['provider']['products']
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -82,7 +84,8 @@ define([
                 'ecommerce': {
                     'detail': {
                         'products': pageData['provider']
-                    }
+                    },
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -96,7 +99,8 @@ define([
 
             push(this.gtmConfig['page_load']['plp_load_event_name'], {
                 'ecommerce': {
-                    'impressions': pageData['provider']
+                    'impressions': pageData['provider'],
+                    'currencyCode': this.generalConfig['currency']['code']
                 }
             });
         },
@@ -110,7 +114,8 @@ define([
 
             push(this.gtmConfig['page_load']['search_results_page_load_event_name'], {
                 'ecommerce': {
-                    'search_result': pageData['provider']
+                    'search_result': pageData['provider'],
+                    'currencyCode': this.generalConfig['currency']['code']
                 },
                 'search_query': new URLSearchParams(document.location.search).get('q')
             });

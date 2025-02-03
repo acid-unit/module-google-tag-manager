@@ -65,21 +65,30 @@ class Provider implements DataProviderInterface, ArgumentInterface
             return [];
         }
 
-        $orderData = [
+        return [
             'order_data' => [
                 'id' => (string)$order->getIncrementId(),
                 'grand_total' => (float)$order->getGrandTotal(),
-                'shipping_amount' => (float)$order->getShippingAmount(),
-                'discount' => (float)$order->getDiscountAmount()
+                'shipping' => (float)$order->getShippingAmount() ?: '',
+                'discount' => (float)$order->getDiscountAmount() ?: '',
+                'tax' => (float)$order->getTaxAmount() ?: '',
+                'revenue' => $this->getRevenue(),
+                'coupon' => $order->getCouponCode() ?: ''
             ],
             'products' => $this->getProductsData()
         ];
+    }
 
-        if ($order->getCouponCode()) {
-            $orderData['order_data']['coupon'] = $order->getCouponCode();
-        }
+    /**
+     * Get revenue (grand total - shipping)
+     *
+     * @return float
+     */
+    private function getRevenue(): float
+    {
+        $order = $this->getOrder();
 
-        return $orderData;
+        return (float)$order->getGrandTotal() - (float)$order->getShippingAmount();
     }
 
     /**
