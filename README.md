@@ -1,6 +1,6 @@
 # About
 
-A powerful yet flexible, simple and user-friendly Google Tag Manager extension for Magento Open Source and Adobe Commerce.
+A powerful, flexible, and user-friendly Google Tag Manager extension for Magento Open Source & Adobe Commerce.
 
 Events summary table:
 
@@ -40,18 +40,18 @@ Events summary table:
 
 Module configuration is done under the 
 `Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
-section. All sections, fields, and options are clearly labeled and self-explanatory.
+section. All settings are clearly labeled and designed for ease of use.
 
 ![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
 
-To modify event structure or the data pushed to the data layer, code-level changes are required. 
+Modifying event structure or data layer output requires code-level changes. 
 Admin configuration provides toggling events, setting event names and conditions for separate events. 
 
 If the event name is set, it will be pushed as `event` property like on the screenshot below.
 
 ## Debugging
 
-With debugging enabled, each object pushed to the data layer is also logged in the console:
+When debugging is enabled, all objects pushed to the data layer are logged in the browser console.
 
 ![Debugging GTM Events](https://github.com/acid-unit/docs/blob/main/google-tag-manager/debug-console.png?raw=true)
 
@@ -102,7 +102,8 @@ Event structure and data can be modified in `js/model/page-load.js` file
                     ]
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -164,7 +165,8 @@ Example of event data structure that is pushed when PLP is loaded:
                 "min_price": 14,
                 "max_price": 21
             }
-        ]
+        ],
+        "currencyCode": "USD"
     }
 }
 ```
@@ -182,7 +184,8 @@ Search Results Page has similar event data structure to PLP:
         // the same array with products as the 'impressions' property has in PLP load event
         "search_result": [
             // ...
-        ]
+        ],
+        "currencyCode": "USD"
     }
 }
 ```
@@ -206,7 +209,7 @@ Event data structure example that is pushed to the data layer when CMS Page is l
 
 ### Include / Exclude Pages
 
-Using Magento layout handles you can exclude specific pages from trigger GTM events on load. 
+You can exclude specific pages from triggering GTM events using Magento layout handles. 
 Add one of the page handles to the `Page Layout Handles List` textarea, 
 and make sure `List Behavior` is set to `Exclude`:
 
@@ -214,9 +217,9 @@ and make sure `List Behavior` is set to `Exclude`:
 
 In this case, home page and product category with id `12` won't trigger event on load.
 
-Switching `List Behavior` to `Include` reverses the logic, 
-meaning only the listed pages will trigger page load events.
-Only home page and category with id `12` will trigger Page Load events.
+Setting `List Behavior` to `Include` reverses the logic - only 
+the listed pages will trigger Page Load events.
+Meaning, only home page and category with id `12` will trigger Page Load events.
 
 More info regarding layout handles you can find on a corresponding <a href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/#layout-handles" target="_blank">Adobe Developer Portal Page</a>
 
@@ -229,7 +232,7 @@ into predefined categories like PDP, PLP, or CMS pages. For example, the `/conta
 
 **Note**: The page URL can be set as part of the URL; it is not mandatory to define the entire URL.
 
-Be aware that the URL matching logic works on a substring basis. 
+URL matching works on a **substring basis**.
 This means that if you define a rule for `/contact`, 
 it will also match URLs that contain `/contact` within them, such as:
 
@@ -246,7 +249,7 @@ Event structure and data can be modified in `js/model/page-click.js` file
 ### Product
 
 This event is triggered when the product is clicked on PLP, SRP or any other product list.
-Under the hood, click event listener is attached to the following selectors:
+Click event listeners are attached to the following selectors:
 
 - `a.product-item-photo`
 - `a.product-item-link`
@@ -289,7 +292,8 @@ Event data and structure:
                     ]
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -300,9 +304,9 @@ Event data and structure:
 {
     "event": "menu_item_clicked",
     "ecommerce": {
-        "click": {
+        "menu_item_click": {
             // menu item title
-            "menuItem": "Jackets",
+            "menu_item": "Jackets",
             
             // breadcrumbs path to the clicked menu item
             "path": "Women > Tops > Jackets"
@@ -375,7 +379,8 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
                     "qty": 1
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -402,7 +407,8 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
                     }
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -410,8 +416,8 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 ### Cart Item Qty Changed
 
 Event is triggered both when qty is changed in minicart and on cart page.
-If the quantity of multiple products is changed at once on the cart page, 
-all affected products will appear in the 'products' array.
+If multiple product quantities are updated at once (e.g. on cart page), 
+all affected products will be included in the `products` array.
 
 ```jsonc
 {
@@ -434,7 +440,8 @@ all affected products will appear in the 'products' array.
                     "old_qty": 2
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -471,12 +478,13 @@ When shipping step is loaded:
                     "color": "Black"
                 }
             }
-        ]
+        ],
+        "currencyCode": "USD"
     }
 }
 ```
 
-When billing step is loaded:
+When the billing step is loaded, cart product info is not included in the event data:
 
 ```jsonc
 {
@@ -486,7 +494,8 @@ When billing step is loaded:
             "actionField": {
                 "step": 2
             }
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
@@ -530,14 +539,15 @@ When billing step is loaded:
                     "qty": 4
                 }
             ]
-        }
+        },
+        "currencyCode": "USD"
     }
 }
 ```
 
 ## Customer Session
 
-For customer session events, event name and Customer ID or Error Message is sent to the data layer.
+Customer session events send the event name, Customer ID, or error message to the data layer.
 
 Event structure and data can be modified in `js/handler/page-data.js` file
 
@@ -642,7 +652,8 @@ Event structure and data can be modified in `js/handler/exposure.js` file
                 // current product list. eg 'upsell', 'related', 'Search Results' etc
                 "list": "Category Page"
             }
-        ]
+        ],
+        "currencyCode": "USD"
     }
 }
 ```
@@ -680,7 +691,8 @@ Here you can set any block to trigger exposure event by using a HTML selector
                 "name": "ECO",
                 "page": "Home Page"
             }
-        ]
+        ],
+        "currencyCode": "USD"
     }
 }
 ```
@@ -728,8 +740,8 @@ Event data and structure:
 
 ### Product Removed
 
-Event structure is the same as for adding product to wishlist, but with the different
-event name:
+The event structure is identical to the "Product Added to Wishlist" event, 
+but with a different event name:
 
 ```jsonc
 {
@@ -748,15 +760,16 @@ event name:
 composer require acid-unit/module-google-tag-manager
 ```
 
-After that make sure your module is registered:
+After installation, enable the module and run `setup:upgrade`:
 
 ```shell
 bin/magento module:enable AcidUnit_GoogleTagManager
+bin/magento setup:upgrade
 ```
 
 # Requirements
 
-This module is compatible with Magento Open Source and Adobe Commerce versions >=`2.4.4`
-and requires `PHP 8.1` or later.
+✅ **Compatible with**: Magento Open Source & Adobe Commerce `>=2.4.4`
+✅ Requires `PHP 8.1+`
 
-<small>✅ Verified on Adobe Commerce 2.4.7-p3 with PHP 8.3</small>
+<small>🛠 **Tested on** Magento Open Source `2.4.7-p3` with `PHP 8.3`</small>
