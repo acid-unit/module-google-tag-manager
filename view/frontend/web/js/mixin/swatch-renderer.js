@@ -88,9 +88,9 @@ define([
 
                 // push GTM event on swatch click
                 push(this.gtmConfig['click']['swatch']['event_name'], {
-                    'swatchLabel': swatchItem.label,
-                    'optionLabel': optionItem.label,
-                    'inProductList': $widget.inProductList,
+                    'swatch_label': swatchItem.label,
+                    'option_label': optionItem.label,
+                    'in_product_list': $widget.inProductList,
                     'product': productData
                 });
             }

@@ -75,7 +75,7 @@ define([
                             'sku': item.sku,
                             'name': item.name,
                             'price': parseFloat(item.price),
-                            'qty': item.qty.toString()
+                            'qty': item.qty
                         },
                         options = cartItemDataModel.getProductOptions(item.item_id);
 
@@ -219,9 +219,9 @@ define([
                     }
                 }
 
-                qty = this.getQtyFromDom(data, isGrouped, id);
+                qty = parseInt(this.getQtyFromDom(data, isGrouped, id), 10);
 
-                if (!parseInt(qty, 10)) {
+                if (!qty) {
                     return;
                 }
 
@@ -269,10 +269,9 @@ define([
                 const itemId = data['productData']['item_id'];
 
                 productData = cartItemDataModel.getProductData(itemId);
-                productData.qty = data.productData.qty.toString();
+                productData.qty = data.productData.qty;
             } else {
                 productData = data;
-                productData.qty = productData.qty.toString();
             }
 
             productData.price = parseFloat(productData.price.toString());
@@ -316,8 +315,8 @@ define([
                     cartItem = cartItemDataModel.getOldQtyData().filter(item => item.item_id === itemId)[0];
 
                 productData = cartItemDataModel.getProductData(itemId);
-                productData.qty = data.productData.qty.toString();
-                productData.old_qty = cartItem.qty.toString();
+                productData.qty = parseInt(data.productData.qty, 10);
+                productData.old_qty = parseInt(cartItem.qty, 10);
 
                 products.push(productData);
             } else if (data.productsSerializedData) {
@@ -327,8 +326,8 @@ define([
                 Object.keys(unserialized).forEach(key => {
                     const itemId = key.replace('cart[', '').replace('][qty]', ''),
                         cartItem = this.cartCustomerData().items.filter(item => item.item_id === itemId)[0],
-                        oldQty = cartItem.qty.toString(),
-                        newQty = unserialized[key];
+                        oldQty = parseInt(cartItem.qty, 10),
+                        newQty = parseInt(unserialized[key], 10);
 
                     if (oldQty !== newQty) {
                         productData = cartItemDataModel.getProductData(cartItem.item_id);

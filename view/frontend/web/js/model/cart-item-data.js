@@ -44,7 +44,7 @@ define([
                     result.name = cartItem.product_name;
                     result.price = cartItem.product_price_value;
                     result.sku = cartItem.product_sku;
-                    result.qty = cartItem.product_sku;
+                    result.qty = cartItem.qty;
 
                     if (cartItem.options && cartItem.options.length) {
                         result['options'] = {};
@@ -96,7 +96,7 @@ define([
             cartItems.forEach(item => {
                 this.oldQtyData.push({
                     'item_id': item['item_id'],
-                    'qty': item['qty']
+                    'qty': parseInt(item['qty'], 10)
                 });
             });
         },

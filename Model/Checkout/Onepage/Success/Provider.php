@@ -97,7 +97,7 @@ class Provider implements DataProviderInterface, ArgumentInterface
             $product = $item->getProduct();
 
             $productInfo = $this->productDataProvider->getProductData($product);
-            $productInfo['qty'] = (string)(int)$item->getQtyOrdered();
+            $productInfo['qty'] = (int)$item->getQtyOrdered();
 
             if ($product->getTypeId() == Configurable::TYPE_CODE) {
                 $options = [];
