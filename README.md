@@ -769,7 +769,7 @@ bin/magento setup:upgrade
 
 # Requirements
 
-✅ **Compatible with**: Magento Open Source & Adobe Commerce `>=2.4.4`
+✅ **Compatible with**: Magento Open Source & Adobe Commerce `>=2.4.4`<br>
 ✅ Requires `PHP 8.1+`
 
 <small>🛠 **Tested on** Magento Open Source `2.4.7-p3` with `PHP 8.3`</small>
