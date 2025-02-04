@@ -2,7 +2,49 @@
 
 A powerful, flexible, and user-friendly Google Tag Manager extension for Magento Open Source & Adobe Commerce.
 
-Events summary table:
+🔹 Tracks eCommerce events like **Add to Cart, Checkout, Purchases, Clicks, and more**.  
+🔹 Customizable **via admin settings** (no coding needed).  
+🔹 Works **out of the box** with minimal setup.
+
+## Quick Installation
+
+To install the module, run:
+```shell
+composer require acid-unit/module-google-tag-manager
+```
+After installation, enable the module and update Magento:
+
+```shell
+bin/magento module:enable AcidUnit_GoogleTagManager
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento cache:flush
+```
+
+# General Info
+
+Module configuration is done under the 
+`Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
+section. All settings are clearly labeled and designed for ease of use.
+
+![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
+
+Modifying event structure or data layer output requires code-level changes.
+Admin settings allow you to enable/disable specific events, 
+set custom event names, and define conditions for event triggers—without touching code. 
+
+If the event name is set, it will be pushed as `event` property like on the screenshot below.
+
+## Debugging
+
+When debugging is enabled, all objects pushed to the data layer are logged in the browser console.
+
+![Debugging GTM Events](https://github.com/acid-unit/docs/blob/main/google-tag-manager/debug-console.png?raw=true)
+
+## Tracked Events
+
+The module automatically tracks the following **user interactions** and pushes structured
+data to the Google Tag Manager data layer:
 
 * [Page Load](#page-load)
     + [PDP](#pdp)
@@ -36,24 +78,6 @@ Events summary table:
     + [Product Added](#product-added)
     + [Product Removed](#product-removed)
 
-# General Info
-
-Module configuration is done under the 
-`Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
-section. All settings are clearly labeled and designed for ease of use.
-
-![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
-
-Modifying event structure or data layer output requires code-level changes. 
-Admin configuration provides toggling events, setting event names and conditions for separate events. 
-
-If the event name is set, it will be pushed as `event` property like on the screenshot below.
-
-## Debugging
-
-When debugging is enabled, all objects pushed to the data layer are logged in the browser console.
-
-![Debugging GTM Events](https://github.com/acid-unit/docs/blob/main/google-tag-manager/debug-console.png?raw=true)
 
 # GTM Events
 
@@ -754,22 +778,21 @@ but with a different event name:
 }
 ```
 
-# Installation
+# Full Setup Reference
+
+Complete setup process:
 
 ```shell
 composer require acid-unit/module-google-tag-manager
-```
-
-After installation, enable the module and run `setup:upgrade`:
-
-```shell
 bin/magento module:enable AcidUnit_GoogleTagManager
 bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento cache:flush
 ```
 
 # Requirements
 
-✅ **Compatible with**: Magento Open Source & Adobe Commerce `>=2.4.4`<br>
+✅ **Compatible with**: Magento Open Source & Adobe Commerce `>=2.4.4`  
 ✅ Requires `PHP 8.1+`
 
 <small>🛠 **Tested on** Magento Open Source `2.4.7-p3` with `PHP 8.3`</small>
