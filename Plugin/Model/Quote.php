@@ -5,7 +5,6 @@
  */
 
 /** @noinspection PhpClassCanBeReadonlyInspection */
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 
 declare(strict_types=1);
 
@@ -40,7 +39,7 @@ class Quote
      * @param QuoteTarget $subject
      * @param int $itemId
      *
-     * @return array<mixed>
+     * @return array<int>
      * @see \Magento\Quote\Model\Quote::removeItem
      * @noinspection PhpPossiblePolymorphicInvocationInspection
      * @noinspection PhpUndefinedMethodInspection

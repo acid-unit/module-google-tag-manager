@@ -4,7 +4,6 @@
  * See LICENSE file for license details.
  */
 
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 /** @noinspection PhpUnused */
 
 declare(strict_types=1);
@@ -18,7 +17,7 @@ class HandlesListBehavior implements OptionSourceInterface
     /**
      * Options getter
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     public function toOptionArray(): array
     {

@@ -5,7 +5,6 @@
  */
 
 /** @noinspection PhpDeprecationInspection */
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 // phpcs:disable Generic.Files.LineLength.TooLong
 
 declare(strict_types=1);
@@ -136,10 +135,10 @@ class Configurable extends ConfigurableTarget
      * After Plugin to pass attribute code to product options
      *
      * @param ConfigurableTarget $subject
-     * @param array<mixed> $result
+     * @param array<array> $result
      * @param Product $product
      *
-     * @return array<mixed>
+     * @return array<array>
      * @see \Magento\ConfigurableProduct\Model\Product\Type\Configurable::getSelectedAttributesInfo
      * @noinspection PhpUnusedParameterInspection
      * @noinspection PhpUnnecessaryFullyQualifiedNameInspection

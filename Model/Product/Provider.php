@@ -5,13 +5,12 @@
  */
 
 /** @noinspection PhpDeprecationInspection */
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model\Product;
 
-use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
+use AcidUnit\Core\Api\DataProviderInterface;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Registry;
@@ -63,7 +62,7 @@ class Provider implements DataProviderInterface, ArgumentInterface
     /**
      * Get Data
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     public function getData(): array
     {

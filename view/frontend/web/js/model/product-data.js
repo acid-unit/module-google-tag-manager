@@ -55,7 +55,7 @@ define([
          */
         getProductList: function (element) {
             const productsWrapper = element.closest('.products.wrapper');
-            let list = '';
+            let list;
 
             if (productsWrapper.classList.value.indexOf('related') >= 0) {
                 list = 'related';

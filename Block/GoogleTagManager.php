@@ -8,6 +8,7 @@
 
 namespace AcidUnit\GoogleTagManager\Block;
 
+use AcidUnit\Core\Api\DataProviderInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Customer\Model\SessionFactory;
 use Magento\Framework\App\RequestInterface;
@@ -20,7 +21,7 @@ use Magento\Framework\View\Layout;
 class GoogleTagManager extends Template
 {
     /**
-     * @var array<mixed>
+     * @var array<object>
      */
     private array $dataProviders;
 
@@ -44,7 +45,7 @@ class GoogleTagManager extends Template
      * @param Json $serializer
      * @param SessionFactory $sessionFactory
      * @param Layout $layout
-     * @param array<mixed> $dataProviders
+     * @param array<object> $dataProviders
      * @param array<mixed> $data
      */
     public function __construct(
@@ -141,11 +142,12 @@ class GoogleTagManager extends Template
     /**
      * Get data from data provider set in di.xml
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     private function getDataProviderData(): array
     {
         $handle = $this->getPageMainHandle();
+        /** @var DataProviderInterface|null $dataProvider */
         $dataProvider = $this->dataProviders[$handle] ?? null;
 
         if (!$dataProvider) {
@@ -158,7 +160,7 @@ class GoogleTagManager extends Template
     /**
      * Get disposable GTM event data from session
      *
-     * @return array<mixed>
+     * @return array<array>
      * @noinspection PhpUndefinedMethodInspection
      */
     private function getDisposableSessionData(): array
@@ -174,7 +176,7 @@ class GoogleTagManager extends Template
     /**
      * Get GTM customer type from session
      *
-     * @return array<mixed>
+     * @return array<string>
      */
     private function getCustomerType(): array
     {

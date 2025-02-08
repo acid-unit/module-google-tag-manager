@@ -75,7 +75,7 @@ class ProductDataProvider
      * Get product data
      *
      * @param Product $product
-     * @param array<mixed> $removeKeysList
+     * @param array<string> $removeKeysList
      * @return array<mixed>
      * @noinspection PhpUndefinedMethodInspection
      * @noinspection PhpCastIsUnnecessaryInspection

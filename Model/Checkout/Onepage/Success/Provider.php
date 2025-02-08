@@ -4,13 +4,11 @@
  * See LICENSE file for license details.
  */
 
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
-
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model\Checkout\Onepage\Success;
 
-use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
+use AcidUnit\Core\Api\DataProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Config;
 use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Catalog\Model\ResourceModel\Eav\Attribute as EavModel;
@@ -51,7 +49,7 @@ class Provider implements DataProviderInterface, ArgumentInterface
     /**
      * Get Data
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     public function getData(): array
     {
@@ -94,7 +92,7 @@ class Provider implements DataProviderInterface, ArgumentInterface
     /**
      * Get products data
      *
-     * @return array<mixed>
+     * @return array<array>
      * @noinspection PhpDeprecationInspection
      */
     private function getProductsData(): array

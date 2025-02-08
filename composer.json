@@ -1,6 +1,6 @@
 {
     "name": "acid-unit/module-google-tag-manager",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Comprehensive and flexible Magento Open Source and Adobe Commerce Google Tag Manager extension",
     "type": "magento2-module",
     "require": {

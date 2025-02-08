@@ -4,8 +4,6 @@
  * See LICENSE file for license details.
  */
 
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
-
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model;
@@ -15,7 +13,7 @@ use Magento\Catalog\Model\Product;
 class ProductDataStorage
 {
     /**
-     * @var array<mixed>
+     * @var array<array>
      */
     private array $productData = [];
 
@@ -46,7 +44,7 @@ class ProductDataStorage
     /**
      * Get all Products Data
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     public function getAllProductsData(): array
     {

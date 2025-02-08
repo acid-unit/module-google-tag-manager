@@ -5,16 +5,15 @@
  */
 
 /** @noinspection PhpDeprecationInspection */
-/** @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection */
 // phpcs:disable Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge
 
 declare(strict_types=1);
 
 namespace AcidUnit\GoogleTagManager\Model\Product\ProductList;
 
-use AcidUnit\GoogleTagManager\Api\DataProviderInterface;
-use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
+use AcidUnit\Core\Api\DataProviderInterface;
 use AcidUnit\GoogleTagManager\Model\Product\Provider as ProductProvider;
+use AcidUnit\GoogleTagManager\Model\ProductDataProvider;
 use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\Resolver as LayerResolver;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
@@ -80,7 +79,7 @@ class Provider extends ProductProvider implements DataProviderInterface, Argumen
     /**
      * Get Data
      *
-     * @return array<mixed>
+     * @return array<array>
      */
     public function getData(): array
     {
