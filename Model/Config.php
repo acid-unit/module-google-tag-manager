@@ -19,116 +19,116 @@ use Magento\Store\Model\ScopeInterface;
 class Config
 {
     // General
-    public const XML_PATH_GTM_ENABLED
-        = 'google/google_tag_manager/active';
-    public const XML_PATH_GTM_CONTAINER_ID
-        = 'google/google_tag_manager/container_id';
-    public const XML_PATH_GTM_DEBUG_ENABLED
-        = 'google/google_tag_manager/debug_enabled';
-    public const XML_PATH_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED
-        = 'google/google_tag_manager/prevent_push_when_logged_as_customer_enabled';
+    public const XML_PATH_ACID_GTM_ENABLED
+        = 'acid_gtm/general/active';
+    public const XML_PATH_ACID_GTM_CONTAINER_ID
+        = 'acid_gtm/general/container_id';
+    public const XML_PATH_ACID_GTM_DEBUG_ENABLED
+        = 'acid_gtm/general/debug_enabled';
+    public const XML_PATH_ACID_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED
+        = 'acid_gtm/general/prevent_push_when_logged_as_customer_enabled';
 
     // Page Load
-    public const XML_PATH_GTM_PAGE_LOAD_ENABLED
-        = 'google/google_tag_manager/page_load/active';
-    public const XML_PATH_GTM_PAGE_LOAD_EVENT_NAME
-        = 'google/google_tag_manager/page_load/event_name';
-    public const XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME
-        = 'google/google_tag_manager/page_load/pdp_load_event_name';
-    public const XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
-        = 'google/google_tag_manager/page_load/plp_load_event_name';
-    public const XML_PATH_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME
-        = 'google/google_tag_manager/page_load/search_results_page_load_event_name';
-    public const XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED
-        = 'google/google_tag_manager/page_load/user_type_enabled';
-    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR
-        = 'google/google_tag_manager/page_load/handles_list_behavior';
-    public const XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST
-        = 'google/google_tag_manager/page_load/handles_list';
-    public const XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES
-        = 'google/google_tag_manager/page_load/custom/custom_pages';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_ENABLED
+        = 'acid_gtm/page_load/active';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_EVENT_NAME
+        = 'acid_gtm/page_load/event_name';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME
+        = 'acid_gtm/page_load/pdp_load_event_name';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME
+        = 'acid_gtm/page_load/plp_load_event_name';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME
+        = 'acid_gtm/page_load/search_results_page_load_event_name';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_USER_TYPE_ENABLED
+        = 'acid_gtm/page_load/user_type_enabled';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR
+        = 'acid_gtm/page_load/handles_list_behavior';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_HANDLES_LIST
+        = 'acid_gtm/page_load/handles_list';
+    public const XML_PATH_ACID_GTM_PAGE_LOAD_CUSTOM_PAGES
+        = 'acid_gtm/page_load/custom_pages';
 
     // Click
-    public const XML_PATH_GTM_CLICK_PRODUCT_ENABLED
-        = 'google/google_tag_manager/click/product/active';
-    public const XML_PATH_GTM_CLICK_PRODUCT_EVENT_NAME
-        = 'google/google_tag_manager/click/product/event_name';
-    public const XML_PATH_GTM_CLICK_MENU_ITEM_ENABLED
-        = 'google/google_tag_manager/click/menu_item/active';
-    public const XML_PATH_GTM_CLICK_MENU_ITEM_EVENT_NAME
-        = 'google/google_tag_manager/click/menu_item/event_name';
-    public const XML_PATH_GTM_CLICK_SWATCH_ENABLED
-        = 'google/google_tag_manager/click/swatch/active';
-    public const XML_PATH_GTM_CLICK_SWATCH_EVENT_NAME
-        = 'google/google_tag_manager/click/swatch/event_name';
+    public const XML_PATH_ACID_GTM_CLICK_PRODUCT_ENABLED
+        = 'acid_gtm/click/product/active';
+    public const XML_PATH_ACID_GTM_CLICK_PRODUCT_EVENT_NAME
+        = 'acid_gtm/click/product/event_name';
+    public const XML_PATH_ACID_GTM_CLICK_MENU_ITEM_ENABLED
+        = 'acid_gtm/click/menu_item/active';
+    public const XML_PATH_ACID_GTM_CLICK_MENU_ITEM_EVENT_NAME
+        = 'acid_gtm/click/menu_item/event_name';
+    public const XML_PATH_ACID_GTM_CLICK_SWATCH_ENABLED
+        = 'acid_gtm/click/swatch/active';
+    public const XML_PATH_ACID_GTM_CLICK_SWATCH_EVENT_NAME
+        = 'acid_gtm/click/swatch/event_name';
 
     // Checkout Flow
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED
-        = 'google/google_tag_manager/checkout_flow/add_to_cart/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/add_to_cart/event_name';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED
-        = 'google/google_tag_manager/checkout_flow/remove_from_cart/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/remove_from_cart/event_name';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED
-        = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/cart_item_qty_changed/event_name';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED
-        = 'google/google_tag_manager/checkout_flow/checkout_steps_reached/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/checkout_steps_reached/event_name';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED
-        = 'google/google_tag_manager/checkout_flow/purchase_done/active';
-    public const XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME
-        = 'google/google_tag_manager/checkout_flow/purchase_done/event_name';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED
+        = 'acid_gtm/checkout_flow/add_to_cart/active';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME
+        = 'acid_gtm/checkout_flow/add_to_cart/event_name';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED
+        = 'acid_gtm/checkout_flow/remove_from_cart/active';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME
+        = 'acid_gtm/checkout_flow/remove_from_cart/event_name';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED
+        = 'acid_gtm/checkout_flow/cart_item_qty_changed/active';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME
+        = 'acid_gtm/checkout_flow/cart_item_qty_changed/event_name';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED
+        = 'acid_gtm/checkout_flow/checkout_steps_reached/active';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME
+        = 'acid_gtm/checkout_flow/checkout_steps_reached/event_name';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED
+        = 'acid_gtm/checkout_flow/purchase_done/active';
+    public const XML_PATH_ACID_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME
+        = 'acid_gtm/checkout_flow/purchase_done/event_name';
 
     // Customer Session
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_ENABLED
-        = 'google/google_tag_manager/customer_session/login/active';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_EVENT_NAME
-        = 'google/google_tag_manager/customer_session/login/event_name';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_FAILED_ENABLED
-        = 'google/google_tag_manager/customer_session/login/failed_active';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_FAILED_EVENT_NAME
-        = 'google/google_tag_manager/customer_session/login/failed_event_name';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGOUT_ENABLED
-        = 'google/google_tag_manager/customer_session/logout/active';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_LOGOUT_EVENT_NAME
-        = 'google/google_tag_manager/customer_session/logout/event_name';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_ENABLED
-        = 'google/google_tag_manager/customer_session/register/active';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_EVENT_NAME
-        = 'google/google_tag_manager/customer_session/register/event_name';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_FAILED_ENABLED
-        = 'google/google_tag_manager/customer_session/register/failed_active';
-    public const XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_FAILED_EVENT_NAME
-        = 'google/google_tag_manager/customer_session/register/failed_event_name';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_ENABLED
+        = 'acid_gtm/customer_session/login/active';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_EVENT_NAME
+        = 'acid_gtm/customer_session/login/event_name';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_FAILED_ENABLED
+        = 'acid_gtm/customer_session/login/failed_active';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_FAILED_EVENT_NAME
+        = 'acid_gtm/customer_session/login/failed_event_name';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGOUT_ENABLED
+        = 'acid_gtm/customer_session/logout/active';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGOUT_EVENT_NAME
+        = 'acid_gtm/customer_session/logout/event_name';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_ENABLED
+        = 'acid_gtm/customer_session/register/active';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_EVENT_NAME
+        = 'acid_gtm/customer_session/register/event_name';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_FAILED_ENABLED
+        = 'acid_gtm/customer_session/register/failed_active';
+    public const XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_FAILED_EVENT_NAME
+        = 'acid_gtm/customer_session/register/failed_event_name';
 
     // Exposure
-    public const XML_PATH_GTM_EXPOSURE_PRODUCT_ENABLED
-        = 'google/google_tag_manager/exposure/product/active';
-    public const XML_PATH_GTM_EXPOSURE_PRODUCT_EVENT_NAME
-        = 'google/google_tag_manager/exposure/product/event_name';
-    public const XML_PATH_GTM_EXPOSURE_MENU_CATEGORY_ENABLED
-        = 'google/google_tag_manager/exposure/menu_category/active';
-    public const XML_PATH_GTM_EXPOSURE_MENU_CATEGORY_EVENT_NAME
-        = 'google/google_tag_manager/exposure/menu_category/event_name';
-    public const XML_PATH_GTM_EXPOSURE_BLOCK
-        = 'google/google_tag_manager/exposure/block/block';
-    public const XML_PATH_GTM_EXPOSURE_BLOCK_EVENT_NAME
-        = 'google/google_tag_manager/exposure/block/event_name';
+    public const XML_PATH_ACID_GTM_EXPOSURE_PRODUCT_ENABLED
+        = 'acid_gtm/exposure/product/active';
+    public const XML_PATH_ACID_GTM_EXPOSURE_PRODUCT_EVENT_NAME
+        = 'acid_gtm/exposure/product/event_name';
+    public const XML_PATH_ACID_GTM_EXPOSURE_MENU_CATEGORY_ENABLED
+        = 'acid_gtm/exposure/menu_category/active';
+    public const XML_PATH_ACID_GTM_EXPOSURE_MENU_CATEGORY_EVENT_NAME
+        = 'acid_gtm/exposure/menu_category/event_name';
+    public const XML_PATH_ACID_GTM_EXPOSURE_BLOCK
+        = 'acid_gtm/exposure/block/block';
+    public const XML_PATH_ACID_GTM_EXPOSURE_BLOCK_EVENT_NAME
+        = 'acid_gtm/exposure/block/event_name';
 
     // Wishlist
-    public const XML_PATH_GTM_WISHLIST_ADD_ENABLED
-        = 'google/google_tag_manager/wishlist/add/active';
-    public const XML_PATH_GTM_WISHLIST_ADD_EVENT_NAME
-        = 'google/google_tag_manager/wishlist/add/event_name';
-    public const XML_PATH_GTM_WISHLIST_REMOVE_ENABLED
-        = 'google/google_tag_manager/wishlist/remove/active';
-    public const XML_PATH_GTM_WISHLIST_REMOVE_EVENT_NAME
-        = 'google/google_tag_manager/wishlist/remove/event_name';
+    public const XML_PATH_ACID_GTM_WISHLIST_ADD_ENABLED
+        = 'acid_gtm/wishlist/add/active';
+    public const XML_PATH_ACID_GTM_WISHLIST_ADD_EVENT_NAME
+        = 'acid_gtm/wishlist/add/event_name';
+    public const XML_PATH_ACID_GTM_WISHLIST_REMOVE_ENABLED
+        = 'acid_gtm/wishlist/remove/active';
+    public const XML_PATH_ACID_GTM_WISHLIST_REMOVE_EVENT_NAME
+        = 'acid_gtm/wishlist/remove/event_name';
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -146,7 +146,7 @@ class Config
     public function getGtmWishlistRemoveEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_WISHLIST_REMOVE_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_WISHLIST_REMOVE_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -159,7 +159,7 @@ class Config
     public function isGtmWishlistRemoveEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_WISHLIST_REMOVE_ENABLED,
+            self::XML_PATH_ACID_GTM_WISHLIST_REMOVE_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -172,7 +172,7 @@ class Config
     public function getGtmWishlistAddEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_WISHLIST_ADD_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_WISHLIST_ADD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -185,7 +185,7 @@ class Config
     public function isGtmWishlistAddEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_WISHLIST_ADD_ENABLED,
+            self::XML_PATH_ACID_GTM_WISHLIST_ADD_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -198,7 +198,7 @@ class Config
     public function getGtmExposureBlockEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_EXPOSURE_BLOCK_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_EXPOSURE_BLOCK_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -211,7 +211,7 @@ class Config
     public function getGtmExposureBlockConfigJson(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_EXPOSURE_BLOCK,
+            self::XML_PATH_ACID_GTM_EXPOSURE_BLOCK,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -224,7 +224,7 @@ class Config
     public function getGtmExposureMenuCategoryEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_EXPOSURE_MENU_CATEGORY_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_EXPOSURE_MENU_CATEGORY_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -237,7 +237,7 @@ class Config
     public function isGtmExposureMenuCategoryEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_EXPOSURE_MENU_CATEGORY_ENABLED,
+            self::XML_PATH_ACID_GTM_EXPOSURE_MENU_CATEGORY_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -250,7 +250,7 @@ class Config
     public function getGtmExposureProductEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_EXPOSURE_PRODUCT_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_EXPOSURE_PRODUCT_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -263,7 +263,7 @@ class Config
     public function isGtmExposureProductEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_EXPOSURE_PRODUCT_ENABLED,
+            self::XML_PATH_ACID_GTM_EXPOSURE_PRODUCT_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -276,7 +276,7 @@ class Config
     public function getGtmCustomerSessionRegisterFailedEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_FAILED_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_FAILED_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -289,7 +289,7 @@ class Config
     public function isGtmCustomerSessionRegisterFailedEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_FAILED_ENABLED,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_FAILED_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -302,7 +302,7 @@ class Config
     public function getGtmCustomerSessionRegisterEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -315,7 +315,7 @@ class Config
     public function isGtmCustomerSessionRegisterEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_REGISTER_ENABLED,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_REGISTER_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -328,7 +328,7 @@ class Config
     public function getGtmCustomerSessionLogoutEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGOUT_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGOUT_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -341,7 +341,7 @@ class Config
     public function isGtmCustomerSessionLogoutEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGOUT_ENABLED,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGOUT_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -354,7 +354,7 @@ class Config
     public function getGtmCustomerSessionLoginFailedEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_FAILED_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_FAILED_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -367,7 +367,7 @@ class Config
     public function isGtmCustomerSessionLoginFailedEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_FAILED_ENABLED,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_FAILED_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -380,7 +380,7 @@ class Config
     public function getGtmCustomerSessionLoginEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -393,7 +393,7 @@ class Config
     public function isGtmCustomerSessionLoginEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CUSTOMER_SESSION_LOGIN_ENABLED,
+            self::XML_PATH_ACID_GTM_CUSTOMER_SESSION_LOGIN_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -406,7 +406,7 @@ class Config
     public function getGtmCheckoutFlowPurchaseDoneEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PURCHASE_DONE_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -419,7 +419,7 @@ class Config
     public function isGtmCheckoutFlowPurchaseDoneEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PURCHASE_DONE_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -432,7 +432,7 @@ class Config
     public function getGtmCheckoutFlowCheckoutStepsReachedEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -445,7 +445,7 @@ class Config
     public function isGtmCheckoutFlowCheckoutStepsReachedEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_CHECKOUT_STEPS_REACHED_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -458,7 +458,7 @@ class Config
     public function getGtmCheckoutFlowCartItemQtyChangedEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -471,7 +471,7 @@ class Config
     public function isGtmCheckoutFlowCartItemQtyChangedEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_CART_ITEM_QTY_CHANGED_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -484,7 +484,7 @@ class Config
     public function getGtmCheckoutFlowProductRemovedFromCartEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -497,7 +497,7 @@ class Config
     public function isGtmCheckoutFlowProductRemovedFromCartEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_REMOVED_FROM_CART_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -510,7 +510,7 @@ class Config
     public function getGtmCheckoutFlowProductAddedToCartEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -523,7 +523,7 @@ class Config
     public function isGtmCheckoutFlowProductAddedToCartEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED,
+            self::XML_PATH_ACID_GTM_CHECKOUT_FLOW_PRODUCT_ADDED_TO_CART_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -536,7 +536,7 @@ class Config
     public function getGtmClickSwatchEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CLICK_SWATCH_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CLICK_SWATCH_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -549,7 +549,7 @@ class Config
     public function isGtmClickSwatchEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CLICK_SWATCH_ENABLED,
+            self::XML_PATH_ACID_GTM_CLICK_SWATCH_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -562,7 +562,7 @@ class Config
     public function getGtmClickMenuItemEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CLICK_MENU_ITEM_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CLICK_MENU_ITEM_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -575,7 +575,7 @@ class Config
     public function isGtmClickMenuItemEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CLICK_MENU_ITEM_ENABLED,
+            self::XML_PATH_ACID_GTM_CLICK_MENU_ITEM_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -588,7 +588,7 @@ class Config
     public function getGtmClickProductEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CLICK_PRODUCT_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_CLICK_PRODUCT_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -601,7 +601,7 @@ class Config
     public function isGtmClickProductEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_CLICK_PRODUCT_ENABLED,
+            self::XML_PATH_ACID_GTM_CLICK_PRODUCT_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -614,7 +614,7 @@ class Config
     public function getGtmPageLoadCustomPagesConfigJson(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_CUSTOM_PAGES,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_CUSTOM_PAGES,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -627,7 +627,7 @@ class Config
     public function getGtmPageLoadHandlesList(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_HANDLES_LIST,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -640,7 +640,7 @@ class Config
     public function isGtmPageLoadHandlesListInverted(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_HANDLES_LIST_BEHAVIOR,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -653,7 +653,7 @@ class Config
     public function isGtmPageLoadUserTypeEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_PAGE_LOAD_USER_TYPE_ENABLED,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_USER_TYPE_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -666,7 +666,7 @@ class Config
     public function getGtmPageLoadSearchResultsPageEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_SEARCH_RESULTS_PAGE_LOAD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -679,7 +679,7 @@ class Config
     public function getGtmPageLoadPlpEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_PLP_LOAD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -692,7 +692,7 @@ class Config
     public function getGtmPageLoadPdpEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_PDP_LOAD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -705,7 +705,7 @@ class Config
     public function getGtmPageLoadEventName(): string
     {
         return (string)$this->scopeConfig->getValue(
-            self::XML_PATH_GTM_PAGE_LOAD_EVENT_NAME,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_EVENT_NAME,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -718,7 +718,7 @@ class Config
     public function isGtmPageLoadEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_PAGE_LOAD_ENABLED,
+            self::XML_PATH_ACID_GTM_PAGE_LOAD_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -731,7 +731,7 @@ class Config
     public function isPreventPushWhenLoggedAsCustomerEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED,
+            self::XML_PATH_ACID_GTM_PREVENT_PUSH_WHEN_LOGGED_AS_CUSTOMER_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -744,7 +744,7 @@ class Config
     public function isGtmDebugEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_DEBUG_ENABLED,
+            self::XML_PATH_ACID_GTM_DEBUG_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -757,7 +757,7 @@ class Config
     public function getContainerId(): ?string
     {
         return $this->scopeConfig->getValue(
-            self::XML_PATH_GTM_CONTAINER_ID,
+            self::XML_PATH_ACID_GTM_CONTAINER_ID,
             ScopeInterface::SCOPE_STORE
         );
     }
@@ -770,7 +770,7 @@ class Config
     public function isGtmEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_GTM_ENABLED,
+            self::XML_PATH_ACID_GTM_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }

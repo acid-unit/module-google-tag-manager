@@ -9,15 +9,25 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="google">
-            <group id="google_tag_manager"
+        <section id="acid_gtm"
+                 translate="label"
+                 type="text"
+                 sortOrder="30"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <label>Google Tag Manager</label>
+            <tab>acid_unit</tab>
+            <resource>AcidUnit_GoogleTagManager::acid</resource>
+
+            <group id="general"
                    translate="label"
                    type="text"
-                   sortOrder="40"
+                   sortOrder="10"
                    showInDefault="1"
                    showInWebsite="1"
                    showInStore="1">
-                <label><![CDATA[<span>Google Tag Manager</span><span>&nbsp;</span><span>[Acid Unit]</span><span>&nbsp;</span>]]></label>
+                <label>General</label>
 
                 <field id="active"
                        translate="label"
@@ -27,7 +37,7 @@
                        showInWebsite="1"
                        showInStore="1"
                        canRestore="1">
-                    <label>Enable</label>
+                    <label>Enable Module</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
 
@@ -37,12 +47,10 @@
                        sortOrder="20"
                        showInDefault="1"
                        showInWebsite="1"
-                       showInStore="1">
+                       showInStore="1"
+                       canRestore="1">
                     <label>Container ID</label>
                     <validate>required-entry</validate>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
                 </field>
 
                 <field id="debug_enabled"
@@ -56,9 +64,6 @@
                     <label>Enable Debug</label>
                     <comment>All events that are pushed to the data layer will be also logged to the developer console</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
                 </field>
 
                 <field id="prevent_push_when_logged_as_customer_enabled"
@@ -71,22 +76,169 @@
                        canRestore="1">
                     <label>Prevent pushing events when 'Logged as a Customer' session</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <group id="page_load"
+                   translate="label"
+                   type="text"
+                   sortOrder="20"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Page Load</label>
+
+                <field id="active"
+                       translate="label"
+                       type="select"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="event_name"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Event Name</label>
+                    <comment>If set, the event name will be pushed as an 'event' property</comment>
                     <depends>
                         <field id="active">1</field>
                     </depends>
                 </field>
 
-                <group id="page_load"
+                <field id="pdp_load_event_name"
+                       translate="label"
+                       type="text"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>PDP Loaded Event Name</label>
+                    <comment>When PDP is loaded, a different GTM Event with product details is pushed to the data layer</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="plp_load_event_name"
+                       translate="label"
+                       type="text"
+                       sortOrder="40"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>PLP Loaded Event Name</label>
+                    <comment>When PLP is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="search_results_page_load_event_name"
                        translate="label"
                        type="text"
                        sortOrder="50"
                        showInDefault="1"
                        showInWebsite="1"
-                       showInStore="1">
-                    <label>Page Load</label>
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Search Result Page Loaded Event Name</label>
+                    <comment>When Search Result Page is loaded, a different GTM Event with search results is pushed to the data layer</comment>
                     <depends>
                         <field id="active">1</field>
                     </depends>
+                </field>
+
+                <field id="user_type_enabled"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="60"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Enable Pushing User Type with Page Load event</label>
+                    <comment>Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, SRP, Checkout, Success Order Pages</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="handles_list_behavior"
+                       translate="label"
+                       type="select"
+                       sortOrder="70"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Page Layout Handles List Behavior</label>
+                    <source_model>AcidUnit\GoogleTagManager\Model\Config\Source\HandlesListBehavior</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="handles_list"
+                       translate="label comment"
+                       type="textarea"
+                       sortOrder="80"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Page Layout Handles List</label>
+                    <comment><![CDATA[One layout handle per line. More info about layout handles you can find on <a target="_blank" href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/">Adobe Commerce Developer Documentation page</a>]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="custom_pages"
+                       translate="label"
+                       sortOrder="90"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1"
+                       canRestore="1">
+                    <label>Custom Pages</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\CustomPagesLoad</frontend_model>
+                    <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\CustomPagesLoad</backend_model>
+                </field>
+            </group>
+
+            <group id="click"
+                   translate="label"
+                   type="text"
+                   sortOrder="30"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Click</label>
+
+                <group id="product"
+                       translate="label"
+                       type="text"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Product Clicked</label>
 
                     <field id="active"
                            translate="label"
@@ -98,9 +250,6 @@
                            canRestore="1">
                         <label>Enable</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <depends>
-                            <field id="*/active">1</field>
-                        </depends>
                     </field>
 
                     <field id="event_name"
@@ -109,7 +258,319 @@
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="menu_item"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Menu Item Clicked</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="swatch"
+                       translate="label"
+                       type="text"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Swatch Clicked</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+
+            <group id="checkout_flow"
+                   translate="label"
+                   type="text"
+                   sortOrder="40"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Checkout Flow</label>
+
+                <group id="add_to_cart"
+                       translate="label"
+                       type="text"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Product Added to Cart</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="remove_from_cart"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Product Removed from Cart</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="cart_item_qty_changed"
+                       translate="label"
+                       type="text"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Cart Item Qty Changed</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="checkout_steps_reached"
+                       translate="label"
+                       type="text"
+                       sortOrder="50"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Checkout Steps Reached</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="purchase_done"
+                       translate="label"
+                       type="text"
+                       sortOrder="60"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Purchase Done</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+
+            <group id="customer_session"
+                   translate="label"
+                   type="text"
+                   sortOrder="50"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Customer Session</label>
+
+                <group id="login"
+                       translate="label"
+                       type="text"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Log In</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
                         <label>Event Name</label>
                         <comment>If set, the event name will be pushed as an 'event' property</comment>
                         <depends>
@@ -117,820 +578,342 @@
                         </depends>
                     </field>
 
-                    <field id="pdp_load_event_name"
+                    <field id="failed_active"
                            translate="label"
-                           type="text"
-                           sortOrder="30"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>PDP Loaded Event Name</label>
-                        <comment>When PDP is loaded, a different GTM Event with product details is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="plp_load_event_name"
-                           translate="label"
-                           type="text"
-                           sortOrder="40"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>PLP Loaded Event Name</label>
-                        <comment>When PLP is loaded, a different GTM Event with product impressions is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="search_results_page_load_event_name"
-                           translate="label"
-                           type="text"
-                           sortOrder="50"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Search Result Page Loaded Event Name</label>
-                        <comment>When Search Result Page is loaded, a different GTM Event with search results is pushed to the data layer</comment>
-                        <depends>
-                            <field id="active">1</field>
-                        </depends>
-                    </field>
-
-                    <field id="user_type_enabled"
-                           translate="label comment"
                            type="select"
-                           sortOrder="60"
+                           sortOrder="30"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1"
                            canRestore="1">
-                        <label>Enable Pushing User Type with Page Load event</label>
-                        <comment>Additional property 'user_type' (values: 'registered', 'new') will be pushed with page load event excluding Customer Account, PDP, PLP, SRP, Checkout, Success Order Pages</comment>
+                        <label>Enable Failed Log In</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         <depends>
                             <field id="active">1</field>
                         </depends>
                     </field>
 
-                    <field id="handles_list_behavior"
+                    <field id="failed_event_name"
                            translate="label"
-                           type="select"
-                           sortOrder="70"
+                           type="text"
+                           sortOrder="40"
                            showInDefault="1"
                            showInWebsite="1"
                            showInStore="1"
                            canRestore="1">
-                        <label>Page Layout Handles List Behavior</label>
-                        <source_model>AcidUnit\GoogleTagManager\Model\Config\Source\HandlesListBehavior</source_model>
+                        <label>Failed Log In Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="failed_active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="logout"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Log Out</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="register"
+                       translate="label"
+                       type="text"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Registration</label>
+
+                    <field id="active"
+                           translate="label"
+                           type="select"
+                           sortOrder="10"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="event_name"
+                           translate="label"
+                           type="text"
+                           sortOrder="20"
+                           showInDefault="1"
+                           showInWebsite="1"
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
                         <depends>
                             <field id="active">1</field>
                         </depends>
                     </field>
 
-                    <field id="handles_list"
-                           translate="label comment"
-                           type="textarea"
-                           sortOrder="80"
+                    <field id="failed_active"
+                           translate="label"
+                           type="select"
+                           sortOrder="30"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Page Layout Handles List</label>
-                        <comment><![CDATA[One layout handle per line. More info about layout handles you can find on <a target="_blank" href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/">Adobe Commerce Developer Documentation page</a>]]></comment>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable Failed Registration</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         <depends>
                             <field id="active">1</field>
                         </depends>
                     </field>
 
-                    <group id="custom"
+                    <field id="failed_event_name"
                            translate="label"
                            type="text"
-                           sortOrder="90"
+                           sortOrder="40"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Custom Pages</label>
-
-                        <field id="custom_pages"
-                               translate="label"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1"
-                               canRestore="1">
-                            <label>Custom Pages</label>
-                            <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\CustomPagesLoad</frontend_model>
-                            <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\CustomPagesLoad</backend_model>
-                        </field>
-                    </group>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Failed Registration Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="failed_active">1</field>
+                        </depends>
+                    </field>
                 </group>
+            </group>
 
-                <group id="click"
+            <group id="exposure"
+                   translate="label"
+                   type="text"
+                   sortOrder="60"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Exposure</label>
+
+                <group id="product"
                        translate="label"
                        type="text"
-                       sortOrder="60"
+                       sortOrder="10"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Click</label>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
+                    <label>Product</label>
 
-                    <group id="product"
+                    <field id="active"
                            translate="label"
-                           type="text"
+                           type="select"
                            sortOrder="10"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Product Clicked</label>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
 
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="menu_item"
+                    <field id="event_name"
                            translate="label"
                            type="text"
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Menu Item Clicked</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="swatch"
-                           translate="label"
-                           type="text"
-                           sortOrder="30"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Swatch Clicked</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
                 </group>
 
-                <group id="checkout_flow"
+                <group id="menu_category"
                        translate="label"
                        type="text"
-                       sortOrder="70"
+                       sortOrder="20"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Checkout Flow</label>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
+                    <label>Menu Category</label>
 
-                    <group id="add_to_cart"
+                    <field id="active"
                            translate="label"
-                           type="text"
+                           type="select"
                            sortOrder="10"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Product Added to Cart</label>
-                        <depends>
-                            <field id="*/active">1</field>
-                        </depends>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
 
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="*/*/active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="remove_from_cart"
+                    <field id="event_name"
                            translate="label"
                            type="text"
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Product Removed from Cart</label>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
                         <depends>
-                            <field id="*/active">1</field>
+                            <field id="active">1</field>
                         </depends>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="*/*/active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="cart_item_qty_changed"
-                           translate="label"
-                           type="text"
-                           sortOrder="30"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Cart Item Qty Changed</label>
-                        <depends>
-                            <field id="*/active">1</field>
-                        </depends>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="*/*/active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="checkout_steps_reached"
-                           translate="label"
-                           type="text"
-                           sortOrder="50"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Checkout Steps Reached</label>
-                        <depends>
-                            <field id="*/active">1</field>
-                        </depends>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="*/*/active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="purchase_done"
-                           translate="label"
-                           type="text"
-                           sortOrder="60"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Purchase Done</label>
-                        <depends>
-                            <field id="*/active">1</field>
-                        </depends>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="*/*/active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
+                    </field>
                 </group>
 
-                <group id="customer_session"
+                <group id="block"
                        translate="label"
                        type="text"
-                       sortOrder="80"
+                       sortOrder="30"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Customer Session</label>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
+                    <label>Block</label>
 
-                    <group id="login"
+                    <field id="block"
                            translate="label"
-                           type="text"
                            sortOrder="10"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Log In</label>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Blocks</label>
+                        <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\ExposureBlocks</frontend_model>
+                        <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\ExposureBlocks</backend_model>
+                    </field>
 
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="failed_active"
-                               translate="label"
-                               type="select"
-                               sortOrder="30"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable Failed Log In</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="failed_event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="40"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Failed Log In Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="failed_active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="logout"
+                    <field id="event_name"
                            translate="label"
                            type="text"
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Log Out</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="register"
-                           translate="label"
-                           type="text"
-                           sortOrder="30"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Registration</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="failed_active"
-                               translate="label"
-                               type="select"
-                               sortOrder="30"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable Failed Registration</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-
-                        <field id="failed_event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="40"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Failed Registration Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="failed_active">1</field>
-                            </depends>
-                        </field>
-                    </group>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                    </field>
                 </group>
+            </group>
 
-                <group id="exposure"
+            <group id="wishlist"
+                   translate="label"
+                   type="text"
+                   sortOrder="70"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Wishlist</label>
+
+                <group id="add"
                        translate="label"
                        type="text"
-                       sortOrder="90"
+                       sortOrder="10"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Exposure</label>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
+                    <label>Add To Wishlist</label>
 
-                    <group id="product"
+                    <field id="active"
                            translate="label"
-                           type="text"
+                           type="select"
                            sortOrder="10"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Product</label>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
 
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="menu_category"
+                    <field id="event_name"
                            translate="label"
                            type="text"
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Menu Category</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="block"
-                           translate="label"
-                           type="text"
-                           sortOrder="30"
-                           showInDefault="1"
-                           showInWebsite="1"
-                           showInStore="1">
-                        <label>Block</label>
-
-                        <field id="block"
-                               translate="label"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1"
-                               canRestore="1">
-                            <label>Blocks</label>
-                            <frontend_model>AcidUnit\GoogleTagManager\Block\Adminhtml\Form\Field\ExposureBlocks</frontend_model>
-                            <backend_model>AcidUnit\GoogleTagManager\Model\System\Config\Backend\ExposureBlocks</backend_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                        </field>
-                    </group>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
                 </group>
 
-                <group id="wishlist"
+                <group id="remove"
                        translate="label"
                        type="text"
-                       sortOrder="100"
+                       sortOrder="20"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Wishlist</label>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
+                    <label>Remove From Wishlist</label>
 
-                    <group id="add"
+                    <field id="active"
                            translate="label"
-                           type="text"
+                           type="select"
                            sortOrder="10"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Add To Wishlist</label>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
 
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
-
-                    <group id="remove"
+                    <field id="event_name"
                            translate="label"
                            type="text"
                            sortOrder="20"
                            showInDefault="1"
                            showInWebsite="1"
-                           showInStore="1">
-                        <label>Remove From Wishlist</label>
-
-                        <field id="active"
-                               translate="label"
-                               type="select"
-                               sortOrder="10"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Enable</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        </field>
-
-                        <field id="event_name"
-                               translate="label"
-                               type="text"
-                               sortOrder="20"
-                               showInDefault="1"
-                               showInWebsite="1"
-                               showInStore="1">
-                            <label>Event Name</label>
-                            <comment>If set, the event name will be pushed as an 'event' property</comment>
-                            <depends>
-                                <field id="active">1</field>
-                            </depends>
-                        </field>
-                    </group>
+                           showInStore="1"
+                           canRestore="1">
+                        <label>Event Name</label>
+                        <comment>If set, the event name will be pushed as an 'event' property</comment>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
                 </group>
-
             </group>
         </section>
     </system>

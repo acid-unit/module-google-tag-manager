@@ -9,14 +9,14 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <!-- submenu item -->
+        <!-- google tag manager item -->
         <add id="AcidUnit_GoogleTagManager::acid_menu_item_gtm"
              title="Google Tag Manager"
              translate="title"
              module="AcidUnit_GoogleTagManager"
-             sortOrder="10"
-             parent="AcidUnit_Admin::acid_menu_group_modules"
-             action="admin/system_config/edit/section/google"
+             sortOrder="20"
+             parent="AcidUnit_Core::acid_menu_group_modules"
+             action="admin/system_config/edit/section/acid_gtm"
              resource="AcidUnit_GoogleTagManager::acid_menu_item_gtm"
         />
     </menu>

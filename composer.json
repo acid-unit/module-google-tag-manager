@@ -13,8 +13,6 @@
         "magento/module-configurable-product": "*",
         "magento/module-customer": "*",
         "magento/module-eav": "*",
-        "magento/module-login-as-customer": "*",
-        "magento/module-login-as-customer-api": "*",
         "magento/module-media-storage": "*",
         "magento/module-quote": "*",
         "magento/module-sales": "*",

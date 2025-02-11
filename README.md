@@ -1,6 +1,6 @@
-# About
+# 🧪 Google Tag Manager Magento Extension
 
-A powerful, flexible, and user-friendly Google Tag Manager extension for Magento Open Source & Adobe Commerce.
+A powerful, flexible, and user-friendly GTM extension for Magento Open Source & Adobe Commerce.
 
 🔹 Tracks eCommerce events like **Add to Cart, Checkout, Purchases, Clicks, and more**.  
 🔹 Customizable **via admin settings** (no coding needed).  
@@ -9,9 +9,11 @@ A powerful, flexible, and user-friendly Google Tag Manager extension for Magento
 ## Quick Installation
 
 To install the module, run:
+
 ```shell
 composer require acid-unit/module-google-tag-manager
 ```
+
 After installation, enable the module and update Magento:
 
 ```shell
@@ -23,15 +25,15 @@ bin/magento cache:flush
 
 # General Info
 
-Module configuration is done under the 
+Module configuration is done under the
 `Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
 section. All settings are clearly labeled and designed for ease of use.
 
 ![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
 
 Modifying event structure or data layer output requires code-level changes.
-Admin settings allow you to enable/disable specific events, 
-set custom event names, and define conditions for event triggers—without touching code. 
+Admin settings allow you to enable/disable specific events,
+set custom event names, and define conditions for event triggers—without touching code.
 
 If the event name is set, it will be pushed as `event` property like on the screenshot below.
 
@@ -51,8 +53,7 @@ data to the Google Tag Manager data layer:
     + [PLP](#plp)
     + [SRP](#srp)
     + [CMS Page](#cms-page)
-    + [Include / Exclude Pages](#include---exclude-pages)
-    + [User type](#user-type)
+    + [Include or Exclude Pages](#include-or-exclude-pages)
     + [Custom URLs](#custom-urls)
 * [Click](#click)
     + [Product](#product)
@@ -78,7 +79,6 @@ data to the Google Tag Manager data layer:
     + [Product Added](#product-added)
     + [Product Removed](#product-removed)
 
-
 # GTM Events
 
 Below, event data structure examples will be shown as they are pushed to the data layer.
@@ -92,7 +92,7 @@ Event structure and data can be modified in `js/model/page-load.js` file
 
 ### PDP
 
-```jsonc
+```yaml
 {
     "event": "pdp_load",
     "ecommerce": {
@@ -105,7 +105,7 @@ Event structure and data can be modified in `js/model/page-load.js` file
                     "category": "Pants",
                     "type": "configurable",
                     "price": 49,
-                    
+
                     // options array will be pushed only for configurable products
                     "options": [
 
@@ -136,11 +136,11 @@ Event structure and data can be modified in `js/model/page-load.js` file
 
 Example of event data structure that is pushed when PLP is loaded:
 
-```jsonc
+```yaml
 {
     "event": "plp_load",
     "ecommerce": {
-        
+
         // array with products that are rendered on current page
         "impressions": [
             {
@@ -184,7 +184,7 @@ Example of event data structure that is pushed when PLP is loaded:
                 "name": "Set of Sprite Yoga Straps",
                 "category": "Fitness Equipment",
                 "type": "grouped",
-                
+
                 // 'price' property is replaced with 'min_price' and 'max_price' for grouped and bundle products
                 "min_price": 14,
                 "max_price": 21
@@ -199,12 +199,12 @@ Example of event data structure that is pushed when PLP is loaded:
 
 Search Results Page has similar event data structure to PLP:
 
-```jsonc
+```yaml
 {
     "event": "srp_load",
     "ecommerce": {
         "search_query": "jacket",
-        
+
         // the same array with products as the 'impressions' property has in PLP load event
         "search_result": [
             // ...
@@ -218,38 +218,40 @@ Search Results Page has similar event data structure to PLP:
 
 Event data structure example that is pushed to the data layer when CMS Page is loaded:
 
-```jsonc
+```yaml
 {
     "event": "page_load",
-    
+
     // user type can be 'new' or 'registered' and will be added to the event data if config is enabled
     "user_type": "new",
-    
+
     // inner text of current page <h1> tag
-    "title": "Home Page",    
+    "title": "Home Page",
     "page": "Home Page"
 }
 ```
 
-### Include / Exclude Pages
+### Include or Exclude Pages
 
-You can exclude specific pages from triggering GTM events using Magento layout handles. 
-Add one of the page handles to the `Page Layout Handles List` textarea, 
+You can exclude specific pages from triggering GTM events using Magento layout handles.
+Add one of the page handles to the `Page Layout Handles List` textarea,
 and make sure `List Behavior` is set to `Exclude`:
 
 ![Page Handles List Behavior](https://github.com/acid-unit/docs/blob/main/google-tag-manager/page-handles-list-behavior.png?raw=true)
 
 In this case, home page and product category with id `12` won't trigger event on load.
 
-Setting `List Behavior` to `Include` reverses the logic - only 
+Setting `List Behavior` to `Include` reverses the logic - only
 the listed pages will trigger Page Load events.
 Meaning, only home page and category with id `12` will trigger Page Load events.
 
-More info regarding layout handles you can find on a corresponding <a href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/#layout-handles" target="_blank">Adobe Developer Portal Page</a>
+More info regarding layout handles you can find on a
+corresponding <a href="https://developer.adobe.com/commerce/frontend-core/guide/layouts/#layout-handles" target="_blank">
+Adobe Developer Portal Page</a>
 
 ### Custom URLs
 
-Events can be pushed to the data layer for custom pages—those that do not fit 
+Events can be pushed to the data layer for custom pages—those that do not fit
 into predefined categories like PDP, PLP, or CMS pages. For example, the `/contact` page:
 
 ![Custom Pages Load](https://github.com/acid-unit/docs/blob/main/google-tag-manager/custom-pages-load.png?raw=true)
@@ -257,13 +259,13 @@ into predefined categories like PDP, PLP, or CMS pages. For example, the `/conta
 **Note**: The page URL can be set as part of the URL; it is not mandatory to define the entire URL.
 
 URL matching works on a **substring basis**.
-This means that if you define a rule for `/contact`, 
+This means that if you define a rule for `/contact`,
 it will also match URLs that contain `/contact` within them, such as:
 
 - `/contact`
 - `/contact-us`
 
-If you need to track these pages separately, 
+If you need to track these pages separately,
 consider change page URLs to avoid unintentional overlap.
 
 ## Click
@@ -280,7 +282,7 @@ Click event listeners are attached to the following selectors:
 
 Event data and structure:
 
-```jsonc
+```yaml
 {
     "event": "product_clicked",
     "ecommerce": {
@@ -324,14 +326,14 @@ Event data and structure:
 
 ### Menu Item
 
-```jsonc
+```yaml
 {
     "event": "menu_item_clicked",
     "ecommerce": {
         "menu_item_click": {
             // menu item title
             "menu_item": "Jackets",
-            
+
             // breadcrumbs path to the clicked menu item
             "path": "Women > Tops > Jackets"
         }
@@ -341,12 +343,12 @@ Event data and structure:
 
 ### Swatch
 
-```jsonc
+```yaml
 {
     "event": "swatch_clicked",
     "swatch_label": "Color",
     "option_label": "Orange",
-    
+
     // true for listing page, false for PDP
     "in_product_list": true,
     "product": {
@@ -381,7 +383,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Added to Cart
 
-```jsonc
+```yaml
 {
     "event": "product_added_to_cart",
     "ecommerce": {
@@ -411,7 +413,7 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 
 ### Removed from Cart
 
-```jsonc
+```yaml
 {
     "event": "product_removed_from_cart",
     "ecommerce": {
@@ -440,10 +442,10 @@ Event structure and data can be modified in `js/model/checkout-flow.js` and `js/
 ### Cart Item Qty Changed
 
 Event is triggered both when qty is changed in minicart and on cart page.
-If multiple product quantities are updated at once (e.g. on cart page), 
+If multiple product quantities are updated at once (e.g. on cart page),
 all affected products will be included in the `products` array.
 
-```jsonc
+```yaml
 {
     "event": "cart_item_qty_changed",
     "ecommerce": {
@@ -474,7 +476,7 @@ all affected products will be included in the `products` array.
 
 When shipping step is loaded:
 
-```jsonc
+```yaml
 {
     "event": "checkout_step",
     "ecommerce": {
@@ -510,7 +512,7 @@ When shipping step is loaded:
 
 When the billing step is loaded, cart product info is not included in the event data:
 
-```jsonc
+```yaml
 {
     "event": "checkout_step",
     "ecommerce": {
@@ -528,7 +530,7 @@ When the billing step is loaded, cart product info is not included in the event 
 
 ### Purchase Done
 
-```jsonc
+```yaml
 {
     "event": "purchase_done",
     "ecommerce": {
@@ -577,7 +579,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Logged In
 
-```jsonc
+```yaml
 {
     "event": "login",
     "customerId": "2"
@@ -586,10 +588,10 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 #### Failed
 
-```jsonc
+```yaml
 {
     "event": "failed_login",
-    
+
     // error message displayed to the customer
     "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later."
 }
@@ -597,7 +599,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Logged Out
 
-```jsonc
+```yaml
 {
     "event": "logout"
 }
@@ -605,7 +607,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 ### Registration
 
-```jsonc
+```yaml
 {
     "event": "registration",
     "customerId": "4"
@@ -614,10 +616,10 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 #### Failed
 
-```jsonc
+```yaml
 {
     "event": "failed_registration",
-    
+
     // error message displayed to the customer
     "message": "There is already an account with this email address."
 }
@@ -628,7 +630,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 Exposure events are pushed to the data layer when the blocks get visible on the screen.
 When there are multiple blocks of the same type, they are pushed as elements of array.
 
-When the block reveals on the screen, a timeout (default is 100ms) is triggered, 
+When the block reveals on the screen, a timeout (default is 100ms) is triggered,
 which will clear if the same type of block gets visible. This allows to combine the same type
 of exposure blocks into a single event if the customer scrolls the page rapidly.
 
@@ -636,7 +638,7 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ### Products in List
 
-```jsonc
+```yaml
 {
     "event": "product_exposure",
     "page": "Category Page",
@@ -672,7 +674,7 @@ Event structure and data can be modified in `js/handler/exposure.js` file
                         "price": 77
                     }
                 ],
-                
+
                 // current product list. eg 'upsell', 'related', 'Search Results' etc
                 "list": "Category Page"
             }
@@ -684,14 +686,14 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ### Top Menu Category
 
-```jsonc
+```yaml
 {
     "event": "menu_category_exposure",
     "ecommerce": {
         "menu_hover": {
             // menu item title
             "name": "Tops",
-            
+
             // breadcrumbs path to the hovered item
             "path": "Women > Tops"
         }
@@ -701,11 +703,11 @@ Event structure and data can be modified in `js/handler/exposure.js` file
 
 ### Custom Blocks
 
-Here you can set any block to trigger exposure event by using a HTML selector  
+Here you can set any block to trigger exposure event by using an HTML selector
 
 ![Exposure Custom Blocks](https://github.com/acid-unit/docs/blob/main/google-tag-manager/exposure-custom-blocks.png?raw=true)
 
-```jsonc
+```yaml
 {
     "event": "block_exposure",
     "ecommerce": {
@@ -729,7 +731,7 @@ Event structure and data can be modified in `js/handler/page-data.js` file
 
 Event data and structure:
 
-```jsonc
+```yaml
 {
     "event": "added_to_wishlist",
     "products": [
@@ -740,7 +742,7 @@ Event data and structure:
             "category": "Jackets",
             "type": "configurable",
             "price": 77,
-            
+
             // options will be pushed only for configurable products
             "options": [
                 {
@@ -764,10 +766,10 @@ Event data and structure:
 
 ### Product Removed
 
-The event structure is identical to the "Product Added to Wishlist" event, 
+The event structure is identical to the "Product Added to Wishlist" event,
 but with a different event name:
 
-```jsonc
+```yaml
 {
     "event": "removed_from_wishlist",
 

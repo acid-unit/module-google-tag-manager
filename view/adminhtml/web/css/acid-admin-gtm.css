@@ -1,0 +1,49 @@
+/*
+ * Copyright © Acid Unit (https://acid.7prism.com). All rights reserved.
+ * See LICENSE file for license details.
+ */
+
+/**
+ * Variables
+ */
+
+:root {
+    --section-menu-icon-size: 18px;
+    --gtm-icon: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBVcGxvYWRlZCB0bzogU1ZHIFJlcG8sIHd3dy5zdmdyZXBvLmNvbSwgR2VuZXJhdG9yOiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNTYgMjU2IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIj4KICAgIDxnPgogICAgICAgIDxwb2x5Z29uIGZpbGw9IiM4QUI0RjgiIHBvaW50cz0iMTUwLjI2MTgxOCAyNDUuNTE2MzY0IDEwNS44MjU0NTUgMjAyLjE4NTQ1NSAyMDEuMjU4MTgyIDEwNC43MzA5MDkgMjQ3LjI2NTQ1NSAxNDkuODIxODE4Ij4KDTwvcG9seWdvbj4KICAgICAgICA8cGF0aCBkPSJNMTUwLjQ1MDkwOSw1My45MzgxODE4IEwxMDYuMTc0NTQ1LDguNzMwOTA5MDkgTDkuMzYsMTA0LjYyOTA5MSBDLTMuMTIsMTE3LjEwOTA5MSAtMy4xMiwxMzcuMzQxODE4IDkuMzYsMTQ5LjgzNjM2NCBMMTA0LjcyLDI0NS44MjE4MTggTDE0OS44MTA5MDksMjAzLjY0IEw3Ny4xNTYzNjM2LDEyNy4yMzI3MjcgTDE1MC40NTA5MDksNTMuOTM4MTgxOCBaIiBmaWxsPSIjNDI4NUY0Ij4KDTwvcGF0aD4KICAgICAgICA8cGF0aCBkPSJNMjQ2LjYyNTQ1NSwxMDUuMzcwOTA5IEwxNTAuNjI1NDU1LDkuMzcwOTA5MDkgQzEzOC4xMzA5MDksLTMuMTIzNjM2MzYgMTE3Ljg2OTA5MSwtMy4xMjM2MzYzNiAxMDUuMzc0NTQ1LDkuMzcwOTA5MDkgQzkyLjg4LDIxLjg2NTQ1NDUgOTIuODgsNDIuMTI3MjcyNyAxMDUuMzc0NTQ1LDU0LjYyMTgxODIgTDIwMS4zNzQ1NDUsMTUwLjYyMTgxOCBDMjEzLjg2OTA5MSwxNjMuMTE2MzY0IDIzNC4xMzA5MDksMTYzLjExNjM2NCAyNDYuNjI1NDU1LDE1MC42MjE4MTggQzI1OS4xMiwxMzguMTI3MjczIDI1OS4xMiwxMTcuODY1NDU1IDI0Ni42MjU0NTUsMTA1LjM3MDkwOSBaIiBmaWxsPSIjOEFCNEY4Ij4KDTwvcGF0aD4KICAgICAgICA8Y2lyY2xlIGZpbGw9IiMyNDZGREIiIGN4PSIxMjcuMjY1NDU1IiBjeT0iMjI0LjczMDkwOSIgcj0iMzEuMjcyNzI3MyI+Cg08L2NpcmNsZT4KICAgIDwvZz4KPC9zdmc+');
+}
+
+/** GTM section */
+.section-config > .admin__collapsible-block > a#acid_unit_google_tag_manager-head {
+    display: flex;
+    align-items: center;
+
+    /** Order for inner elements to have the correct offset */
+
+    > span:nth-child(1) {
+        order: 1;
+    }
+
+    > span:nth-child(2) {
+        order: 2;
+    }
+
+    > span:nth-child(3) {
+        order: 5;
+    }
+
+    > span:nth-child(4) {
+        order: 4;
+    }
+
+    /** GTM section icon */
+
+    &:after {
+        content: '';
+        background-image: var(--gtm-icon);
+        background-repeat: no-repeat;
+        height: var(--section-menu-icon-size);
+        width: var(--section-menu-icon-size);
+        background-size: var(--section-menu-icon-size);
+        order: 3;
+    }
+}
