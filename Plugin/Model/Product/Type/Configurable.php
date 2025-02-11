@@ -140,7 +140,6 @@ class Configurable extends ConfigurableTarget
      *
      * @return array<array>
      * @see \Magento\ConfigurableProduct\Model\Product\Type\Configurable::getSelectedAttributesInfo
-     * @noinspection PhpUnusedParameterInspection
      * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
