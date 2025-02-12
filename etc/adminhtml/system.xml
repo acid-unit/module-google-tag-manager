@@ -18,7 +18,7 @@
                  showInStore="1">
             <label>Google Tag Manager</label>
             <tab>acid_unit</tab>
-            <resource>AcidUnit_GoogleTagManager::acid</resource>
+            <resource>AcidUnit_GoogleTagManager::acid_gtm</resource>
 
             <group id="general"
                    translate="label"

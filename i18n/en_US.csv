@@ -6,12 +6,13 @@ Include,Include
 "We can't delete the item from the Wish List right now.","We can't delete the item from the Wish List right now."
 "Google Tag Manager","Google Tag Manager"
 General,General
-Enable,Enable
+"Enable Module","Enable Module"
 "Container ID","Container ID"
 "Enable Debug","Enable Debug"
 "All events that are pushed to the data layer will be also logged to the developer console","All events that are pushed to the data layer will be also logged to the developer console"
 "Prevent pushing events when 'Logged as a Customer' session","Prevent pushing events when 'Logged as a Customer' session"
 "Page Load","Page Load"
+Enable,Enable
 "Event Name","Event Name"
 "PDP Loaded Event Name","PDP Loaded Event Name"
 "PLP Loaded Event Name","PLP Loaded Event Name"
