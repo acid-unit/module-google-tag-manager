@@ -26,7 +26,7 @@ bin/magento cache:flush
 # General Info
 
 Module configuration is done under the
-`Stores > Settings > Configuration > Sales > Google API > Google Tag Manager [Acid Unit]`
+`Stores > Settings > Configuration > Acid Unit > Google Tag Manager`
 section. All settings are clearly labeled and designed for ease of use.
 
 ![Admin GTM Section](https://github.com/acid-unit/docs/blob/main/google-tag-manager/admin-section.png?raw=true)
