@@ -254,7 +254,7 @@ Adobe Developer Portal Page</a>
 Events can be pushed to the data layer for custom pages—those that do not fit
 into predefined categories like PDP, PLP, or CMS pages. For example, the `/contact` page:
 
-![Custom Pages Load](https://github.com/acid-unit/docs/blob/main/google-tag-manager/custom-pages-load.png?raw=true)
+![Custom Pages Load](https://github.com/acid-unit/docs/blob/main/google-tag-manager/custom-pages-load2.png?raw=true)
 
 **Note**: The page URL can be set as part of the URL; it is not mandatory to define the entire URL.
 
