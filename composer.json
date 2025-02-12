@@ -4,8 +4,8 @@
     "description": "Comprehensive and flexible Magento Open Source and Adobe Commerce Google Tag Manager extension",
     "type": "magento2-module",
     "require": {
-        "acid-unit/module-admin": "^0.2",
-        "acid-unit/module-core": "^0.2",
+        "acid-unit/module-admin": "^0.3",
+        "acid-unit/module-core": "^0.3",
         "magento/framework": ">=103.0.4",
         "magento/module-catalog": "*",
         "magento/module-checkout": "*",
