@@ -1,4 +1,4 @@
-# 🧪 Google Tag Manager Magento Extension
+# 🧪 Google Tag Manager Extension for Magento
 
 A powerful, flexible, and user-friendly GTM extension for Magento Open Source & Adobe Commerce.
 
